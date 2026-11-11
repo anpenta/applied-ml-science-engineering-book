@@ -202,21 +202,6 @@ def build_markdown_source() -> str:
 
 
 
-def build_epub_source() -> str:
-    """Create a single EPUB opening page with the mark, title, and author."""
-    title = html.escape(METADATA["title"])
-    author = html.escape(METADATA["author"])
-    opening = (
-        f'# {METADATA["title"]} {{.epub-title-heading}}\n\n'
-        '<div class="epub-book-title-page">\n'
-        '![ ](assets/applied-ml-mark.png)\n'
-        f'<p class="epub-book-title">{title}</p>\n'
-        f'<p class="epub-book-author">{author}</p>\n'
-        '</div>\n\n'
-    )
-    return opening + build_markdown_source()
-
-
 def convert_book_mark_to_pdf() -> None:
     """Convert the SVG book mark for inclusion in the PDF edition."""
     logo_directory = DIST_DIR / "assets"
@@ -317,9 +302,9 @@ def build_html() -> None:
     contents = "<ol>" + "\n".join(toc_items) + "</ol>"
 
     landing = (
-        '<p class="book-cover-mark"><img src="assets/applied-ml-mark.svg" '
-        'alt="" width="265"></p>\n\n'
         '<div class="book-landing-title">\n'
+        '<p class="book-cover-mark"><img src="assets/applied-ml-mark.svg" '
+        'alt="" width="265"></p>\n'
         f"<h1>{html.escape(METADATA['title'])}</h1>\n"
         f"<p>{html.escape(METADATA['author'])}</p>\n"
         "</div>\n\n"
@@ -368,7 +353,7 @@ def main() -> None:
             DIST_DIR / "science-and-engineering-of-applied-machine-learning.epub"
         )
         run_pandoc(
-            source=build_epub_source(), output=epub_path, edition="epub"
+            source=build_markdown_source(), output=epub_path, edition="epub"
         )
 
     if args.format in ("html", "all"):
