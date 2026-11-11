@@ -5,11 +5,11 @@ from __future__ import annotations
 
 import argparse
 import html
+import json
 import re
 import shutil
 import subprocess
 import tempfile
-from collections import Counter
 from collections.abc import Iterator
 from pathlib import Path
 from typing import NamedTuple
@@ -17,6 +17,7 @@ from typing import NamedTuple
 ROOT = Path(__file__).resolve().parents[1]
 MANUSCRIPT = ROOT / "manuscript"
 DIST_DIR = ROOT / "dist"
+METADATA = json.loads((ROOT / "metadata.json").read_text(encoding="utf-8"))
 
 FRONT_MATTER = [
     ("copyright-and-licence.md", "Copyright and license"),
@@ -25,59 +26,24 @@ FRONT_MATTER = [
     ("use-of-ai-tools.md", "Use of AI tools"),
 ]
 
-CHAPTER_FILES = [
-    "01-before-machine-learning.md",
-    "02-causal-effects.md",
-    "03-understanding-data.md",
-    "04-designing-experiments.md",
-    "05-using-model-scores.md",
-    "06-choosing-model-complexity.md",
-    "07-interpreting-model-explanations.md",
-    "08-from-experiment-to-system.md",
-    "09-engineering-rigor-and-risk.md",
-    "10-testing-operational-feasibility.md",
-    "11-diagnosing-change-in-production.md",
-    "12-technical-judgment-in-teams.md",
-]
-
-def validate_chapter_coverage() -> None:
-    chapter_directory = MANUSCRIPT / "chapters"
-    listed_chapters = CHAPTER_FILES
-    available_chapters = {path.name for path in chapter_directory.glob("*.md")}
-
-    duplicates = sorted(
-        filename
-        for filename, count in Counter(listed_chapters).items()
-        if count > 1
-    )
-    missing = sorted(available_chapters - set(listed_chapters))
-    unavailable = sorted(set(listed_chapters) - available_chapters)
-
-    problems = []
-    if duplicates:
-        problems.append(f"listed more than once: {', '.join(duplicates)}")
-    chapter_numbers = [
-        int(filename[:2])
-        for filename in listed_chapters
-        if filename[:2].isdigit()
-    ]
-    if len(chapter_numbers) != len(listed_chapters):
-        problems.append("chapter filenames must begin with a two-digit number")
-    elif chapter_numbers != list(range(1, len(listed_chapters) + 1)):
-        problems.append("chapters must be listed once in consecutive numeric order")
-    if missing:
-        problems.append(f"not included in the book: {', '.join(missing)}")
-    if unavailable:
-        problems.append(f"files do not exist: {', '.join(unavailable)}")
-    if not available_chapters:
-        problems.append(f"no chapter files found in {chapter_directory}")
-    if problems:
-        raise ValueError("Chapter list is inconsistent: " + "; ".join(problems))
+def chapter_files() -> list[Path]:
+    """Find numbered chapters in order and reject missing or repeated numbers."""
+    directory = MANUSCRIPT / "chapters"
+    files = sorted(directory.glob("*.md"))
+    numbers: list[int] = []
+    for path in files:
+        match = re.fullmatch(r"(\d{2})-.+\.md", path.name)
+        if match is None:
+            raise ValueError(f"Chapter filename must start with NN-: {path.name}")
+        numbers.append(int(match.group(1)))
+    if not files or numbers != list(range(1, len(files) + 1)):
+        raise ValueError(
+            "Chapter files must be numbered consecutively from 01, without duplicates"
+        )
+    return files
 
 
 def read_markdown(path: Path) -> str:
-    if not path.is_file():
-        raise FileNotFoundError(f"Required manuscript file is missing: {path}")
     text = path.read_text(encoding="utf-8")
     text = re.sub(
         pattern=r"\A---\s*\n.*?\n---\s*\n",
@@ -141,9 +107,9 @@ def iter_book_sections() -> Iterator[BookSection]:
         chapter_number=None,
     )
 
-    for filename in CHAPTER_FILES:
-        chapter_number = int(filename[:2])
-        body = read_markdown(MANUSCRIPT / "chapters" / filename)
+    for path in chapter_files():
+        chapter_number = int(path.name[:2])
+        body = read_markdown(path)
         heading = extract_chapter_title(body)
         yield BookSection(
             kind="chapter",
@@ -222,7 +188,7 @@ def build_pdf_source() -> str:
 
 
 def build_markdown_source() -> str:
-    """Render the canonical book sections as Markdown for EPUB and HTML."""
+    """Render the canonical book sections as Markdown for EPUB."""
     sections: list[str] = []
     for section in iter_book_sections():
         if section.kind == "chapter":
@@ -233,6 +199,18 @@ def build_markdown_source() -> str:
             markdown_heading = f"# {section.heading}"
         sections.extend([markdown_heading, "", section.body, ""])
     return "\n".join(sections)
+
+
+
+def build_epub_source() -> str:
+    """Provide a native Pandoc title page with a parsed image and plain book text."""
+    title = METADATA["title"]
+    title_metadata = (
+        "---\n"
+        f'title: "![](assets/applied-ml-mark.png) {title}"\n'
+        "---\n\n"
+    )
+    return title_metadata + build_markdown_source()
 
 
 def convert_book_mark_to_pdf() -> None:
@@ -275,6 +253,7 @@ def run_pandoc(source: str, output: Path, *, edition: str) -> None:
             [
                 pandoc,
                 f"--defaults={ROOT / 'defaults' / f'{edition}.yaml'}",
+                f"--metadata-file={ROOT / 'metadata.json'}",
                 "--output",
                 str(output),
                 str(source_path),
@@ -287,9 +266,10 @@ def run_pandoc(source: str, output: Path, *, edition: str) -> None:
 def get_html_page_filename(section: BookSection) -> str:
     if section.kind == "chapter":
         return f"chapter-{section.chapter_number:02d}.html"
-    return f"{section.kind}.html" if section.kind != "front-matter" else (
-        re.sub(r"[^a-z0-9]+", "-", section.heading.lower()).strip("-") + ".html"
-    )
+    if section.kind == "front-matter":
+        slug = re.sub(r"[^a-z0-9]+", "-", section.heading.lower()).strip("-")
+        return f"{slug}.html"
+    return f"{section.kind}.html"
 
 
 def build_html_navigation(
@@ -333,10 +313,12 @@ def build_html() -> None:
     contents = "<ol>" + "\n".join(toc_items) + "</ol>"
 
     landing = (
+        '<div class="book-landing-title">\n'
         '<p class="book-cover-mark"><img src="assets/applied-ml-mark.svg" '
-        'alt="" width="265"></p>\n\n'
-        "# The Science and Engineering of Applied Machine Learning\n\n"
-        "Andreas Pentaliotis\n\n"
+        'alt="" width="265"></p>\n'
+        f"<h1>{html.escape(METADATA['title'])}</h1>\n"
+        f"<p>{html.escape(METADATA['author'])}</p>\n"
+        "</div>\n\n"
         "## Contents\n\n"
         + contents + "\n\n"
         + build_html_navigation(None, pages[0][0], on_contents=True) + "\n"
@@ -354,10 +336,6 @@ def build_html() -> None:
         source = f"# {title}\n\n{section.body}\n\n{navigation}\n"
         run_pandoc(source=source, output=DIST_DIR / filename, edition="html")
 
-    for filename in ["index.html", *(name for name, _ in pages)]:
-        output_file = DIST_DIR / filename
-        if not output_file.is_file() or output_file.stat().st_size == 0:
-            raise RuntimeError(f"Missing or empty HTML page: {filename}")
     print(f"HTML edition written to {DIST_DIR} ({len(pages) + 1} pages)")
 
 
@@ -371,7 +349,6 @@ def main() -> None:
     )
     args = parser.parse_args()
 
-    validate_chapter_coverage()
     DIST_DIR.mkdir(parents=True, exist_ok=True)
 
     if args.format in ("pdf", "all"):
@@ -387,7 +364,7 @@ def main() -> None:
             DIST_DIR / "science-and-engineering-of-applied-machine-learning.epub"
         )
         run_pandoc(
-            source=build_markdown_source(), output=epub_path, edition="epub"
+            source=build_epub_source(), output=epub_path, edition="epub"
         )
 
     if args.format in ("html", "all"):
