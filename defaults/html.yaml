@@ -9,4 +9,4 @@ html-math-method: mathml
 section-divs: true
 shift-heading-level-by: 1
 css:
-  - assets/book.css
+  - assets/html.css
