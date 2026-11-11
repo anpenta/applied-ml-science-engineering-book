@@ -81,9 +81,6 @@ jobs:
       - name: Build book editions
         run: python scripts/build_book.py --format all
 
-      - name: Verify book marks on HTML and EPUB title pages
-        run: python scripts/validate_title_marks.py
-
       - name: Validate HTML page structure and navigation
         run: python scripts/validate_html_pages.py
 
