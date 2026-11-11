@@ -14,10 +14,6 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1.25;
 }
 
-h1, h2 {
-  page-break-before: always;
-}
-
 h2 { margin-top: 2em; }
 h3 { color: #2878a8; margin-top: 1.5em; }
 
@@ -41,8 +37,16 @@ code {
 blockquote {
   color: #596979;
   border-left: 0.2em solid #2878a8;
-  padding-left: 1em;
+  padding: 1rem 1.25rem;
+  margin: 1.5rem 0;
+  background: #f1f5f8;
+  border-radius: 4px;
+  overflow-x: auto;
 }
+
+blockquote > :first-child { margin-top: 0; }
+blockquote > :last-child { margin-bottom: 0; }
+blockquote table { width: 100%; }
 
 table {
   border-collapse: collapse;
@@ -73,9 +77,12 @@ hr {
 
 @media screen {
   html {
+    box-sizing: border-box;
     scroll-behavior: smooth;
     font-size: 18px;
   }
+
+  *, *::before, *::after { box-sizing: inherit; }
 
   body {
     width: min(100% - 2rem, 920px);
@@ -84,14 +91,12 @@ hr {
     box-shadow: 0 8px 36px rgb(23 54 93 / 8%);
   }
 
-  header#title-block-header {
-    padding: 1rem 0 2rem;
-    margin-bottom: 2rem;
-    border-bottom: 3px solid #d69a32;
-  }
+  /* Pandoc's metadata title is for the browser tab; each page has its own heading. */
+  header#title-block-header { display: none; }
 
   h1, h2, h3, h4 {
     scroll-margin-top: 1.5rem;
+    overflow-wrap: break-word;
   }
 
   h1 { font-size: clamp(2rem, 5vw, 3rem); }
@@ -140,6 +145,24 @@ hr {
     padding: 0;
     box-shadow: none;
   }
+  h1, h2 { break-before: page; }
   nav#TOC { break-after: page; }
   a { color: inherit; }
+}
+
+/* Navigation shared by the standalone chapter pages. */
+.book-navigation {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 3rem 0 1rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid #dce3e9;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.book-navigation a { text-decoration: none; }
+.book-navigation .disabled { color: #8b9299; cursor: default; }
+@media screen and (max-width: 640px) {
+  .book-navigation { gap: 0.75rem; }
 }
