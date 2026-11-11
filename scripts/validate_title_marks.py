@@ -14,6 +14,7 @@ TITLE = "The Science and Engineering of Applied Machine Learning"
 
 def validate_html() -> None:
     page = (DIST / "index.html").read_text(encoding="utf-8")
+    page = page[page.index("<body"):]
     image = re.search(
         r'<img\b[^>]*src="assets/applied-ml-mark\.svg"[^>]*>', page
     )
@@ -28,6 +29,7 @@ def validate_epub() -> None:
     epub = DIST / "science-and-engineering-of-applied-machine-learning.epub"
     with ZipFile(epub) as archive:
         title_page = archive.read("EPUB/text/title_page.xhtml").decode("utf-8")
+        title_page = title_page[title_page.index("<body"):]
         image = re.search(r'<img\b[^>]*src="([^"]+)"', title_page)
         title = title_page.find(TITLE)
         if image is None or title < 0 or image.start() > title:
