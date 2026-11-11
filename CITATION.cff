@@ -6,6 +6,7 @@ authors:
     given-names: Andreas
 license: CC-BY-NC-ND-4.0
 url: "https://anpenta.github.io/applied-ml-science-engineering-book/"
+repository-code: "https://github.com/anpenta/applied-ml-science-engineering-book"
 preferred-citation:
   type: book
   title: "The Science and Engineering of Applied Machine Learning"
