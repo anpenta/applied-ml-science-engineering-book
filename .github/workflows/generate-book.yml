@@ -93,12 +93,12 @@ jobs:
           echo "62c7bfa87fb07e41d07231621a0bdb5d8316c11f1c74d01cd13c80a2d766e304  ${archive}" \
             | sha256sum --check
           java -jar "${archive}" --also-check-css --also-check-svg \
-            dist/index.html dist/assets/book.css dist/assets/*.svg
+            dist/*.html dist/assets/book.css dist/assets/*.svg
 
       - name: Check HTML links and fragments
         uses: lycheeverse/lychee-action@v2.9.0
         with:
-          args: --offline --include-fragments dist/index.html
+          args: --offline --include-fragments dist/*.html
 
       - name: Validate EPUB
         run: |
@@ -156,7 +156,7 @@ jobs:
         run: |
           cp dist/science-and-engineering-of-applied-machine-learning.pdf "dist/science-and-engineering-of-applied-machine-learning-${GITHUB_REF_NAME}.pdf"
           cp dist/science-and-engineering-of-applied-machine-learning.epub "dist/science-and-engineering-of-applied-machine-learning-${GITHUB_REF_NAME}.epub"
-          (cd dist && zip -qr "science-and-engineering-of-applied-machine-learning-${GITHUB_REF_NAME}-html.zip" index.html assets)
+          (cd dist && zip -qr "science-and-engineering-of-applied-machine-learning-${GITHUB_REF_NAME}-html.zip" *.html assets)
 
       - name: Create GitHub release
         uses: softprops/action-gh-release@v3
@@ -198,7 +198,7 @@ jobs:
       - name: Prepare site files
         run: |
           mkdir -p site
-          cp dist/index.html site/index.html
+          cp dist/*.html site/
           cp -R dist/assets site/assets
           touch site/.nojekyll
 
