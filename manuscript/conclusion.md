@@ -1,0 +1,5 @@
+Writing this book has been an opportunity to bring together lessons from working on both the scientific and engineering sides of applied machine learning. Although the chapters address different problems, they all examine the reasoning behind technical decisions and what happens when their underlying assumptions do not hold.
+
+Throughout the book, we have seen that an approach can be reasonable in one setting and unsuitable in another. What matters is understanding why an approach makes sense in a particular setting rather than assuming it will work equally well elsewhere. Experience can guide our judgment, but it should not prevent us from questioning what we think we know.
+
+The author does not expect every reader to agree with all the positions presented in this book. Disagreement can be valuable when it leads us to question our reasoning and consider what we may have overlooked. If the book helps readers think more critically about their own technical decisions, it will have served its purpose.
