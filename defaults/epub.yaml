@@ -5,8 +5,6 @@ resource-path:
   - .
 metadata:
   title: '![](assets/applied-ml-mark.png) The Science and Engineering of Applied Machine Learning'
-  author: Andreas Pentaliotis
-  lang: en-US
 highlight-style: tango
 toc: true
 toc-depth: 2
