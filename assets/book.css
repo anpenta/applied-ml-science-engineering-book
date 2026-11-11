@@ -186,22 +186,7 @@ hr {
 
 /* Center only the HTML landing-page title and author. */
 .book-landing-title { text-align: center; }
+.book-landing-title .book-cover-mark { text-align: center; }
+.book-landing-title .book-cover-mark img { display: block; margin-left: auto; margin-right: auto; }
 .book-landing-title p { max-width: none; }
 
-/* EPUB-only opening section. Keep the title in navigation, not twice on-page. */
-.epub-title-heading { display: none; }
-.epub-book-title-page { text-align: center; padding: 3em 0; }
-.epub-book-title-page img {
-  display: block;
-  width: 265px;
-  max-width: 100%;
-  height: auto;
-  margin: 0 auto 1.5em;
-}
-.epub-book-title {
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 2em;
-  font-weight: bold;
-  color: #17365d;
-}
-.epub-book-author { font-size: 1.2em; }
