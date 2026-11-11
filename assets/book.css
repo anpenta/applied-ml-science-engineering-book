@@ -1,0 +1,145 @@
+/* Shared screen, print, and EPUB typography. Page layout is screen-only so
+   ebook readers retain control of margins, font size, and pagination. */
+
+body {
+  color: #263442;
+  background: #ffffff;
+  font-family: Georgia, "Times New Roman", serif;
+  line-height: 1.5;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #17365d;
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.25;
+}
+
+h1, h2 {
+  page-break-before: always;
+}
+
+h2 { margin-top: 2em; }
+h3 { color: #2878a8; margin-top: 1.5em; }
+
+a { color: #2878a8; }
+
+pre {
+  overflow-x: auto;
+  padding: 1em 1.2em;
+  border: 1px solid #dce3e9;
+  border-radius: 5px;
+  background: #f4f6f8;
+  font-size: 0.85em;
+  line-height: 1.5;
+}
+
+code {
+  font-family: "DejaVu Sans Mono", "SFMono-Regular", Consolas, monospace;
+  font-size: 0.9em;
+}
+
+blockquote {
+  color: #596979;
+  border-left: 0.2em solid #2878a8;
+  padding-left: 1em;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+th, td {
+  border: 1px solid #dce3e9;
+  padding: 0.4em 0.6em;
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  background: #f3f6f8;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+img, svg {
+  max-width: 100%;
+  height: auto;
+}
+
+hr {
+  margin: 3em 0;
+  border: 0;
+  border-top: 1px solid #dce3e9;
+}
+
+@media screen {
+  html {
+    scroll-behavior: smooth;
+    font-size: 18px;
+  }
+
+  body {
+    width: min(100% - 2rem, 920px);
+    margin: 3rem auto;
+    padding: clamp(1.5rem, 5vw, 4.5rem);
+    box-shadow: 0 8px 36px rgb(23 54 93 / 8%);
+  }
+
+  header#title-block-header {
+    padding: 1rem 0 2rem;
+    margin-bottom: 2rem;
+    border-bottom: 3px solid #d69a32;
+  }
+
+  h1, h2, h3, h4 {
+    scroll-margin-top: 1.5rem;
+  }
+
+  h1 { font-size: clamp(2rem, 5vw, 3rem); }
+  h2 { font-size: 1.8rem; }
+  h3 { font-size: 1.3rem; }
+
+  p, li { max-width: 75ch; }
+
+  nav#TOC {
+    margin: 2rem 0 3rem;
+    padding: 1.5rem 2rem;
+    border: 1px solid #dce3e9;
+    border-left: 4px solid #d69a32;
+    background: #fbfcfd;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 0.88rem;
+    line-height: 1.55;
+  }
+
+  nav#TOC > ul { columns: 2; column-gap: 2.5rem; }
+  nav#TOC li { break-inside: avoid; margin: 0.25rem 0; }
+  nav#TOC ul { padding-left: 1.3rem; }
+  nav#TOC a { text-decoration: none; }
+
+  div.chapter, div.section {
+    scroll-margin-top: 1.5rem;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  html { font-size: 16px; }
+  body {
+    width: 100%;
+    margin: 0;
+    padding: 1.25rem;
+    box-shadow: none;
+  }
+  nav#TOC { padding: 1rem; }
+  nav#TOC > ul { columns: 1; }
+}
+
+@media print {
+  body {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+  }
+  nav#TOC { break-after: page; }
+  a { color: inherit; }
+}
