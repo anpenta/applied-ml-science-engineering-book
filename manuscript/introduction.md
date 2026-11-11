@@ -1,0 +1,9 @@
+This book brings together positions the author has developed through professional work spanning both the scientific and engineering aspects of applied machine learning, informed by relevant research and technical literature. These positions have grown from questions that arise when making technical decisions, particularly when several approaches seem reasonable but lead to different consequences.
+
+One lesson from this work is that scientific and engineering questions are rarely independent. How we define a problem affects what we measure. How we construct a dataset affects what we can learn from an experiment. How we build and operate a system affects whether its predictions remain useful in practice. A decision that makes sense from one perspective may deserve reconsideration when we account for other perspectives.
+
+Each chapter develops a position through reasoning and worked examples, considering the assumptions on which it depends. The examples are hypothetical and deliberately small so that we can follow the reasoning and check the results. They illustrate why an approach might make sense under certain conditions, without claiming that it is appropriate in every setting. Each chapter also includes further reading for readers who want to explore the relevant topics in greater depth.
+
+This book assumes basic familiarity with machine learning and software engineering concepts. Readers should be comfortable with basic mathematical notation and calculations, but advanced mathematics or professional experience in machine learning is not required.
+
+The author does not expect readers to agree with every position presented here. The hope is that they will examine the arguments, question their assumptions, and use their own experience to determine what they find convincing and useful.
