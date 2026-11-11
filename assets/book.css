@@ -14,10 +14,6 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1.25;
 }
 
-h1, h2 {
-  page-break-before: always;
-}
-
 h2 { margin-top: 2em; }
 h3 { color: #2878a8; margin-top: 1.5em; }
 
@@ -81,9 +77,12 @@ hr {
 
 @media screen {
   html {
+    box-sizing: border-box;
     scroll-behavior: smooth;
     font-size: 18px;
   }
+
+  *, *::before, *::after { box-sizing: inherit; }
 
   body {
     width: min(100% - 2rem, 920px);
@@ -100,6 +99,7 @@ hr {
 
   h1, h2, h3, h4 {
     scroll-margin-top: 1.5rem;
+    overflow-wrap: break-word;
   }
 
   h1 { font-size: clamp(2rem, 5vw, 3rem); }
@@ -148,6 +148,7 @@ hr {
     padding: 0;
     box-shadow: none;
   }
+  h1, h2 { break-before: page; }
   nav#TOC { break-after: page; }
   a { color: inherit; }
 }
