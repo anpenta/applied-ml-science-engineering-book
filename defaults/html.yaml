@@ -5,7 +5,6 @@ resource-path:
   - .
 highlight-style: tango
 toc: false
-toc-depth: 2
 html-math-method: mathml
 section-divs: true
 shift-heading-level-by: 1
