@@ -2,10 +2,6 @@ from: markdown+autolink_bare_uris+raw_tex+fenced_code_blocks+pipe_tables+tex_mat
 standalone: true
 resource-path:
   - .
-metadata:
-  title: The Science and Engineering of Applied Machine Learning
-  author: Andreas Pentaliotis
-  lang: en-US
 highlight-style: tango
 number-sections: true
 pdf-engine: xelatex
