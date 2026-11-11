@@ -87,6 +87,7 @@ jobs:
       - name: Validate HTML, CSS, and SVG output
         run: |
           archive=/tmp/vnu.jar
+          # Nu validator publishes a rolling "latest" release, so use its stable download URL instead of pinning an asset ID.
           curl --fail --location --retry 3 --silent --show-error \
             "https://github.com/validator/validator/releases/download/latest/vnu.jar" \
             --output "${archive}"
