@@ -11,4 +11,4 @@ toc-depth: 2
 split-level: 1
 html-math-method: mathml
 css:
-  - assets/book.css
+  - assets/epub.css
