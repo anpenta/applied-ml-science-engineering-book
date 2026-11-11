@@ -9,7 +9,7 @@ metadata:
 highlight-style: tango
 number-sections: true
 pdf-engine: xelatex
-lua-filter:
+filters:
   - scripts/pdf-example-tables.lua
 include-in-header:
   - templates/pdf-header.tex
