@@ -41,8 +41,16 @@ code {
 blockquote {
   color: #596979;
   border-left: 0.2em solid #2878a8;
-  padding-left: 1em;
+  padding: 1rem 1.25rem;
+  margin: 1.5rem 0;
+  background: #f1f5f8;
+  border-radius: 4px;
+  overflow-x: auto;
 }
+
+blockquote > :first-child { margin-top: 0; }
+blockquote > :last-child { margin-bottom: 0; }
+blockquote table { width: 100%; }
 
 table {
   border-collapse: collapse;
