@@ -292,6 +292,27 @@ def get_html_page_filename(section: BookSection) -> str:
     )
 
 
+def build_html_navigation(
+    previous: str | None, following: str | None, *, on_contents: bool = False
+) -> str:
+    """Render consistent navigation with inaccessible endpoints disabled."""
+    def link(label: str, destination: str | None) -> str:
+        if destination is None:
+            return f'<span class="disabled" aria-disabled="true">{label}</span>'
+        return f'<a href="{destination}">{label}</a>'
+
+    controls = [
+        link("Previous", previous),
+        link("Contents", None if on_contents else "index.html"),
+        link("Next", following),
+    ]
+    return (
+        '<nav class="book-navigation" aria-label="Book navigation">'
+        + "".join(controls)
+        + "</nav>"
+    )
+
+
 def build_html() -> None:
     """Create a navigable HTML site, one document per book section."""
     DIST_DIR.mkdir(parents=True, exist_ok=True)
@@ -315,7 +336,8 @@ def build_html() -> None:
         "# The Science and Engineering of Applied Machine Learning\n\n"
         "Andreas Pentaliotis\n\n"
         "## Contents\n\n"
-        + contents + "\n"
+        + contents + "\n\n"
+        + build_html_navigation(None, pages[0][0], on_contents=True) + "\n"
     )
     run_pandoc(source=landing, output=DIST_DIR / "index.html", edition="html")
 
@@ -325,18 +347,8 @@ def build_html() -> None:
             if section.kind == "chapter" else section.heading
         )
         previous = pages[index - 1][0] if index else "index.html"
-        navigation_links = [
-            f'<a href="{previous}">Previous</a>',
-            '<a href="index.html">Contents</a>',
-        ]
-        if index + 1 < len(pages):
-            following = pages[index + 1][0]
-            navigation_links.append(f'<a href="{following}">Next</a>')
-        navigation = (
-            '<nav class="book-navigation" aria-label="Book navigation">'
-            + "".join(navigation_links)
-            + "</nav>"
-        )
+        following = pages[index + 1][0] if index + 1 < len(pages) else None
+        navigation = build_html_navigation(previous, following)
         source = f"# {title}\n\n{section.body}\n\n{navigation}\n"
         run_pandoc(source=source, output=DIST_DIR / filename, edition="html")
 
