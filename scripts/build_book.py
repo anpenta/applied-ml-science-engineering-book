@@ -44,8 +44,6 @@ def chapter_files() -> list[Path]:
 
 
 def read_markdown(path: Path) -> str:
-    if not path.is_file():
-        raise FileNotFoundError(f"Required manuscript file is missing: {path}")
     text = path.read_text(encoding="utf-8")
     text = re.sub(
         pattern=r"\A---\s*\n.*?\n---\s*\n",
@@ -190,7 +188,7 @@ def build_pdf_source() -> str:
 
 
 def build_markdown_source() -> str:
-    """Render the canonical book sections as Markdown for EPUB and HTML."""
+    """Render the canonical book sections as Markdown for EPUB."""
     sections: list[str] = []
     for section in iter_book_sections():
         if section.kind == "chapter":
@@ -256,9 +254,10 @@ def run_pandoc(source: str, output: Path, *, edition: str) -> None:
 def get_html_page_filename(section: BookSection) -> str:
     if section.kind == "chapter":
         return f"chapter-{section.chapter_number:02d}.html"
-    return f"{section.kind}.html" if section.kind != "front-matter" else (
-        re.sub(r"[^a-z0-9]+", "-", section.heading.lower()).strip("-") + ".html"
-    )
+    if section.kind == "front-matter":
+        slug = re.sub(r"[^a-z0-9]+", "-", section.heading.lower()).strip("-")
+        return f"{slug}.html"
+    return f"{section.kind}.html"
 
 
 def build_html_navigation(
