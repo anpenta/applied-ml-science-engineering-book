@@ -81,6 +81,9 @@ jobs:
       - name: Build book editions
         run: python scripts/build_book.py --format all
 
+      - name: Validate HTML page structure and navigation
+        run: python scripts/validate_html_pages.py
+
       - name: Validate HTML, CSS, and SVG output
         run: |
           # Pin the release asset ID because upstream's "latest" tag is mutable.
