@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import html
+import json
 import re
 import shutil
 import subprocess
@@ -16,6 +17,7 @@ from typing import NamedTuple
 ROOT = Path(__file__).resolve().parents[1]
 MANUSCRIPT = ROOT / "manuscript"
 DIST_DIR = ROOT / "dist"
+METADATA = json.loads((ROOT / "metadata.json").read_text(encoding="utf-8"))
 
 FRONT_MATTER = [
     ("copyright-and-licence.md", "Copyright and license"),
@@ -241,6 +243,7 @@ def run_pandoc(source: str, output: Path, *, edition: str) -> None:
             [
                 pandoc,
                 f"--defaults={ROOT / 'defaults' / f'{edition}.yaml'}",
+                f"--metadata-file={ROOT / 'metadata.json'}",
                 "--output",
                 str(output),
                 str(source_path),
@@ -301,8 +304,8 @@ def build_html() -> None:
     landing = (
         '<p class="book-cover-mark"><img src="assets/applied-ml-mark.svg" '
         'alt="" width="265"></p>\n\n'
-        "# The Science and Engineering of Applied Machine Learning\n\n"
-        "Andreas Pentaliotis\n\n"
+        f"# {METADATA['title']}\n\n"
+        f"{METADATA['author']}\n\n"
         "## Contents\n\n"
         + contents + "\n\n"
         + build_html_navigation(None, pages[0][0], on_contents=True) + "\n"
