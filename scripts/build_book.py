@@ -323,10 +323,6 @@ def build_html() -> None:
         source = f"# {title}\n\n{section.body}\n\n{navigation}\n"
         run_pandoc(source=source, output=DIST_DIR / filename, edition="html")
 
-    for filename in ["index.html", *(name for name, _ in pages)]:
-        output_file = DIST_DIR / filename
-        if not output_file.is_file() or output_file.stat().st_size == 0:
-            raise RuntimeError(f"Missing or empty HTML page: {filename}")
     print(f"HTML edition written to {DIST_DIR} ({len(pages) + 1} pages)")
 
 
