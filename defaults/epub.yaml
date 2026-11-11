@@ -3,12 +3,12 @@ to: epub3
 standalone: true
 resource-path:
   - .
-metadata:
-  title: '![](assets/applied-ml-mark.png) The Science and Engineering of Applied Machine Learning'
 highlight-style: tango
+metadata:
+  toc-title: Contents
 toc: true
 toc-depth: 2
 split-level: 1
 html-math-method: mathml
 css:
-  - assets/book.css
+  - assets/epub.css

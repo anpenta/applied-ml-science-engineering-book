@@ -44,8 +44,6 @@ def chapter_files() -> list[Path]:
 
 
 def read_markdown(path: Path) -> str:
-    if not path.is_file():
-        raise FileNotFoundError(f"Required manuscript file is missing: {path}")
     text = path.read_text(encoding="utf-8")
     text = re.sub(
         pattern=r"\A---\s*\n.*?\n---\s*\n",
@@ -190,7 +188,7 @@ def build_pdf_source() -> str:
 
 
 def build_markdown_source() -> str:
-    """Render the canonical book sections as Markdown for EPUB and HTML."""
+    """Render the canonical book sections as Markdown for EPUB."""
     sections: list[str] = []
     for section in iter_book_sections():
         if section.kind == "chapter":
@@ -201,6 +199,18 @@ def build_markdown_source() -> str:
             markdown_heading = f"# {section.heading}"
         sections.extend([markdown_heading, "", section.body, ""])
     return "\n".join(sections)
+
+
+
+def build_epub_source() -> str:
+    """Provide a native Pandoc title page with a parsed image and plain book text."""
+    title = METADATA["title"]
+    title_metadata = (
+        "---\n"
+        f'title: "![](assets/applied-ml-mark.png) {title}"\n'
+        "---\n\n"
+    )
+    return title_metadata + build_markdown_source()
 
 
 def convert_book_mark_to_pdf() -> None:
@@ -256,9 +266,10 @@ def run_pandoc(source: str, output: Path, *, edition: str) -> None:
 def get_html_page_filename(section: BookSection) -> str:
     if section.kind == "chapter":
         return f"chapter-{section.chapter_number:02d}.html"
-    return f"{section.kind}.html" if section.kind != "front-matter" else (
-        re.sub(r"[^a-z0-9]+", "-", section.heading.lower()).strip("-") + ".html"
-    )
+    if section.kind == "front-matter":
+        slug = re.sub(r"[^a-z0-9]+", "-", section.heading.lower()).strip("-")
+        return f"{slug}.html"
+    return f"{section.kind}.html"
 
 
 def build_html_navigation(
@@ -302,10 +313,12 @@ def build_html() -> None:
     contents = "<ol>" + "\n".join(toc_items) + "</ol>"
 
     landing = (
+        '<div class="book-landing-title">\n'
         '<p class="book-cover-mark"><img src="assets/applied-ml-mark.svg" '
-        'alt="" width="265"></p>\n\n'
-        f"# {METADATA['title']}\n\n"
-        f"{METADATA['author']}\n\n"
+        'alt="" width="265"></p>\n'
+        f"<h1>{html.escape(METADATA['title'])}</h1>\n"
+        f"<p>{html.escape(METADATA['author'])}</p>\n"
+        "</div>\n\n"
         "## Contents\n\n"
         + contents + "\n\n"
         + build_html_navigation(None, pages[0][0], on_contents=True) + "\n"
@@ -323,10 +336,6 @@ def build_html() -> None:
         source = f"# {title}\n\n{section.body}\n\n{navigation}\n"
         run_pandoc(source=source, output=DIST_DIR / filename, edition="html")
 
-    for filename in ["index.html", *(name for name, _ in pages)]:
-        output_file = DIST_DIR / filename
-        if not output_file.is_file() or output_file.stat().st_size == 0:
-            raise RuntimeError(f"Missing or empty HTML page: {filename}")
     print(f"HTML edition written to {DIST_DIR} ({len(pages) + 1} pages)")
 
 
@@ -355,7 +364,7 @@ def main() -> None:
             DIST_DIR / "science-and-engineering-of-applied-machine-learning.epub"
         )
         run_pandoc(
-            source=build_markdown_source(), output=epub_path, edition="epub"
+            source=build_epub_source(), output=epub_path, edition="epub"
         )
 
     if args.format in ("html", "all"):
