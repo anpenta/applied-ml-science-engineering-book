@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import html
 import re
 import shutil
 import subprocess
@@ -283,18 +284,62 @@ def run_pandoc(source: str, output: Path, *, edition: str) -> None:
         )
 
 
+def html_page_name(section: BookSection) -> str:
+    if section.kind == "chapter":
+        return f"chapter-{section.chapter_number:02d}.html"
+    return f"{section.kind}.html" if section.kind != "front-matter" else (
+        re.sub(r"[^a-z0-9]+", "-", section.heading.lower()).strip("-") + ".html"
+    )
+
+
 def build_html() -> None:
+    """Create a navigable HTML site, one document per book section."""
     DIST_DIR.mkdir(parents=True, exist_ok=True)
     shutil.rmtree(DIST_DIR / "assets", ignore_errors=True)
     shutil.copytree(src=ROOT / "assets", dst=DIST_DIR / "assets")
 
-    output_file = DIST_DIR / "index.html"
-    run_pandoc(
-        source=build_markdown_source(), output=output_file, edition="html"
+    sections = list(iter_book_sections())
+    pages = [(html_page_name(section), section) for section in sections]
+    toc_items = []
+    for filename, section in pages:
+        label = (
+            f"Chapter {section.chapter_number}: {section.heading}"
+            if section.kind == "chapter" else section.heading
+        )
+        toc_items.append(
+            f'<li><a href="{filename}">{html.escape(label)}</a></li>'
+        )
+    contents = "<ol>" + "\\n".join(toc_items) + "</ol>"
+
+    landing = (
+        "# The Science and Engineering of Applied Machine Learning\\n\\n"
+        "Andreas Pentaliotis\\n\\n"
+        "## Contents\\n\\n"
+        + contents + "\\n"
     )
-    if not output_file.is_file() or output_file.stat().st_size == 0:
-        raise RuntimeError("Pandoc did not produce a non-empty HTML edition.")
-    print(f"HTML edition written to {output_file}")
+    run_pandoc(source=landing, output=DIST_DIR / "index.html", edition="html")
+
+    for index, (filename, section) in enumerate(pages):
+        title = (
+            f"Chapter {section.chapter_number}: {section.heading}"
+            if section.kind == "chapter" else section.heading
+        )
+        previous = pages[index - 1][0] if index else "index.html"
+        following = pages[index + 1][0] if index + 1 < len(pages) else "index.html"
+        navigation = (
+            '<nav class="book-navigation" aria-label="Book navigation">'
+            f'<a href="{previous}">Previous</a>'
+            '<a href="index.html">Contents</a>'
+            f'<a href="{following}">Next</a></nav>'
+        )
+        source = f"# {title}\\n\\n{section.body}\\n\\n{navigation}\\n"
+        run_pandoc(source=source, output=DIST_DIR / filename, edition="html")
+
+    for filename in ["index.html", *(name for name, _ in pages)]:
+        output_file = DIST_DIR / filename
+        if not output_file.is_file() or output_file.stat().st_size == 0:
+            raise RuntimeError(f"Missing or empty HTML page: {filename}")
+    print(f"HTML edition written to {DIST_DIR} ({len(pages) + 1} pages)")
 
 
 def main() -> None:
