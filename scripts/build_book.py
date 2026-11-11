@@ -9,7 +9,6 @@ import re
 import shutil
 import subprocess
 import tempfile
-from collections import Counter
 from collections.abc import Iterator
 from pathlib import Path
 from typing import NamedTuple
@@ -25,54 +24,21 @@ FRONT_MATTER = [
     ("use-of-ai-tools.md", "Use of AI tools"),
 ]
 
-CHAPTER_FILES = [
-    "01-before-machine-learning.md",
-    "02-causal-effects.md",
-    "03-understanding-data.md",
-    "04-designing-experiments.md",
-    "05-using-model-scores.md",
-    "06-choosing-model-complexity.md",
-    "07-interpreting-model-explanations.md",
-    "08-from-experiment-to-system.md",
-    "09-engineering-rigor-and-risk.md",
-    "10-testing-operational-feasibility.md",
-    "11-diagnosing-change-in-production.md",
-    "12-technical-judgment-in-teams.md",
-]
-
-def validate_chapter_coverage() -> None:
-    chapter_directory = MANUSCRIPT / "chapters"
-    listed_chapters = CHAPTER_FILES
-    available_chapters = {path.name for path in chapter_directory.glob("*.md")}
-
-    duplicates = sorted(
-        filename
-        for filename, count in Counter(listed_chapters).items()
-        if count > 1
-    )
-    missing = sorted(available_chapters - set(listed_chapters))
-    unavailable = sorted(set(listed_chapters) - available_chapters)
-
-    problems = []
-    if duplicates:
-        problems.append(f"listed more than once: {', '.join(duplicates)}")
-    chapter_numbers = [
-        int(filename[:2])
-        for filename in listed_chapters
-        if filename[:2].isdigit()
-    ]
-    if len(chapter_numbers) != len(listed_chapters):
-        problems.append("chapter filenames must begin with a two-digit number")
-    elif chapter_numbers != list(range(1, len(listed_chapters) + 1)):
-        problems.append("chapters must be listed once in consecutive numeric order")
-    if missing:
-        problems.append(f"not included in the book: {', '.join(missing)}")
-    if unavailable:
-        problems.append(f"files do not exist: {', '.join(unavailable)}")
-    if not available_chapters:
-        problems.append(f"no chapter files found in {chapter_directory}")
-    if problems:
-        raise ValueError("Chapter list is inconsistent: " + "; ".join(problems))
+def chapter_files() -> list[Path]:
+    """Find numbered chapters in order and reject missing or repeated numbers."""
+    directory = MANUSCRIPT / "chapters"
+    files = sorted(directory.glob("*.md"))
+    numbers: list[int] = []
+    for path in files:
+        match = re.fullmatch(r"(\d{2})-.+\.md", path.name)
+        if match is None:
+            raise ValueError(f"Chapter filename must start with NN-: {path.name}")
+        numbers.append(int(match.group(1)))
+    if not files or numbers != list(range(1, len(files) + 1)):
+        raise ValueError(
+            "Chapter files must be numbered consecutively from 01, without duplicates"
+        )
+    return files
 
 
 def read_markdown(path: Path) -> str:
@@ -141,9 +107,9 @@ def iter_book_sections() -> Iterator[BookSection]:
         chapter_number=None,
     )
 
-    for filename in CHAPTER_FILES:
-        chapter_number = int(filename[:2])
-        body = read_markdown(MANUSCRIPT / "chapters" / filename)
+    for path in chapter_files():
+        chapter_number = int(path.name[:2])
+        body = read_markdown(path)
         heading = extract_chapter_title(body)
         yield BookSection(
             kind="chapter",
@@ -371,7 +337,6 @@ def main() -> None:
     )
     args = parser.parse_args()
 
-    validate_chapter_coverage()
     DIST_DIR.mkdir(parents=True, exist_ok=True)
 
     if args.format in ("pdf", "all"):
