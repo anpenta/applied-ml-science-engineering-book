@@ -10,7 +10,6 @@ import re
 import shutil
 import subprocess
 import tempfile
-import zipfile
 from collections.abc import Iterator
 from pathlib import Path
 from typing import NamedTuple
@@ -214,62 +213,6 @@ def build_epub_source() -> str:
     return title_metadata + build_markdown_source()
 
 
-def finalize_epub(path: Path) -> None:
-    """Make opening pages navigable and use section starts for reader navigation."""
-    with zipfile.ZipFile(path) as source:
-        entries = [(item, source.read(item.filename)) for item in source.infolist()]
-
-    with tempfile.NamedTemporaryFile(
-        prefix="book-epub-", suffix=".epub", dir=path.parent, delete=False
-    ) as temporary:
-        temporary_path = Path(temporary.name)
-
-    try:
-        with zipfile.ZipFile(temporary_path, "w") as target:
-            for item, data in entries:
-                if item.filename == "EPUB/nav.xhtml":
-                    page = data.decode("utf-8")
-                    page = page.replace(
-                        '<ol class="toc">',
-                        '<ol class="toc"><li><a href="text/title_page.xhtml">Title</a></li>'
-                        '<li><a href="nav.xhtml">Contents</a></li>',
-                        1,
-                    )
-                    # A top-level navigation target should open its section at
-                    # the beginning, not at an anchor within a paginated section.
-                    page = re.sub(
-                        r'(href="text/ch(\d{3})\.xhtml)#[^"]+(")',
-                        lambda match: match.group(1) + match.group(3)
-                        if page[:match.start()].count('href="text/ch'
-                        + match.group(2) + '.xhtml') == 0
-                        else match.group(0),
-                        page,
-                    )
-                    data = page.encode("utf-8")
-                elif item.filename == "EPUB/toc.ncx":
-                    page = data.decode("utf-8")
-                    first = page.index("    <navPoint")
-                    contents = (
-                        '    <navPoint id="navPoint-contents">\n'
-                        '      <navLabel><text>Contents</text></navLabel>\n'
-                        '      <content src="nav.xhtml" />\n'
-                        '    </navPoint>\n'
-                    )
-                    next_point = page.index("    </navPoint>", first) + len("    </navPoint>\n")
-                    page = page[:next_point] + contents + page[next_point:]
-                    data = page.encode("utf-8")
-                elif item.filename == "EPUB/text/title_page.xhtml":
-                    page = data.decode("utf-8").replace(
-                        '<p class="author">',
-                        '<p class="author" style="text-align: center; margin-left: auto; margin-right: auto;">',
-                    )
-                    data = page.encode("utf-8")
-                target.writestr(item, data)
-        temporary_path.replace(path)
-    finally:
-        temporary_path.unlink(missing_ok=True)
-
-
 def convert_book_mark_to_pdf() -> None:
     """Convert the SVG book mark for inclusion in the PDF edition."""
     logo_directory = DIST_DIR / "assets"
@@ -423,7 +366,6 @@ def main() -> None:
         run_pandoc(
             source=build_epub_source(), output=epub_path, edition="epub"
         )
-        finalize_epub(epub_path)
 
     if args.format in ("html", "all"):
         build_html()
