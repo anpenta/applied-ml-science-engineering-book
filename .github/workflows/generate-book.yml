@@ -86,15 +86,12 @@ jobs:
 
       - name: Validate HTML, CSS, and SVG output
         run: |
-          # Pin the release asset ID because upstream's "latest" tag is mutable.
-          # SHA-256 comes from the GitHub release asset metadata.
           archive=/tmp/vnu.jar
-          curl --fail --location --silent --show-error \
-            --header "Accept: application/octet-stream" \
-            "https://api.github.com/repos/validator/validator/releases/assets/726509742" \
+          # Nu validator uses a rolling "latest" release, so we cannot reliably pin a version.
+          # This makes validation less reproducible, but avoids relying on unstable asset IDs.
+          curl --fail --location --retry 3 --silent --show-error \
+            "https://github.com/validator/validator/releases/download/latest/vnu.jar" \
             --output "${archive}"
-          echo "62c7bfa87fb07e41d07231621a0bdb5d8316c11f1c74d01cd13c80a2d766e304  ${archive}" \
-            | sha256sum --check
           java -jar "${archive}" --also-check-css --also-check-svg \
             dist/*.html dist/assets/book.css dist/assets/*.svg
 

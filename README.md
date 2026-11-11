@@ -10,7 +10,7 @@ An opinionated book on the science and engineering of applied machine learning.
 
 ## Read the book
 
-Read the book [online in HTML](https://anpenta.github.io/applied-ml-science-engineering-book/), download the [PDF and EPUB editions](https://github.com/anpenta/applied-ml-science-engineering-book/releases) from GitHub Releases, or browse the complete manuscript in [Markdown](manuscript/).
+Read the book [online in HTML](https://anpenta.github.io/applied-ml-science-engineering-book/), download the [PDF, EPUB, or HTML editions](https://github.com/anpenta/applied-ml-science-engineering-book/releases) from GitHub Releases, or browse the complete manuscript in [Markdown](manuscript/).
 
 ## Feedback
 
