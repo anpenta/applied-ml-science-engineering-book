@@ -284,7 +284,7 @@ def run_pandoc(source: str, output: Path, *, edition: str) -> None:
         )
 
 
-def html_page_name(section: BookSection) -> str:
+def get_html_page_filename(section: BookSection) -> str:
     if section.kind == "chapter":
         return f"chapter-{section.chapter_number:02d}.html"
     return f"{section.kind}.html" if section.kind != "front-matter" else (
@@ -299,7 +299,7 @@ def build_html() -> None:
     shutil.copytree(src=ROOT / "assets", dst=DIST_DIR / "assets")
 
     sections = list(iter_book_sections())
-    pages = [(html_page_name(section), section) for section in sections]
+    pages = [(get_html_page_filename(section), section) for section in sections]
     toc_items = []
     for filename, section in pages:
         label = (
@@ -309,13 +309,13 @@ def build_html() -> None:
         toc_items.append(
             f'<li><a href="{filename}">{html.escape(label)}</a></li>'
         )
-    contents = "<ol>" + "\\n".join(toc_items) + "</ol>"
+    contents = "<ol>" + "\n".join(toc_items) + "</ol>"
 
     landing = (
-        "# The Science and Engineering of Applied Machine Learning\\n\\n"
-        "Andreas Pentaliotis\\n\\n"
-        "## Contents\\n\\n"
-        + contents + "\\n"
+        "# The Science and Engineering of Applied Machine Learning\n\n"
+        "Andreas Pentaliotis\n\n"
+        "## Contents\n\n"
+        + contents + "\n"
     )
     run_pandoc(source=landing, output=DIST_DIR / "index.html", edition="html")
 
@@ -332,7 +332,7 @@ def build_html() -> None:
             '<a href="index.html">Contents</a>'
             f'<a href="{following}">Next</a></nav>'
         )
-        source = f"# {title}\\n\\n{section.body}\\n\\n{navigation}\\n"
+        source = f"# {title}\n\n{section.body}\n\n{navigation}\n"
         run_pandoc(source=source, output=DIST_DIR / filename, edition="html")
 
     for filename in ["index.html", *(name for name, _ in pages)]:
