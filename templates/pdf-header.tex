@@ -21,8 +21,8 @@
 \mdfdefinestyle{bookexample}{%
   backgroundcolor=bookpale,
   hidealllines=true,
-  skipabove=1.2\baselineskip,
-  skipbelow=1.2\baselineskip,
+  skipabove=0.65\baselineskip,
+  skipbelow=0.65\baselineskip,
   innerleftmargin=6pt,
   innerrightmargin=6pt,
   innertopmargin=8pt,
@@ -34,7 +34,7 @@
 }
 % Blockquotes contain wide tables. Use the full available text width rather
 % than the default quote indentation, and leave a real paragraph break after.
-\renewenvironment{quote}{\par\addvspace{1.2\baselineskip}\begin{mdframed}[style=bookexample]\small}{\end{mdframed}\par\addvspace{1.2\baselineskip}\noindent\ignorespacesafterend}
+\renewenvironment{quote}{\par\addvspace{0.65\baselineskip}\begin{mdframed}[style=bookexample]\small}{\end{mdframed}\par\addvspace{0.65\baselineskip}\noindent\ignorespacesafterend}
 % Prevent longtable from adding its own left offset inside the example.
 \setlength{\LTleft}{0pt}
 \setlength{\LTright}{0pt}
@@ -64,6 +64,6 @@
 \setlength{\headheight}{14pt}
 \setlength{\parindent}{1.1em}
 \setlength{\parskip}{0.18em}
-\renewcommand{\arraystretch}{1.18}
+\renewcommand{\arraystretch}{1.23}
 \setlength{\emergencystretch}{3em}
 \clubpenalty=10000\widowpenalty=10000
