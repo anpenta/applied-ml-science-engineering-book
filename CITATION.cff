@@ -1,17 +1,17 @@
 cff-version: 1.2.0
-version: 1.0.0
-date-released: 2026-11-11
 message: "Please use the preferred citation below to cite the book."
 title: "The Science and Engineering of Applied Machine Learning"
 authors:
   - family-names: Pentaliotis
     given-names: Andreas
 license: CC-BY-NC-ND-4.0
-url: "https://github.com/anpenta/applied-ml-science-engineering-book"
+url: "https://anpenta.github.io/applied-ml-science-engineering-book/"
+repository-code: "https://github.com/anpenta/applied-ml-science-engineering-book"
 preferred-citation:
   type: book
   title: "The Science and Engineering of Applied Machine Learning"
   authors:
     - family-names: Pentaliotis
       given-names: Andreas
-  url: "https://github.com/anpenta/applied-ml-science-engineering-book"
+  year: 2026
+  url: "https://anpenta.github.io/applied-ml-science-engineering-book/"
