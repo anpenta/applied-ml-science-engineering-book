@@ -9,6 +9,9 @@
 \usepackage{booktabs}
 \usepackage{tocloft}
 \usepackage[framemethod=default]{mdframed}
+\usepackage{etoolbox}
+\usepackage{longtable}
+\usepackage{array}
 \definecolor{booknavy}{HTML}{17365D}
 \definecolor{bookblue}{HTML}{2878A8}
 \definecolor{bookgold}{HTML}{D69A32}
@@ -20,8 +23,8 @@
   hidealllines=true,
   skipabove=1.2\baselineskip,
   skipbelow=1.2\baselineskip,
-  innerleftmargin=9pt,
-  innerrightmargin=9pt,
+  innerleftmargin=6pt,
+  innerrightmargin=6pt,
   innertopmargin=8pt,
   innerbottommargin=8pt,
   leftmargin=0pt,
@@ -29,7 +32,13 @@
   splitbottomskip=8pt,
   splittopskip=8pt
 }
-\renewenvironment{quote}{\begin{mdframed}[style=bookexample]}{\end{mdframed}}
+% Blockquotes contain wide tables. Use the full available text width rather
+% than the default quote indentation, and leave a real paragraph break after.
+\renewenvironment{quote}{\par\addvspace{1.2\baselineskip}\begin{mdframed}[style=bookexample]\small}{\end{mdframed}\par\addvspace{1.2\baselineskip}\noindent\ignorespacesafterend}
+% Prevent longtable from adding its own left offset inside the example.
+\setlength{\LTleft}{0pt}
+\setlength{\LTright}{0pt}
+\AtBeginEnvironment{longtable}{\setlength{\tabcolsep}{3pt}\footnotesize}
 \setlength{\cftchapnumwidth}{3em}
 \setlength{\cftsecnumwidth}{3.5em}
 \setlength{\cftsubsecnumwidth}{4.5em}
