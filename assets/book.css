@@ -166,3 +166,20 @@ hr {
 @media screen and (max-width: 640px) {
   .book-navigation { gap: 0.75rem; }
 }
+
+/* Book mark above the title on the HTML landing page and EPUB title page. */
+.book-cover-mark {
+  text-align: center;
+  margin: 0 0 1.5rem;
+}
+.book-cover-mark img,
+.titlepage .title img {
+  display: block;
+  width: 265px;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto 1.5rem;
+}
+.titlepage {
+  text-align: center;
+}
