@@ -8,7 +8,7 @@ metadata:
   author: Andreas Pentaliotis
   lang: en-US
 highlight-style: tango
-toc: true
+toc: false
 toc-depth: 2
 html-math-method: mathml
 section-divs: true
