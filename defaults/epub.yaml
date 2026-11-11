@@ -4,6 +4,9 @@ standalone: true
 resource-path:
   - .
 highlight-style: tango
+epub-title-page: false
+metadata:
+  toc-title: Contents
 toc: true
 toc-depth: 2
 split-level: 1
