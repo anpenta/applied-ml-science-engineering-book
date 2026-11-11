@@ -201,6 +201,20 @@ def build_markdown_source() -> str:
     return "\n".join(sections)
 
 
+
+def build_epub_source() -> str:
+    """Give Pandoc a Markdown-formatted EPUB title with the book mark."""
+    title_metadata = (
+        "---\n"
+        "title: |\n"
+        "  ![](assets/applied-ml-mark.png)\n"
+        "\n"
+        f"  {METADATA['title']}\n"
+        "---\n\n"
+    )
+    return title_metadata + build_markdown_source()
+
+
 def convert_book_mark_to_pdf() -> None:
     """Convert the SVG book mark for inclusion in the PDF edition."""
     logo_directory = DIST_DIR / "assets"
@@ -303,8 +317,10 @@ def build_html() -> None:
     landing = (
         '<p class="book-cover-mark"><img src="assets/applied-ml-mark.svg" '
         'alt="" width="265"></p>\n\n'
-        f"# {METADATA['title']}\n\n"
-        f"{METADATA['author']}\n\n"
+        '<div class="book-landing-title">\n'
+        f"<h1>{html.escape(METADATA['title'])}</h1>\n"
+        f"<p>{html.escape(METADATA['author'])}</p>\n"
+        "</div>\n\n"
         "## Contents\n\n"
         + contents + "\n\n"
         + build_html_navigation(None, pages[0][0], on_contents=True) + "\n"
@@ -350,7 +366,7 @@ def main() -> None:
             DIST_DIR / "science-and-engineering-of-applied-machine-learning.epub"
         )
         run_pandoc(
-            source=build_markdown_source(), output=epub_path, edition="epub"
+            source=build_epub_source(), output=epub_path, edition="epub"
         )
 
     if args.format in ("html", "all"):
