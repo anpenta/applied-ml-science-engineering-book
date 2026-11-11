@@ -1,0 +1,26 @@
+from: markdown+autolink_bare_uris+raw_tex+fenced_code_blocks+pipe_tables+tex_math_dollars+tex_math_single_backslash
+standalone: true
+resource-path:
+  - .
+metadata:
+  title: The Science and Engineering of Applied Machine Learning
+  author: Andreas Pentaliotis
+  lang: en-US
+highlight-style: tango
+number-sections: true
+pdf-engine: xelatex
+include-in-header:
+  - templates/pdf-header.tex
+variables:
+  documentclass: book
+  classoption: oneside
+  papersize: a4
+  geometry: top=25mm,bottom=26mm,left=25mm,right=25mm,headheight=16pt,headsep=8mm,footskip=12mm
+  mainfont: DejaVu Serif
+  sansfont: DejaVu Sans
+  monofont: DejaVu Sans Mono
+  linestretch: 1.14
+  colorlinks: true
+  linkcolor: bookblue
+  urlcolor: bookblue
+  citecolor: booknavy
