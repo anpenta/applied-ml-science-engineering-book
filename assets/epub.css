@@ -1,0 +1,11 @@
+/* EPUB-specific layout: avoid website rules in reflowable readers. */
+body { font-family: Georgia, "Times New Roman", serif; line-height: 1.5; }
+h1, h2, h3, h4, h5, h6 { color: #17365d; }
+img { max-width: 100%; height: auto; }
+table { border-collapse: collapse; }
+th, td { border: 1px solid #dce3e9; padding: 0.4em; }
+pre, table { max-width: 100%; }
+section.titlepage { text-align: center !important; }
+section.titlepage h1.title { text-align: center !important; }
+section.titlepage h1.title img { display: block; width: 265px; max-width: 100%; height: auto; margin: 0 auto 1.5em; }
+section.titlepage p.author { display: block; text-align: center !important; margin: 1em auto; width: 100%; }
