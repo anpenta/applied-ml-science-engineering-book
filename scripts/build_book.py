@@ -235,6 +235,17 @@ def build_markdown_source() -> str:
     return "\n".join(sections)
 
 
+def build_epub_source() -> str:
+    """Place the book mark on Pandoc's EPUB title page without duplicating it."""
+    title = (
+        "---\n"
+        "title: '![](assets/applied-ml-mark.png) "
+        "The Science and Engineering of Applied Machine Learning'\n"
+        "---\n\n"
+    )
+    return title + build_markdown_source()
+
+
 def convert_book_mark_to_pdf() -> None:
     """Convert the SVG book mark for inclusion in the PDF edition."""
     logo_directory = DIST_DIR / "assets"
@@ -333,6 +344,8 @@ def build_html() -> None:
     contents = "<ol>" + "\n".join(toc_items) + "</ol>"
 
     landing = (
+        '<p class="book-cover-mark"><img src="assets/applied-ml-mark.svg" '
+        'alt="" width="265"></p>\n\n'
         "# The Science and Engineering of Applied Machine Learning\n\n"
         "Andreas Pentaliotis\n\n"
         "## Contents\n\n"
@@ -385,7 +398,7 @@ def main() -> None:
             DIST_DIR / "science-and-engineering-of-applied-machine-learning.epub"
         )
         run_pandoc(
-            source=build_markdown_source(), output=epub_path, edition="epub"
+            source=build_epub_source(), output=epub_path, edition="epub"
         )
 
     if args.format in ("html", "all"):
