@@ -183,3 +183,7 @@ hr {
 .titlepage {
   text-align: center;
 }
+
+/* Center only the HTML landing-page title and author. */
+.book-landing-title { text-align: center; }
+.book-landing-title p { max-width: none; }
