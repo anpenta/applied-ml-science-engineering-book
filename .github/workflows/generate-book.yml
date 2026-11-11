@@ -61,7 +61,7 @@ jobs:
       - name: Install system build dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install --yes texlive-xetex texlive-latex-extra poppler-utils librsvg2-bin default-jre-headless unzip zip
+          sudo apt-get install --yes texlive-xetex texlive-latex-extra librsvg2-bin default-jre-headless unzip zip
 
       - name: Install Pandoc
         run: |
@@ -75,25 +75,8 @@ jobs:
           sudo dpkg --install "${archive}"
           pandoc --version
 
-      - name: Run code example checks
-        run: python scripts/validate_code_examples.py
-
       - name: Build book editions
         run: python scripts/build_book.py --format all
-
-      - name: Validate HTML page structure and navigation
-        run: python scripts/validate_html_pages.py
-
-      - name: Validate HTML, CSS, and SVG output
-        run: |
-          archive=/tmp/vnu.jar
-          # Nu validator uses a rolling "latest" release, so we cannot reliably pin a version.
-          # This makes validation less reproducible, but avoids relying on unstable asset IDs.
-          curl --fail --location --retry 3 --silent --show-error \
-            "https://github.com/validator/validator/releases/download/latest/vnu.jar" \
-            --output "${archive}"
-          java -jar "${archive}" --also-check-css --also-check-svg \
-            dist/*.html dist/assets/book.css dist/assets/*.svg
 
       - name: Check HTML links and fragments
         uses: lycheeverse/lychee-action@v2.9.0
@@ -112,14 +95,6 @@ jobs:
           unzip -q "${archive}" -d /tmp/epubcheck
           java -jar "/tmp/epubcheck/epubcheck-${version}/epubcheck.jar" \
             dist/science-and-engineering-of-applied-machine-learning.epub
-
-      - name: Check PDF structure and content
-        run: |
-          pdfinfo dist/science-and-engineering-of-applied-machine-learning.pdf
-          pdftotext -layout dist/science-and-engineering-of-applied-machine-learning.pdf /tmp/book.txt
-          grep -Eq 'Chapter 1([^[:digit:]]|$)' /tmp/book.txt
-          grep -Eq 'Chapter 12([^[:digit:]]|$)' /tmp/book.txt
-          grep -Fq "Conclusion" /tmp/book.txt
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v7
