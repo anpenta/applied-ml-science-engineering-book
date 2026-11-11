@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 500" role="img" aria-labelledby="title desc">
+  <title id="title">Applied machine learning brain and circuit mark</title>
+  <desc id="desc">A bright two-hemisphere brain: a connected scientific network in cyan and a gold computational circuit, joined by a central line and encircled by an orbit.</desc>
+  <defs>
+    <linearGradient id="blue" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#13D5F5"/><stop offset=".52" stop-color="#078DE0"/><stop offset="1" stop-color="#123C88"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FFD66B"/><stop offset=".55" stop-color="#FF9D22"/><stop offset="1" stop-color="#D96B13"/>
+    </linearGradient>
+    <linearGradient id="orbit" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#087BCB"/><stop offset=".48" stop-color="#1CCCF2"/><stop offset=".72" stop-color="#FFC14D"/><stop offset="1" stop-color="#F28A1B"/>
+    </linearGradient>
+    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <!-- Two distinct hemispheres form a recognisable brain silhouette. -->
+  <path d="M352 74C328 38 276 35 249 61C219 54 190 77 188 109C157 123 146 159 161 187C133 211 143 250 165 267C150 299 171 335 203 342C211 376 246 394 276 378C300 405 337 391 352 365Z" fill="url(#blue)"/>
+  <path d="M368 74C392 38 444 35 471 61C501 54 530 77 532 109C563 123 574 159 559 187C587 211 577 250 555 267C570 299 549 335 517 342C509 376 474 394 444 378C420 405 383 391 368 365Z" fill="url(#gold)"/>
+  <!-- Brain folds -->
+  <g fill="none" stroke="#EAFBFF" stroke-opacity=".58" stroke-width="8" stroke-linecap="round">
+    <path d="M211 111C236 95 262 105 269 129M177 190C201 170 225 178 234 199M187 274C213 253 239 265 244 291M245 345C260 326 282 326 297 342"/>
+    <path d="M509 111C484 95 458 105 451 129M543 190C519 170 495 178 486 199M533 274C507 253 481 265 476 291M475 345C460 326 438 326 423 342"/>
+  </g>
+  <path d="M360 70V382" stroke="#F7FCFF" stroke-width="12" stroke-linecap="round"/>
+  <!-- Scientific network -->
+  <g fill="none" stroke="#B8F7FF" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M205 157L258 122L304 166L245 217L194 247L253 295L311 257L304 166L334 215L311 257L286 337"/>
+    <path d="M205 157L194 247M258 122L245 217M245 217L253 295M334 215L311 257"/>
+  </g>
+  <g fill="#E9FFFF" stroke="#0AA8E4" stroke-width="5" filter="url(#glow)">
+    <circle cx="205" cy="157" r="11"/><circle cx="258" cy="122" r="11"/><circle cx="304" cy="166" r="11"/>
+    <circle cx="245" cy="217" r="11"/><circle cx="194" cy="247" r="11"/><circle cx="253" cy="295" r="11"/>
+    <circle cx="311" cy="257" r="11"/><circle cx="334" cy="215" r="11"/><circle cx="286" cy="337" r="11"/>
+  </g>
+  <!-- Engineering circuits -->
+  <g fill="none" stroke="#FFF0C9" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M392 126H432V94H481M392 168H464V145H523M392 211H445V245H530M392 256H467V292H518M392 304H436V352H487"/>
+    <path d="M432 126V184H477M464 168V206H507M445 245V276H414M467 292V327H500"/>
+  </g>
+  <g fill="#FFF8E7" stroke="#F39A26" stroke-width="7" filter="url(#glow)">
+    <circle cx="481" cy="94" r="11"/><circle cx="523" cy="145" r="11"/><circle cx="530" cy="245" r="11"/>
+    <circle cx="518" cy="292" r="11"/><circle cx="487" cy="352" r="11"/><circle cx="477" cy="184" r="11"/>
+    <circle cx="507" cy="206" r="11"/><circle cx="414" cy="276" r="11"/><circle cx="500" cy="327" r="11"/>
+  </g>
+  <!-- Orbit links the scientific and engineering halves. -->
+  <path d="M104 286C172 406 525 426 618 210C648 141 601 117 552 130" fill="none" stroke="url(#orbit)" stroke-width="16" stroke-linecap="round"/>
+  <path d="M104 286C154 354 242 382 326 386" fill="none" stroke="#FFFFFF" stroke-opacity=".75" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="104" cy="286" r="9" fill="#14C9F1"/><circle cx="618" cy="210" r="9" fill="#FFB43C"/>
+</svg>
