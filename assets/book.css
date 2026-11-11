@@ -162,6 +162,7 @@ hr {
   font-family: Arial, Helvetica, sans-serif;
 }
 .book-navigation a { text-decoration: none; }
+.book-navigation .disabled { color: #8b9299; cursor: default; }
 @media screen and (max-width: 640px) {
   .book-navigation { gap: 0.75rem; }
 }
