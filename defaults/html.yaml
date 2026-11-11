@@ -3,10 +3,6 @@ to: html5
 standalone: true
 resource-path:
   - .
-metadata:
-  title: The Science and Engineering of Applied Machine Learning
-  author: Andreas Pentaliotis
-  lang: en-US
 highlight-style: tango
 toc: false
 toc-depth: 2
