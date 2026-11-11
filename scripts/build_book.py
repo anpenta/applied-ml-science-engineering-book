@@ -333,6 +333,8 @@ def build_html() -> None:
     contents = "<ol>" + "\n".join(toc_items) + "</ol>"
 
     landing = (
+        '<p class="book-cover-mark"><img src="assets/applied-ml-mark.svg" '
+        'alt="" width="265"></p>\n\n'
         "# The Science and Engineering of Applied Machine Learning\n\n"
         "Andreas Pentaliotis\n\n"
         "## Contents\n\n"
