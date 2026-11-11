@@ -8,10 +8,28 @@
 \def\UrlBreaks{\do\/\do-\do?\do\&\do=\do_}
 \usepackage{booktabs}
 \usepackage{tocloft}
+\usepackage[framemethod=default]{mdframed}
 \definecolor{booknavy}{HTML}{17365D}
 \definecolor{bookblue}{HTML}{2878A8}
 \definecolor{bookgold}{HTML}{D69A32}
 \definecolor{bookpale}{HTML}{F1F5F8}
+% Give Markdown blockquotes (used for worked examples) consistent spacing
+% and a subtle background while keeping their contents inside the text area.
+\mdfdefinestyle{bookexample}{%
+  backgroundcolor=bookpale,
+  hidealllines=true,
+  skipabove=1.2\baselineskip,
+  skipbelow=1.2\baselineskip,
+  innerleftmargin=9pt,
+  innerrightmargin=9pt,
+  innertopmargin=8pt,
+  innerbottommargin=8pt,
+  leftmargin=0pt,
+  rightmargin=0pt,
+  splitbottomskip=8pt,
+  splittopskip=8pt
+}
+\renewenvironment{quote}{\begin{mdframed}[style=bookexample]}{\end{mdframed}}
 \setlength{\cftchapnumwidth}{3em}
 \setlength{\cftsecnumwidth}{3.5em}
 \setlength{\cftsubsecnumwidth}{4.5em}
