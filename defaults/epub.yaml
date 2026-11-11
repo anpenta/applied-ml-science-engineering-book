@@ -4,6 +4,8 @@ standalone: true
 resource-path:
   - .
 highlight-style: tango
+metadata:
+  toc-title: Contents
 toc: true
 toc-depth: 2
 split-level: 1
