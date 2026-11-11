@@ -151,3 +151,19 @@ hr {
   nav#TOC { break-after: page; }
   a { color: inherit; }
 }
+
+/* Navigation shared by the standalone chapter pages. */
+.book-navigation {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 3rem 0 1rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid #dce3e9;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.book-navigation a { text-decoration: none; }
+@media screen and (max-width: 640px) {
+  .book-navigation { gap: 0.75rem; }
+}
