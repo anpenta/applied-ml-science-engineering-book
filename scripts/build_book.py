@@ -203,16 +203,18 @@ def build_markdown_source() -> str:
 
 
 def build_epub_source() -> str:
-    """Give Pandoc a Markdown-formatted EPUB title with the book mark."""
-    title_metadata = (
-        "---\n"
-        "title: |\n"
-        "  ![](assets/applied-ml-mark.png)\n"
-        "\n"
-        f"  {METADATA['title']}\n"
-        "---\n\n"
+    """Create a single EPUB opening page with the mark, title, and author."""
+    title = html.escape(METADATA["title"])
+    author = html.escape(METADATA["author"])
+    opening = (
+        f'# {METADATA["title"]} {{.epub-title-heading}}\n\n'
+        '<div class="epub-book-title-page">\n'
+        '<img src="assets/applied-ml-mark.png" alt="" />\n'
+        f'<p class="epub-book-title">{title}</p>\n'
+        f'<p class="epub-book-author">{author}</p>\n'
+        '</div>\n\n'
     )
-    return title_metadata + build_markdown_source()
+    return opening + build_markdown_source()
 
 
 def convert_book_mark_to_pdf() -> None:
