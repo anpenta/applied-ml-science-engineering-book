@@ -202,6 +202,17 @@ def build_markdown_source() -> str:
 
 
 
+def build_epub_source() -> str:
+    """Provide a native Pandoc title page with a parsed image and plain book text."""
+    title = METADATA["title"]
+    title_metadata = (
+        "---\n"
+        f'title: "![](assets/applied-ml-mark.png) {title}"\n'
+        "---\n\n"
+    )
+    return title_metadata + build_markdown_source()
+
+
 def convert_book_mark_to_pdf() -> None:
     """Convert the SVG book mark for inclusion in the PDF edition."""
     logo_directory = DIST_DIR / "assets"
@@ -353,7 +364,7 @@ def main() -> None:
             DIST_DIR / "science-and-engineering-of-applied-machine-learning.epub"
         )
         run_pandoc(
-            source=build_markdown_source(), output=epub_path, edition="epub"
+            source=build_epub_source(), output=epub_path, edition="epub"
         )
 
     if args.format in ("html", "all"):
