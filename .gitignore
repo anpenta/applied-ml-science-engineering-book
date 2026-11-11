@@ -1,0 +1,19 @@
+# Generated book editions
+dist/
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Local environments
+.venv/
+venv/
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Editor and temporary files
+*.swp
+*.tmp
