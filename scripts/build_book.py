@@ -209,7 +209,7 @@ def build_epub_source() -> str:
     opening = (
         f'# {METADATA["title"]} {{.epub-title-heading}}\n\n'
         '<div class="epub-book-title-page">\n'
-        '<img src="assets/applied-ml-mark.png" alt="" />\n'
+        '![ ](assets/applied-ml-mark.png)\n'
         f'<p class="epub-book-title">{title}</p>\n'
         f'<p class="epub-book-author">{author}</p>\n'
         '</div>\n\n'
