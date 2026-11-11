@@ -325,12 +325,17 @@ def build_html() -> None:
             if section.kind == "chapter" else section.heading
         )
         previous = pages[index - 1][0] if index else "index.html"
-        following = pages[index + 1][0] if index + 1 < len(pages) else "index.html"
+        navigation_links = [
+            f'<a href="{previous}">Previous</a>',
+            '<a href="index.html">Contents</a>',
+        ]
+        if index + 1 < len(pages):
+            following = pages[index + 1][0]
+            navigation_links.append(f'<a href="{following}">Next</a>')
         navigation = (
             '<nav class="book-navigation" aria-label="Book navigation">'
-            f'<a href="{previous}">Previous</a>'
-            '<a href="index.html">Contents</a>'
-            f'<a href="{following}">Next</a></nav>'
+            + "".join(navigation_links)
+            + "</nav>"
         )
         source = f"# {title}\n\n{section.body}\n\n{navigation}\n"
         run_pandoc(source=source, output=DIST_DIR / filename, edition="html")
