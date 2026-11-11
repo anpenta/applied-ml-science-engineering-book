@@ -1,0 +1,42 @@
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{titling}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{microtype}
+\usepackage{xurl}
+\def\UrlBreaks{\do\/\do-\do?\do\&\do=\do_}
+\usepackage{booktabs}
+\usepackage{tocloft}
+\definecolor{booknavy}{HTML}{17365D}
+\definecolor{bookblue}{HTML}{2878A8}
+\definecolor{bookgold}{HTML}{D69A32}
+\definecolor{bookpale}{HTML}{F1F5F8}
+\setlength{\cftchapnumwidth}{3em}
+\setlength{\cftsecnumwidth}{3.5em}
+\setlength{\cftsubsecnumwidth}{4.5em}
+\pretitle{\begin{center}\includegraphics[width=70mm]{dist/assets/applied-ml-mark.pdf}\par\vspace{22pt}\color{booknavy}\sffamily\bfseries\Huge}
+\posttitle{\par\end{center}\vspace{12pt}}
+\preauthor{\begin{center}\color{bookblue}\sffamily\Large}
+\postauthor{\par\end{center}\vfill}
+\predate{\begin{center}\color{bookgold}\sffamily\small}
+\postdate{\par\end{center}}
+\titleformat{\chapter}[display]{\normalfont\sffamily\bfseries\color{booknavy}}{\filleft\Large\chaptertitlename~\thechapter}{1ex}{\titlerule[1pt]\vspace{1.5ex}\Huge}
+\titleformat{\section}{\normalfont\sffamily\Large\bfseries\color{booknavy}}{\thesection}{0.8em}{}
+\titleformat{\subsection}{\normalfont\sffamily\large\bfseries\color{bookblue}}{\thesubsection}{0.8em}{}
+\titlespacing*{\chapter}{0pt}{-8pt}{26pt}
+\titlespacing*{\section}{0pt}{2.2ex plus .5ex minus .2ex}{1ex}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\sffamily\color{booknavy}The Science and Engineering of Applied Machine Learning}
+\renewcommand{\chaptermark}[1]{\markboth{Chapter \thechapter}{}}
+\fancyhead[R]{\small\sffamily\color{bookblue}\nouppercase{\leftmark}}
+\fancyfoot[C]{\small\sffamily\color{booknavy}\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{bookgold}\leaders\hrule height \headrulewidth\hfill}}
+\setlength{\headheight}{14pt}
+\setlength{\parindent}{1.1em}
+\setlength{\parskip}{0.18em}
+\renewcommand{\arraystretch}{1.18}
+\setlength{\emergencystretch}{3em}
+\clubpenalty=10000\widowpenalty=10000
