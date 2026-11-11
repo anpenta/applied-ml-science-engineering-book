@@ -91,11 +91,8 @@ hr {
     box-shadow: 0 8px 36px rgb(23 54 93 / 8%);
   }
 
-  header#title-block-header {
-    padding: 1rem 0 2rem;
-    margin-bottom: 2rem;
-    border-bottom: 3px solid #d69a32;
-  }
+  /* Pandoc's metadata title is for the browser tab; each page has its own heading. */
+  header#title-block-header { display: none; }
 
   h1, h2, h3, h4 {
     scroll-margin-top: 1.5rem;
