@@ -245,8 +245,6 @@ def build_homepage_metadata() -> str:
 
     def citation_field(name: str) -> str:
         match = re.search(rf"^{re.escape(name)}:\s*(.+)$", citation, re.M)
-        if match is None:
-            raise ValueError(f"Missing {name} in CITATION.cff")
         return match.group(1).strip().strip('"')
 
     fields = (
