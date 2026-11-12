@@ -241,22 +241,16 @@ def convert_book_mark_to_pdf() -> None:
 
 def build_homepage_metadata() -> str:
     """Generate homepage metadata from the publication records."""
-    citation = {}
-    for line in (ROOT / "CITATION.cff").read_text(encoding="utf-8").splitlines():
-        if line.startswith(("date-released: ", "url: ")):
-            key, value = line.split(": ", 1)
-            citation[key] = value.strip('"')
-
     fields = (
         ("citation_title", METADATA["title"]),
         ("citation_author", METADATA["author"]),
-        ("citation_publication_date", citation["date-released"].replace("-", "/")),
+        ("citation_publication_date", METADATA["date_released"].replace("-", "/")),
     )
     tags = [
         f'<meta name="{name}" content="{html.escape(value, quote=True)}" />'
         for name, value in fields
     ]
-    canonical = html.escape(citation["url"], quote=True)
+    canonical = html.escape(METADATA["url"], quote=True)
     tags.append(f'<link rel="canonical" href="{canonical}" />')
     return "\n".join(tags) + "\n"
 
