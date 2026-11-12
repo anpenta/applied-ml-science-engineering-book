@@ -239,6 +239,30 @@ def convert_book_mark_to_pdf() -> None:
     )
 
 
+def build_homepage_metadata() -> str:
+    """Generate homepage metadata from the publication records."""
+    citation = (ROOT / "CITATION.cff").read_text(encoding="utf-8")
+
+    def citation_field(name: str) -> str:
+        match = re.search(rf"^{re.escape(name)}:\\s*(.+)$", citation, re.M)
+        if match is None:
+            raise ValueError(f"Missing {name} in CITATION.cff")
+        return match.group(1).strip().strip('"')
+
+    fields = (
+        ("citation_title", METADATA["title"]),
+        ("citation_author", METADATA["author"]),
+        ("citation_publication_date", citation_field("date-released").replace("-", "/")),
+    )
+    tags = [
+        f'<meta name="{name}" content="{html.escape(value, quote=True)}" />'
+        for name, value in fields
+    ]
+    canonical = html.escape(citation_field("url"), quote=True)
+    tags.append(f'<link rel="canonical" href="{canonical}" />')
+    return "\\n".join(tags) + "\\n"
+
+
 def run_pandoc(source: str, output: Path, *, edition: str, homepage: bool = False) -> None:
     pandoc = shutil.which("pandoc")
     if pandoc is None:
@@ -250,12 +274,15 @@ def run_pandoc(source: str, output: Path, *, edition: str, homepage: bool = Fals
     with tempfile.TemporaryDirectory(prefix="book-") as temporary_directory:
         source_path = Path(temporary_directory) / "book.md"
         source_path.write_text(source, encoding="utf-8")
+        if homepage:
+            homepage_header = Path(temporary_directory) / "homepage-metadata.html"
+            homepage_header.write_text(build_homepage_metadata(), encoding="utf-8")
         subprocess.run(
             [
                 pandoc,
                 f"--defaults={ROOT / 'defaults' / f'{edition}.yaml'}",
                 f"--metadata-file={ROOT / 'metadata.json'}",
-                *([f"--include-in-header={ROOT / 'assets' / 'homepage-metadata.html'}"] if homepage else []),
+                *([f"--include-in-header={homepage_header}"] if homepage else []),
                 "--output",
                 str(output),
                 str(source_path),
