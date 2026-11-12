@@ -10,3 +10,5 @@ section-divs: true
 shift-heading-level-by: 1
 css:
   - assets/html.css
+include-in-header:
+  - assets/google-site-verification.html
