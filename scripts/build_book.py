@@ -239,7 +239,23 @@ def convert_book_mark_to_pdf() -> None:
     )
 
 
-def run_pandoc(source: str, output: Path, *, edition: str) -> None:
+def build_homepage_metadata() -> str:
+    """Generate homepage metadata from the publication records."""
+    fields = (
+        ("citation_title", METADATA["title"]),
+        ("citation_author", METADATA["author"]),
+        ("citation_publication_date", METADATA["date_released"].replace("-", "/")),
+    )
+    tags = [
+        f'<meta name="{name}" content="{html.escape(value, quote=True)}" />'
+        for name, value in fields
+    ]
+    canonical = html.escape(METADATA["url"], quote=True)
+    tags.append(f'<link rel="canonical" href="{canonical}" />')
+    return "\n".join(tags) + "\n"
+
+
+def run_pandoc(source: str, output: Path, *, edition: str, homepage: bool = False) -> None:
     pandoc = shutil.which("pandoc")
     if pandoc is None:
         raise RuntimeError("Pandoc is required. Install Pandoc before building.")
@@ -250,11 +266,15 @@ def run_pandoc(source: str, output: Path, *, edition: str) -> None:
     with tempfile.TemporaryDirectory(prefix="book-") as temporary_directory:
         source_path = Path(temporary_directory) / "book.md"
         source_path.write_text(source, encoding="utf-8")
+        if homepage:
+            homepage_header = Path(temporary_directory) / "homepage-metadata.html"
+            homepage_header.write_text(build_homepage_metadata(), encoding="utf-8")
         subprocess.run(
             [
                 pandoc,
                 f"--defaults={ROOT / 'defaults' / f'{edition}.yaml'}",
                 f"--metadata-file={ROOT / 'metadata.json'}",
+                *([f"--include-in-header={homepage_header}"] if homepage else []),
                 "--output",
                 str(output),
                 str(source_path),
@@ -324,7 +344,7 @@ def build_html() -> None:
         + contents + "\n\n"
         + build_html_navigation(None, pages[0][0], on_contents=True) + "\n"
     )
-    run_pandoc(source=landing, output=DIST_DIR / "index.html", edition="html")
+    run_pandoc(source=landing, output=DIST_DIR / "index.html", edition="html", homepage=True)
 
     for index, (filename, section) in enumerate(pages):
         title = (
