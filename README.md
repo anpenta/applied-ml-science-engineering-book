@@ -18,7 +18,7 @@ Found an error or have a suggestion? Open a [GitHub Issue](https://github.com/an
 
 ## License
 
-The book's prose, figures, and other non-code content are licensed under [CC BY-NC-ND 4.0](LICENSE-CC-BY-NC-ND). Code examples and repository source code are licensed under the [MIT License](LICENSE-MIT).
+The book, including its code examples, is licensed under [CC BY-NC-ND 4.0](LICENSE-CC-BY-NC-ND). The software used to build and maintain the book is licensed under the [MIT License](LICENSE-MIT).
 
 ## Citation
 
