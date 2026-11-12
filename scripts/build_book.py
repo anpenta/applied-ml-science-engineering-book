@@ -24,6 +24,7 @@ FRONT_MATTER = [
     ("dedication.md", "Dedication"),
     ("acknowledgements.md", "Acknowledgments"),
     ("use-of-ai-tools.md", "Use of AI tools"),
+    ("support.md", "Support"),
 ]
 
 def chapter_files() -> list[Path]:
