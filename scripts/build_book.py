@@ -244,7 +244,7 @@ def build_homepage_metadata() -> str:
     citation = (ROOT / "CITATION.cff").read_text(encoding="utf-8")
 
     def citation_field(name: str) -> str:
-        match = re.search(rf"^{re.escape(name)}:\\s*(.+)$", citation, re.M)
+        match = re.search(rf"^{re.escape(name)}:\s*(.+)$", citation, re.M)
         if match is None:
             raise ValueError(f"Missing {name} in CITATION.cff")
         return match.group(1).strip().strip('"')
@@ -260,7 +260,7 @@ def build_homepage_metadata() -> str:
     ]
     canonical = html.escape(citation_field("url"), quote=True)
     tags.append(f'<link rel="canonical" href="{canonical}" />')
-    return "\\n".join(tags) + "\\n"
+    return "\n".join(tags) + "\n"
 
 
 def run_pandoc(source: str, output: Path, *, edition: str, homepage: bool = False) -> None:
