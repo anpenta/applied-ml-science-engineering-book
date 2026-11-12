@@ -239,7 +239,7 @@ def convert_book_mark_to_pdf() -> None:
     )
 
 
-def run_pandoc(source: str, output: Path, *, edition: str) -> None:
+def run_pandoc(source: str, output: Path, *, edition: str, homepage: bool = False) -> None:
     pandoc = shutil.which("pandoc")
     if pandoc is None:
         raise RuntimeError("Pandoc is required. Install Pandoc before building.")
@@ -255,6 +255,7 @@ def run_pandoc(source: str, output: Path, *, edition: str) -> None:
                 pandoc,
                 f"--defaults={ROOT / 'defaults' / f'{edition}.yaml'}",
                 f"--metadata-file={ROOT / 'metadata.json'}",
+                *([f"--include-in-header={ROOT / 'assets' / 'homepage-metadata.html'}"] if homepage else []),
                 "--output",
                 str(output),
                 str(source_path),
@@ -324,7 +325,7 @@ def build_html() -> None:
         + contents + "\n\n"
         + build_html_navigation(None, pages[0][0], on_contents=True) + "\n"
     )
-    run_pandoc(source=landing, output=DIST_DIR / "index.html", edition="html")
+    run_pandoc(source=landing, output=DIST_DIR / "index.html", edition="html", homepage=True)
 
     for index, (filename, section) in enumerate(pages):
         title = (
