@@ -128,7 +128,7 @@ def iter_book_sections() -> Iterator[BookSection]:
         chapter_number=None,
     )
 
-    support = remove_document_title(read_markdown(MANUSCRIPT / "front-matter" / "support.md"))
+    support = remove_document_title(read_markdown(MANUSCRIPT / "back-matter" / "feedback-and-support.md"))
     yield BookSection(
         kind="back-matter",
         heading="Feedback and support",
