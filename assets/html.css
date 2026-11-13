@@ -166,6 +166,11 @@ hr {
   .book-navigation { gap: 0.75rem; }
 }
 
+/* Separate the three contents groups with whitespace. */
+.book-contents { list-style: none; padding-left: 0; }
+.book-contents > li:nth-child(5),
+.book-contents > li:last-child { margin-top: 1.5em; }
+
 /* Book mark above the title on the HTML landing page. */
 .book-cover-mark {
   text-align: center;
