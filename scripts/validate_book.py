@@ -77,7 +77,7 @@ def validate_pdf(*, sections) -> None:
     path = DIST_DIR / f"{BOOK}.pdf"
     pdf = PdfReader(path)
     check_requirement(condition=len(pdf.pages) > 1, message="PDF: empty document")
-    text = "\\n".join(page.extract_text() or "" for page in pdf.pages)
+    text = "\n".join(page.extract_text() or "" for page in pdf.pages)
     check_requirement(condition=METADATA["title"] in text, message="PDF: title missing")
     check_requirement(condition=METADATA["author"] in text, message="PDF: author missing")
     check_requirement(condition="Contents" in text, message="PDF: contents missing")
@@ -113,9 +113,9 @@ def validate_pdf(*, sections) -> None:
     # drawing commands rather than looking only for raster images.
     contents = pdf.pages[0].get_contents()
     streams = contents if isinstance(contents, list) else [contents] if contents else []
-    drawing_commands = b"\\n".join(stream.get_object().get_data() for stream in streams)
+    drawing_commands = b"\n".join(stream.get_object().get_data() for stream in streams)
     check_requirement(
-        condition=bool(re.search(rb"(?<!\\S)(?:m|l|c|re)(?!\\S)", drawing_commands)),
+        condition=bool(re.search(rb"(?<!\S)(?:m|l|c|re)(?!\S)", drawing_commands)),
         message="PDF: no title-page vector graphics",
     )
 
