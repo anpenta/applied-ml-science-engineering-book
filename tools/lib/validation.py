@@ -1,169 +1,214 @@
 """Validate generated PDF, EPUB, and HTML editions."""
 
-from __future__ import annotations
-
-import re
+import posixpath
 import zipfile
 from pathlib import Path
 from urllib.parse import unquote, urldefrag
 from xml.etree import ElementTree as ET
 
+from playwright.sync_api import Page, sync_playwright
 from pypdf import PdfReader
-from playwright.sync_api import sync_playwright
 
-from tools.lib.definitions import DIST_DIR, METADATA
-from tools.lib.build import get_html_page_filename, iter_book_sections
+from tools.lib.build import get_html_page_filename
+from tools.lib.definitions import BOOK, DIST_DIR, METADATA, ROOT, BookSection
 
-BOOK = "science-and-engineering-of-applied-machine-learning"
 NS = {
     "c": "urn:oasis:names:tc:opendocument:xmlns:container",
+    "dc": "http://purl.org/dc/elements/1.1/",
     "o": "http://www.idpf.org/2007/opf",
     "x": "http://www.w3.org/1999/xhtml",
 }
+EPUB_TYPE = "{http://www.idpf.org/2007/ops}type"
 
 
-def check_requirement(*, condition: bool, message: str) -> None:
+def require(condition: bool, message: str) -> None:
     if not condition:
-        raise AssertionError(message)
+        raise ValueError(message)
 
 
-def get_expected_sections():
-    return list(iter_book_sections())
+def check_html_layout(page: Page, path: Path, width: int) -> None:
+    page.goto(path.as_uri())
+    has_no_overflow = page.evaluate(
+        "document.documentElement.scrollWidth <= window.innerWidth"
+    )
+    require(has_no_overflow, f"Horizontal overflow on {path.name} at {width}px")
 
 
-def validate_html(*, sections) -> None:
-    pages = [get_html_page_filename(section) for section in sections]
-    screenshots = DIST_DIR.parent / "html-screenshots"
+def check_html_home(page: Page, filenames: list[str], headings: list[str]) -> None:
+    landing = page.locator(".book-landing-title")
+    title = landing.get_by_role("heading", level=1)
+    require(title.count() == 1 and title.inner_text() == METADATA["title"],
+            "Incorrect landing title")
+    require(METADATA["author"] in landing.inner_text(), "Landing author missing")
+    logo = landing.locator(".book-cover-mark img")
+    require(logo.count() == 1 and logo.evaluate("(img) => img.naturalWidth > 0"),
+            "Landing logo did not load")
+    require(page.get_by_role("heading", name="Contents", exact=True).count() == 1,
+            "Contents heading missing")
+    links = page.locator(".book-contents a")
+    require(links.all_inner_texts() == headings, "Incorrect contents labels or order")
+    hrefs = links.evaluate_all("(links) => links.map(link => link.getAttribute('href'))")
+    require(hrefs == filenames, "Incorrect contents destinations or order")
+
+
+def check_html_navigation(page: Page, filenames: list[str], headings: list[str],
+                          chapter: str, screenshot: Path) -> None:
+    home = (DIST_DIR / "index.html").as_uri()
+    toc_link = page.locator(".book-contents a").nth(filenames.index(chapter))
+    toc_link.click()
+    page.wait_for_url((DIST_DIR / chapter).as_uri())
+    page.screenshot(path=screenshot, full_page=True)
+
+    nav = page.get_by_role("navigation", name="Book navigation")
+    nav.get_by_role("link", name="Contents", exact=True).click()
+    page.wait_for_url(home)
+    for filename, heading in zip(filenames, headings, strict=True):
+        nav.get_by_role("link", name="Next", exact=True).click()
+        page.wait_for_url((DIST_DIR / filename).as_uri())
+        require(page.get_by_role("heading", name=heading, level=2, exact=True).count() == 1,
+                f"Incorrect heading on {filename}")
+    require(nav.get_by_role("link", name="Next", exact=True).count() == 0,
+            "Final page has an active Next link")
+
+    for filename in reversed(["index.html", *filenames[:-1]]):
+        nav.get_by_role("link", name="Previous", exact=True).click()
+        page.wait_for_url((DIST_DIR / filename).as_uri())
+    require(nav.get_by_role("link", name="Previous", exact=True).count() == 0,
+            "Homepage has an active Previous link")
+
+
+def validate_html(*, sections: list[BookSection]) -> None:
+    filenames = [get_html_page_filename(section) for section in sections]
+    headings = [
+        f"Chapter {section.chapter_number}: {section.heading}"
+        if section.kind == "chapter" else section.heading
+        for section in sections
+    ]
+    expected = {"index.html", *filenames}
+    actual = {path.name for path in DIST_DIR.glob("*.html")}
+    require(actual == expected,
+            f"Missing pages: {sorted(expected - actual)}; unexpected pages: {sorted(actual - expected)}")
+
+    chapter = next(get_html_page_filename(section) for section in sections
+                   if section.kind == "chapter")
+    screenshots = ROOT / "html-screenshots"
     screenshots.mkdir(exist_ok=True)
     with sync_playwright() as playwright:
         browser = playwright.chromium.launch()
         try:
             for width, label in [(1280, "desktop"), (390, "mobile")]:
-                page = browser.new_page(viewport={"width": width, "height": 900}, device_scale_factor=1)
-                page.goto((DIST_DIR / "index.html").as_uri())
-                check_requirement(condition=page.locator(".book-landing-title h1").count() == 1, message="HTML: expected one landing title")
-                check_requirement(condition=page.locator(".book-landing-title h1").inner_text().strip() == METADATA["title"], message="HTML: incorrect title")
-                check_requirement(condition=METADATA["author"] in page.locator(".book-landing-title").inner_text(), message="HTML: author missing")
-                logo = page.locator(".book-cover-mark img")
-                check_requirement(condition=logo.count() == 1 and logo.evaluate("(img) => img.complete && img.naturalWidth > 0"), message="HTML: logo not loaded")
-                hrefs = page.locator(".book-contents a").evaluate_all("(links) => links.map(link => link.getAttribute('href'))")
-                check_requirement(condition=hrefs == pages, message="HTML: contents order differs from manuscript")
-                check_requirement(condition=page.evaluate("document.documentElement.scrollWidth <= window.innerWidth"), message=f"HTML: horizontal overflow on index.html ({label})")
-                page.screenshot(path=str(screenshots / f"home-{label}.png"), full_page=True)
-                page.locator(".book-contents").screenshot(path=str(screenshots / f"contents-{label}.png"))
-                for index, filename in enumerate(pages):
-                    page.goto((DIST_DIR / filename).as_uri())
-                    expected = sections[index]
-                    heading = f"Chapter {expected.chapter_number}: {expected.heading}" if expected.kind == "chapter" else expected.heading
-                    check_requirement(condition=page.get_by_role("heading", name=heading, exact=True).count() == 1, message=f"HTML: wrong heading on {filename}")
-                    check_requirement(condition=page.evaluate("document.documentElement.scrollWidth <= window.innerWidth"), message=f"HTML: horizontal overflow on {filename} ({label})")
-                    nav = page.locator("nav.book-navigation")
-                    check_requirement(condition=nav.count() == 1, message=f"HTML: missing navigation on {filename}")
-                    previous = "index.html" if index == 0 else pages[index - 1]
-                    check_requirement(condition=nav.get_by_text("Previous", exact=True).get_attribute("href") == previous, message=f"HTML: wrong Previous on {filename}")
-                    next_link = nav.get_by_role("link", name="Next")
-                    if index + 1 < len(pages):
-                        check_requirement(condition=next_link.get_attribute("href") == pages[index + 1], message=f"HTML: wrong Next on {filename}")
-                    else:
-                        check_requirement(condition=next_link.count() == 0, message="HTML: final page has an active Next link")
-                page.goto((DIST_DIR / "index.html").as_uri())
-                page.locator("nav.book-navigation").get_by_role("link", name="Next").click()
-                check_requirement(condition=page.url.endswith("/" + pages[0]), message="HTML: landing Next navigation failed")
-                page.locator("nav.book-navigation").get_by_role("link", name="Contents").click()
-                check_requirement(condition=page.url.endswith("/index.html"), message="HTML: Contents navigation failed")
-                representative = next((p for p, s in zip(pages, sections) if s.kind == "chapter"), pages[0])
-                page.goto((DIST_DIR / representative).as_uri())
-                page.screenshot(path=str(screenshots / f"chapter-{label}.png"), full_page=True)
+                page = browser.new_page(viewport={"width": width, "height": 900})
+                page.set_default_timeout(5000)
+                for filename in filenames:
+                    check_html_layout(page, DIST_DIR / filename, width)
+                check_html_layout(page, DIST_DIR / "index.html", width)
+                check_html_home(page, filenames, headings)
+                page.screenshot(path=screenshots / f"home-{label}.png", full_page=True)
+                page.locator(".book-contents").screenshot(
+                    path=screenshots / f"contents-{label}.png"
+                )
+                check_html_navigation(page, filenames, headings, chapter,
+                                      screenshots / f"chapter-{label}.png")
                 page.close()
         finally:
             browser.close()
 
 
-def validate_pdf(*, sections) -> None:
-    path = DIST_DIR / f"{BOOK}.pdf"
-    pdf = PdfReader(path)
-    check_requirement(condition=len(pdf.pages) > 1, message="PDF: empty document")
-    text = "\n".join(page.extract_text() or "" for page in pdf.pages)
-    check_requirement(condition=METADATA["title"] in text, message="PDF: title missing")
-    check_requirement(condition=METADATA["author"] in text, message="PDF: author missing")
-    check_requirement(condition="Contents" in text, message="PDF: contents missing")
-    bookmarks = []
+def check_pdf_outline(pdf: PdfReader, sections: list[BookSection]) -> None:
+    headings = ["Contents", *(
+        f"{section.chapter_number} {section.heading}"
+        if section.kind == "chapter" else section.heading
+        for section in sections
+    )]
+    bookmarks = iter(item for item in pdf.outline if not isinstance(item, list))
+    for heading in headings:
+        bookmark = next((item for item in bookmarks if item.title == heading), None)
+        require(bookmark is not None, f"Missing or out-of-order bookmark: {heading}")
+        page_number = pdf.get_destination_page_number(bookmark)
+        require(page_number is not None and 0 <= page_number < len(pdf.pages),
+                f"Invalid bookmark destination: {heading}")
 
-    def collect_bookmarks(*, items):
-        for item in items:
-            if isinstance(item, list):
-                collect_bookmarks(items=item)
-            else:
-                bookmarks.append(item.title)
 
-    collect_bookmarks(items=pdf.outline)
+def validate_pdf(*, sections: list[BookSection]) -> None:
+    pdf = PdfReader(DIST_DIR / f"{BOOK}.pdf")
+    require(len(pdf.pages) > 1, "Empty document")
+    require(pdf.metadata.title == METADATA["title"], "Incorrect title metadata")
+    require(pdf.metadata.author == METADATA["author"], "Incorrect author metadata")
+    cover = pdf.pages[0]
+    text = " ".join((cover.extract_text() or "").split())
+    for value in (METADATA["title"], METADATA["author"]):
+        require(value in text, f"Missing from title page: {value}")
+    resources = cover["/Resources"].get("/XObject")
+    require(resources and any(
+        obj.get_object().get("/Subtype") in {"/Form", "/Image"}
+        for obj in resources.get_object().values()
+    ), "Title-page logo graphic missing")
+
+    check_pdf_outline(pdf, sections)
+    links = [
+        ref.get_object()
+        for page in pdf.pages
+        for ref in page.get("/Annots", [])
+        if ref.get_object().get("/Subtype") == "/Link"
+    ]
+    require(any("/Dest" in link or link.get("/A", {}).get("/S") == "/GoTo"
+                for link in links), "Internal navigation links missing")
+    require(any(link.get("/A", {}).get("/S") == "/URI" for link in links),
+            "External links missing")
+
+
+def epub_resource(document: str, href: str) -> str:
+    path = unquote(urldefrag(href)[0])
+    return posixpath.normpath(posixpath.join(posixpath.dirname(document), path))
+
+
+def check_epub_navigation(epub: zipfile.ZipFile, nav_path: str,
+                          sections: list[BookSection]) -> list[str]:
+    document = ET.fromstring(epub.read(nav_path))
+    toc = next((node for node in document.findall(".//x:nav", NS)
+                if node.get(EPUB_TYPE) == "toc"), None)
+    require(toc is not None, "Contents navigation missing")
+    require(toc.findtext("x:h1", namespaces=NS) == "Contents",
+            "Contents heading missing")
+    entries = toc.findall("x:ol/x:li/x:a", NS)
     expected = [
-        section.heading if section.kind != "chapter"
-        else f"{section.chapter_number} {section.heading}"
+        f"Chapter {section.chapter_number} — {section.heading}"
+        if section.kind == "chapter" else section.heading
         for section in sections
     ]
-    bookmark_index = 0
-    for heading in expected:
-        while bookmark_index < len(bookmarks) and bookmarks[bookmark_index] != heading:
-            bookmark_index += 1
-        check_requirement(
-            condition=bookmark_index < len(bookmarks),
-            message=f"PDF: missing or out-of-order bookmark {heading}",
-        )
-        bookmark_index += 1
-    check_requirement(
-        condition=any("/Annots" in page for page in pdf.pages),
-        message="PDF: no navigation links",
-    )
-    # The SVG logo is rendered as vector paths; inspect the title page's
-    # drawing commands rather than looking only for raster images.
-    contents = pdf.pages[0].get_contents()
-    streams = contents if isinstance(contents, list) else [contents] if contents else []
-    drawing_commands = b"\n".join(stream.get_object().get_data() for stream in streams)
-    check_requirement(
-        condition=bool(re.search(rb"(?<!\S)(?:m|l|c|re)(?!\S)", drawing_commands)),
-        message="PDF: no title-page vector graphics",
-    )
+    actual = [" ".join("".join(entry.itertext()).split()) for entry in entries]
+    require(actual == expected, f"Incorrect contents labels or order: {actual!r}")
+    return [epub_resource(nav_path, entry.attrib["href"]) for entry in entries]
 
 
-def validate_epub(*, sections) -> None:
-    path = DIST_DIR / f"{BOOK}.epub"
-    with zipfile.ZipFile(path) as epub:
-        names = set(epub.namelist()
-        )
+def validate_epub(*, sections: list[BookSection]) -> None:
+    with zipfile.ZipFile(DIST_DIR / f"{BOOK}.epub") as epub:
         container = ET.fromstring(epub.read("META-INF/container.xml"))
         rootfile = container.find(".//c:rootfile", NS)
-        check_requirement(condition=rootfile is not None, message="EPUB: missing package rootfile")
+        require(rootfile is not None, "Package rootfile missing")
         opf_path = rootfile.attrib["full-path"]
         package = ET.fromstring(epub.read(opf_path))
-        base = str(Path(opf_path).parent)
-        def resolve_resource_path(*, href: str) -> str:
-            return str(Path(base, unquote(urldefrag(href)[0]))) if base != "." else unquote(urldefrag(href)[0])
-        titles = [e.text for e in package.findall(".//{http://purl.org/dc/elements/1.1/}title")]
-        creators = [e.text for e in package.findall(".//{http://purl.org/dc/elements/1.1/}creator")]
-        check_requirement(condition=any(METADATA["title"] in (title or "") for title in titles), message="EPUB: incorrect title metadata")
-        check_requirement(condition=METADATA["author"] in creators, message="EPUB: incorrect author metadata")
-        manifest = {item.attrib["id"]: item for item in package.findall(".//o:manifest/o:item", NS)}
-        spine = [item.attrib["idref"] for item in package.findall(".//o:spine/o:itemref", NS)]
-        check_requirement(condition=all(item in manifest for item in spine), message="EPUB: invalid spine reference")
-        nav = next((item for item in manifest.values() if "nav" in item.attrib.get("properties", "").split()), None)
-        check_requirement(condition=nav is not None, message="EPUB: navigation document missing")
-        nav_root = ET.fromstring(epub.read(resolve_resource_path(href=nav.attrib["href"])))
-        toc = next((node for node in nav_root.findall(".//x:nav", NS) if node.attrib.get("{http://www.idpf.org/2007/ops}type") == "toc"), None)
-        check_requirement(condition=toc is not None, message="EPUB: table of contents missing")
-        labels = [" ".join(a.itertext()).strip() for a in toc.findall(".//x:a", NS)]
-        chapter_labels = [label for label in labels if "Chapter " in label]
-        expected = [f"Chapter {s.chapter_number}" for s in sections if s.kind == "chapter"]
-        check_requirement(condition=len(chapter_labels) == len(expected), message="EPUB: wrong chapter count in contents")
-        for label, prefix in zip(chapter_labels, expected):
-            check_requirement(condition=label.startswith(prefix), message=f"EPUB: wrong contents entry: {label}")
-            check_requirement(condition=not re.match(r"^\d+[.\s]+Chapter ", label), message=f"EPUB: unwanted numbering: {label}")
-        for anchor in toc.findall(".//x:a", NS):
-            target = resolve_resource_path(href=anchor.attrib.get("href", ""))
-            check_requirement(condition=target in names, message=f"EPUB: broken contents target {target}")
-        xhtml = [resolve_resource_path(href=item.attrib["href"]) for item in manifest.values() if item.attrib.get("media-type") == "application/xhtml+xml"]
-        logo_files = {resolve_resource_path(href=item.attrib["href"]) for item in manifest.values() if "applied-ml-mark" in item.attrib.get("href", "")}
-        check_requirement(condition=logo_files and logo_files <= names, message="EPUB: logo resource missing")
-        check_requirement(condition=any("applied-ml-mark" in epub.read(name).decode("utf-8") for name in xhtml if name in names), message="EPUB: logo not referenced by content")
+        for tag, key in (("title", "title"), ("creator", "author"), ("language", "lang")):
+            value = package.findtext(f"o:metadata/dc:{tag}", default="", namespaces=NS)
+            require(value.strip() == METADATA[key], f"Incorrect {tag} metadata: {value!r}")
 
+        items = package.findall("o:manifest/o:item", NS)
+        paths = {item.attrib["id"]: epub_resource(opf_path, item.attrib["href"])
+                 for item in items}
+        nav = next((item for item in items if "nav" in item.get("properties", "").split()),
+                   None)
+        require(nav is not None, "Navigation document missing")
+        nav_path = paths[nav.attrib["id"]]
+        toc_paths = check_epub_navigation(epub, nav_path, sections)
+        spine = [paths[item.attrib["idref"]] for item in package.findall("o:spine/o:itemref", NS)]
+        require(spine[1:] == [nav_path, *toc_paths],
+                "Reading order must be title page, contents, then manuscript sections")
 
+        cover = ET.fromstring(epub.read(spine[0]))
+        title_page = cover.find(f".//x:section[@{EPUB_TYPE}='titlepage']", NS)
+        require(title_page is not None, "Title page missing from start of reading order")
+        logo = title_page.find(".//x:img", NS)
+        require(logo is not None, "Title-page logo missing")
+        logo_path = epub_resource(spine[0], logo.attrib["src"])
+        require(epub.read(logo_path) == (ROOT / "assets/applied-ml-mark.png").read_bytes(),
+                f"Incorrect title-page logo: {logo_path}")

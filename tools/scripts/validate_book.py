@@ -2,19 +2,22 @@
 """Validate generated book editions."""
 
 import sys
-from tools.lib.validation import get_expected_sections, validate_html, validate_pdf, validate_epub
+
+from tools.lib.build import iter_book_sections
+from tools.lib.validation import validate_epub, validate_html, validate_pdf
+
 
 def main() -> int:
-    sections = get_expected_sections()
-    failures = []
+    sections = list(iter_book_sections())
+    failed = False
     for name, validate in [("HTML", validate_html), ("PDF", validate_pdf), ("EPUB", validate_epub)]:
         try:
             validate(sections=sections)
             print(f"{name}: PASS")
         except Exception as error:
-            failures.append(f"{name}: {error}")
+            failed = True
             print(f"{name}: FAIL — {error}", file=sys.stderr)
-    return 1 if failures else 0
+    return int(failed)
 
 
 if __name__ == "__main__":

@@ -7,6 +7,7 @@ from typing import NamedTuple
 ROOT = Path(__file__).resolve().parents[2]
 MANUSCRIPT = ROOT / "manuscript"
 DIST_DIR = ROOT / "dist"
+BOOK = "science-and-engineering-of-applied-machine-learning"
 METADATA = json.loads((ROOT / "metadata.json").read_text(encoding="utf-8"))
 
 FRONT_MATTER = [
@@ -19,6 +20,7 @@ FRONT_MATTER = [
 BACK_MATTER = [
     ("feedback-and-support.md", "Feedback and support"),
 ]
+
 
 class BookSection(NamedTuple):
     kind: str

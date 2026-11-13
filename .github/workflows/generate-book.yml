@@ -47,7 +47,7 @@ jobs:
       - name: Install system build dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install --yes texlive-xetex texlive-latex-extra librsvg2-bin default-jre-headless unzip zip
+          sudo apt-get install --yes texlive-xetex texlive-latex-extra librsvg2-bin
 
       - name: Install Pandoc
         run: |
@@ -150,6 +150,7 @@ jobs:
       - name: Ensure release is new
         env:
           GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
         run: |
           if gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1; then
             echo "Release $GITHUB_REF_NAME already exists. Published book versions are immutable; create a new version tag."
