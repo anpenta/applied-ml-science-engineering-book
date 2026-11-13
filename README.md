@@ -26,6 +26,6 @@ Citation metadata is available in [CITATION.cff](CITATION.cff). You can also use
 
 ## Support
 
-If you find the book useful, consider sharing it with others or [starring its repository](https://github.com/anpenta/applied-ml-science-engineering-book).
+If you find the book useful, consider sharing it with others or [starring its GitHub repository](https://github.com/anpenta/applied-ml-science-engineering-book).
 
 You can also support my work by [buying me a coffee](https://buymeacoffee.com/anpenta). Contributions are entirely voluntary. The book remains freely available to read.
