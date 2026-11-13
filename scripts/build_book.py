@@ -142,7 +142,7 @@ def iter_book_sections() -> Iterator[BookSection]:
 
 
 def build_pdf_source() -> str:
-    sections = [r"\frontmatter", ""]
+    sections = [r"\frontmatter", "", r"\tableofcontents", r"\clearpage", ""]
 
     for section in iter_book_sections():
         if section.kind == "front-matter":
@@ -160,8 +160,6 @@ def build_pdf_source() -> str:
         elif section.kind == "introduction":
             sections.extend(
                 [
-                    r"\tableofcontents",
-                    "",
                     r"\mainmatter",
                     r"\setcounter{secnumdepth}{0}",
                     r"\chapter*{Introduction}",
