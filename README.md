@@ -14,7 +14,7 @@ Read the book [online in HTML](https://anpenta.github.io/applied-ml-science-engi
 
 ## Feedback
 
-Found an error or have a suggestion? Open a [GitHub issue](https://github.com/anpenta/applied-ml-science-engineering-book/issues). Please include the relevant chapter and section, along with an explanation or supporting source where appropriate.
+If you find an error or have a suggestion for improving the book, please [open a GitHub issue](https://github.com/anpenta/applied-ml-science-engineering-book/issues). Include the relevant chapter and section, along with an explanation or supporting source where appropriate.
 
 ## License
 
@@ -26,6 +26,6 @@ Citation metadata is available in [CITATION.cff](CITATION.cff). You can also use
 
 ## Support
 
-If you find the book useful, you can support its continued development by [buying me a coffee](https://buymeacoffee.com/anpenta). Contributions are entirely voluntary. The book remains freely available to read.
+If you find the book useful, you can help others discover it by sharing it or starring this repository.
 
-You can also help others discover the book by sharing it or starring this repository.
+You can also support the book by [buying me a coffee](https://buymeacoffee.com/anpenta). Contributions are voluntary, and the book remains freely available to read.
