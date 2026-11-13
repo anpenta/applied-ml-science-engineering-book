@@ -81,15 +81,21 @@ def validate_pdf(*, sections) -> None:
         check_requirement(condition=METADATA["title"] in text, message="PDF: title missing")
         check_requirement(condition=METADATA["author"] in text, message="PDF: author missing")
         check_requirement(condition="Contents" in text, message="PDF: contents missing")
-        positions = []
-        for section in sections:
-            heading = section.heading
-            if section.kind == "chapter":
-                heading = f"Chapter {section.chapter_number}"
-            position = text.find(heading)
-            check_requirement(condition=position >= 0, message=f"PDF: missing section {heading}")
-            positions.append(position)
-        check_requirement(condition=positions == sorted(positions), message="PDF: sections out of order")
+        bookmarks = [title for _, title, _, *_ in pdf.get_toc()]
+        expected = [
+            section.heading if section.kind != "chapter"
+            else f"{section.chapter_number} {section.heading}"
+            for section in sections
+        ]
+        bookmark_index = 0
+        for heading in expected:
+            while bookmark_index < len(bookmarks) and bookmarks[bookmark_index] != heading:
+                bookmark_index += 1
+            check_requirement(
+                condition=bookmark_index < len(bookmarks),
+                message=f"PDF: missing or out-of-order bookmark {heading}",
+            )
+            bookmark_index += 1
         check_requirement(condition=any(page.get_links() for page in pdf), message="PDF: no navigation links")
         # The SVG logo is converted to vector paths, not necessarily a raster image.
         check_requirement(condition=bool(pdf[0].get_drawings()) or bool(pdf[0].get_images()), message="PDF: no title-page logo graphics")
