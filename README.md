@@ -14,7 +14,7 @@ Read the book [online in HTML](https://anpenta.github.io/applied-ml-science-engi
 
 ## Feedback
 
-Found an error or have a suggestion? Open a [GitHub Issue](https://github.com/anpenta/applied-ml-science-engineering-book/issues) or submit a pull request. Please include the relevant chapter and section, along with an explanation or supporting source where appropriate.
+Found an error or have a suggestion? Open a [GitHub issue](https://github.com/anpenta/applied-ml-science-engineering-book/issues). Please include the relevant chapter and section, along with an explanation or supporting source where appropriate.
 
 ## License
 
