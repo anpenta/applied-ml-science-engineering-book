@@ -26,6 +26,10 @@ FRONT_MATTER = [
     ("use-of-ai-tools.md", "Use of AI tools"),
 ]
 
+BACK_MATTER = [
+    ("feedback-and-support.md", "Feedback and support"),
+]
+
 def chapter_files() -> list[Path]:
     """Find numbered chapters in order and reject missing or repeated numbers."""
     directory = MANUSCRIPT / "chapters"
@@ -128,13 +132,13 @@ def iter_book_sections() -> Iterator[BookSection]:
         chapter_number=None,
     )
 
-    support = remove_document_title(read_markdown(MANUSCRIPT / "back-matter" / "feedback-and-support.md"))
-    yield BookSection(
-        kind="back-matter",
-        heading="Feedback and support",
-        body=support,
-        chapter_number=None,
-    )
+    for filename, heading in BACK_MATTER:
+        body = remove_document_title(
+            read_markdown(MANUSCRIPT / "back-matter" / filename)
+        )
+        yield BookSection(
+            kind="back-matter", heading=heading, body=body, chapter_number=None
+        )
 
 
 def build_pdf_source() -> str:
@@ -307,7 +311,7 @@ def run_pandoc(source: str, output: Path, *, edition: str, homepage: bool = Fals
 def get_html_page_filename(section: BookSection) -> str:
     if section.kind == "chapter":
         return f"chapter-{section.chapter_number:02d}.html"
-    if section.kind == "front-matter":
+    if section.kind in ("front-matter", "back-matter"):
         slug = re.sub(r"[^a-z0-9]+", "-", section.heading.lower()).strip("-")
         return f"{slug}.html"
     return f"{section.kind}.html"
