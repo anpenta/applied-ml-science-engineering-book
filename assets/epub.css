@@ -6,7 +6,7 @@ table { border-collapse: collapse; }
 th, td { border: 1px solid #dce3e9; padding: 0.4em; }
 pre, table { max-width: 100%; }
 /* Separate the three contents groups with whitespace. */
-nav#toc > ol > li:nth-child(5), nav#toc > ol > li:last-child { margin-top: 1em; }
+nav#toc ol { list-style: none; padding-left: 0; }\nnav#toc ol ol { padding-left: 1.5em; }\nnav#toc > ol > li:nth-child(5), nav#toc > ol > li:last-child { margin-top: 1em; }
 section.titlepage { text-align: center !important; }
 section.titlepage h1.title { text-align: center !important; }
 section.titlepage h1.title img { display: block; width: 265px; max-width: 100%; height: auto; margin: 0 auto 1.5em; }
