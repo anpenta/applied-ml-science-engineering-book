@@ -10,7 +10,7 @@ from pathlib import Path
 from urllib.parse import unquote, urldefrag
 from xml.etree import ElementTree as ET
 
-import fitz
+from pypdf import PdfReader
 from playwright.sync_api import sync_playwright
 
 from build_book import DIST_DIR, METADATA, get_html_page_filename, iter_book_sections
@@ -75,30 +75,49 @@ def validate_html(*, sections) -> None:
 
 def validate_pdf(*, sections) -> None:
     path = DIST_DIR / f"{BOOK}.pdf"
-    with fitz.open(path) as pdf:
-        check_requirement(condition=len(pdf) > 1, message="PDF: empty document")
-        text = "\n".join(page.get_text() for page in pdf)
-        check_requirement(condition=METADATA["title"] in text, message="PDF: title missing")
-        check_requirement(condition=METADATA["author"] in text, message="PDF: author missing")
-        check_requirement(condition="Contents" in text, message="PDF: contents missing")
-        bookmarks = [title for _, title, _, *_ in pdf.get_toc()]
-        expected = [
-            section.heading if section.kind != "chapter"
-            else f"{section.chapter_number} {section.heading}"
-            for section in sections
-        ]
-        bookmark_index = 0
-        for heading in expected:
-            while bookmark_index < len(bookmarks) and bookmarks[bookmark_index] != heading:
-                bookmark_index += 1
-            check_requirement(
-                condition=bookmark_index < len(bookmarks),
-                message=f"PDF: missing or out-of-order bookmark {heading}",
-            )
+    pdf = PdfReader(path)
+    check_requirement(condition=len(pdf.pages) > 1, message="PDF: empty document")
+    text = "\\n".join(page.extract_text() or "" for page in pdf.pages)
+    check_requirement(condition=METADATA["title"] in text, message="PDF: title missing")
+    check_requirement(condition=METADATA["author"] in text, message="PDF: author missing")
+    check_requirement(condition="Contents" in text, message="PDF: contents missing")
+    bookmarks = []
+
+    def collect_bookmarks(*, items):
+        for item in items:
+            if isinstance(item, list):
+                collect_bookmarks(items=item)
+            else:
+                bookmarks.append(item.title)
+
+    collect_bookmarks(items=pdf.outline)
+    expected = [
+        section.heading if section.kind != "chapter"
+        else f"{section.chapter_number} {section.heading}"
+        for section in sections
+    ]
+    bookmark_index = 0
+    for heading in expected:
+        while bookmark_index < len(bookmarks) and bookmarks[bookmark_index] != heading:
             bookmark_index += 1
-        check_requirement(condition=any(page.get_links() for page in pdf), message="PDF: no navigation links")
-        # The SVG logo is converted to vector paths, not necessarily a raster image.
-        check_requirement(condition=bool(pdf[0].get_drawings()) or bool(pdf[0].get_images()), message="PDF: no title-page logo graphics")
+        check_requirement(
+            condition=bookmark_index < len(bookmarks),
+            message=f"PDF: missing or out-of-order bookmark {heading}",
+        )
+        bookmark_index += 1
+    check_requirement(
+        condition=any("/Annots" in page for page in pdf.pages),
+        message="PDF: no navigation links",
+    )
+    # The SVG logo is rendered as vector paths; inspect the title page's
+    # drawing commands rather than looking only for raster images.
+    contents = pdf.pages[0].get_contents()
+    streams = contents if isinstance(contents, list) else [contents] if contents else []
+    drawing_commands = b"\\n".join(stream.get_object().get_data() for stream in streams)
+    check_requirement(
+        condition=bool(re.search(rb"(?<!\\S)(?:m|l|c|re)(?!\\S)", drawing_commands)),
+        message="PDF: no title-page vector graphics",
+    )
 
 
 def validate_epub(*, sections) -> None:
