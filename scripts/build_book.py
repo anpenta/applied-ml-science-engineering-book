@@ -24,7 +24,6 @@ FRONT_MATTER = [
     ("dedication.md", "Dedication"),
     ("acknowledgements.md", "Acknowledgments"),
     ("use-of-ai-tools.md", "Use of AI tools"),
-    ("support.md", "Support"),
 ]
 
 def chapter_files() -> list[Path]:
@@ -129,6 +128,14 @@ def iter_book_sections() -> Iterator[BookSection]:
         chapter_number=None,
     )
 
+    support = remove_document_title(read_markdown(MANUSCRIPT / "front-matter" / "support.md"))
+    yield BookSection(
+        kind="back-matter",
+        heading="Feedback and support",
+        body=support,
+        chapter_number=None,
+    )
+
 
 def build_pdf_source() -> str:
     sections = [r"\frontmatter", ""]
@@ -154,6 +161,7 @@ def build_pdf_source() -> str:
                     r"\mainmatter",
                     r"\setcounter{secnumdepth}{0}",
                     r"\chapter*{Introduction}",
+                    r"\addtocontents{toc}{\protect\vspace{\baselineskip}}",
                     r"\addcontentsline{toc}{chapter}{Introduction}",
                     r"\markboth{Introduction}{}",
                     "",
@@ -179,6 +187,18 @@ def build_pdf_source() -> str:
                     r"\chapter*{Conclusion}",
                     r"\addcontentsline{toc}{chapter}{Conclusion}",
                     r"\setcounter{secnumdepth}{0}",
+                    "",
+                    section.body,
+                    "",
+                ]
+            )
+        elif section.kind == "back-matter":
+            escaped_heading = escape_tex(section.heading)
+            sections.extend(
+                [
+                    rf"\chapter*{{{escaped_heading}}}",
+                    r"\addtocontents{toc}{\protect\vspace{\baselineskip}}",
+                    rf"\addcontentsline{{toc}}{{chapter}}{{{escaped_heading}}}",
                     "",
                     section.body,
                     "",
@@ -331,7 +351,7 @@ def build_html() -> None:
         toc_items.append(
             f'<li><a href="{filename}">{html.escape(label)}</a></li>'
         )
-    contents = "<ol>" + "\n".join(toc_items) + "</ol>"
+    contents = '<ul class="book-contents">' + "\n".join(toc_items) + "</ul>"
 
     landing = (
         '<div class="book-landing-title">\n'
