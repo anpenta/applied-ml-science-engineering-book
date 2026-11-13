@@ -142,7 +142,7 @@ def iter_book_sections() -> Iterator[BookSection]:
 
 
 def build_pdf_source() -> str:
-    sections = [r"\frontmatter", ""]
+    sections = [r"\frontmatter", "", r"\tableofcontents", r"\clearpage", ""]
 
     for section in iter_book_sections():
         if section.kind == "front-matter":
@@ -160,8 +160,6 @@ def build_pdf_source() -> str:
         elif section.kind == "introduction":
             sections.extend(
                 [
-                    r"\tableofcontents",
-                    "",
                     r"\mainmatter",
                     r"\setcounter{secnumdepth}{0}",
                     r"\chapter*{Introduction}",
@@ -298,6 +296,10 @@ def run_pandoc(source: str, output: Path, *, edition: str, homepage: bool = Fals
                 pandoc,
                 f"--defaults={ROOT / 'defaults' / f'{edition}.yaml'}",
                 f"--metadata-file={ROOT / 'metadata.json'}",
+                *(
+                    ["--metadata=title:", f"--metadata=pagetitle:{METADATA['title']}"]
+                    if edition == "html" else []
+                ),
                 *([f"--include-in-header={homepage_header}"] if homepage else []),
                 "--output",
                 str(output),
