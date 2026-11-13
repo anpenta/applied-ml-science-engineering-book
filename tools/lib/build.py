@@ -1,36 +1,20 @@
-#!/usr/bin/env python3
-"""Build the PDF, EPUB, and HTML editions of the canonical book."""
+"""Build the PDF, EPUB, and HTML editions of the book."""
 
 from __future__ import annotations
 
-import argparse
 import html
-import json
 import re
 import shutil
 import subprocess
 import tempfile
 from collections.abc import Iterator
 from pathlib import Path
-from typing import NamedTuple
 
-ROOT = Path(__file__).resolve().parents[1]
-MANUSCRIPT = ROOT / "manuscript"
-DIST_DIR = ROOT / "dist"
-METADATA = json.loads((ROOT / "metadata.json").read_text(encoding="utf-8"))
+from tools.lib.definitions import (
+    BACK_MATTER, FRONT_MATTER, BookSection, DIST_DIR, MANUSCRIPT, METADATA, ROOT,
+)
 
-FRONT_MATTER = [
-    ("copyright-and-licence.md", "Copyright and license"),
-    ("dedication.md", "Dedication"),
-    ("acknowledgements.md", "Acknowledgments"),
-    ("use-of-ai-tools.md", "Use of AI tools"),
-]
-
-BACK_MATTER = [
-    ("feedback-and-support.md", "Feedback and support"),
-]
-
-def chapter_files() -> list[Path]:
+def get_chapter_files() -> list[Path]:
     """Find numbered chapters in order and reject missing or repeated numbers."""
     directory = MANUSCRIPT / "chapters"
     files = sorted(directory.glob("*.md"))
@@ -46,7 +30,6 @@ def chapter_files() -> list[Path]:
         )
     return files
 
-
 def read_markdown(path: Path) -> str:
     text = path.read_text(encoding="utf-8")
     text = re.sub(
@@ -58,10 +41,8 @@ def read_markdown(path: Path) -> str:
     )
     return text.strip()
 
-
 def remove_document_title(text: str) -> str:
     return re.sub(pattern=r"\A#\s+.+\n+", repl="", string=text, count=1)
-
 
 def escape_tex(value: str) -> str:
     replacements = {
@@ -76,20 +57,11 @@ def escape_tex(value: str) -> str:
     }
     return "".join(replacements.get(char, char) for char in value)
 
-
 def extract_chapter_title(text: str) -> str:
     match = re.search(pattern=r"\A#\s+(.+)", string=text)
     if not match:
         raise ValueError("A chapter is missing its level-one title heading.")
     return match.group(1).strip()
-
-
-class BookSection(NamedTuple):
-    kind: str
-    heading: str
-    body: str
-    chapter_number: int | None
-
 
 def iter_book_sections() -> Iterator[BookSection]:
     """Yield the complete book in its canonical publication order."""
@@ -111,7 +83,7 @@ def iter_book_sections() -> Iterator[BookSection]:
         chapter_number=None,
     )
 
-    for path in chapter_files():
+    for path in get_chapter_files():
         chapter_number = int(path.name[:2])
         body = read_markdown(path)
         heading = extract_chapter_title(body)
@@ -139,7 +111,6 @@ def iter_book_sections() -> Iterator[BookSection]:
         yield BookSection(
             kind="back-matter", heading=heading, body=body, chapter_number=None
         )
-
 
 def build_pdf_source() -> str:
     sections = [r"\frontmatter", "", r"\tableofcontents", r"\clearpage", ""]
@@ -209,7 +180,6 @@ def build_pdf_source() -> str:
 
     return "\n\n".join(sections) + "\n"
 
-
 def build_markdown_source() -> str:
     """Render the canonical book sections as Markdown for EPUB."""
     sections: list[str] = []
@@ -223,8 +193,6 @@ def build_markdown_source() -> str:
         sections.extend([markdown_heading, "", section.body, ""])
     return "\n".join(sections)
 
-
-
 def build_epub_source() -> str:
     """Provide a native Pandoc title page with a parsed image and plain book text."""
     title = METADATA["title"]
@@ -234,7 +202,6 @@ def build_epub_source() -> str:
         "---\n\n"
     )
     return title_metadata + build_markdown_source()
-
 
 def convert_book_mark_to_pdf() -> None:
     """Convert the SVG book mark for inclusion in the PDF edition."""
@@ -260,7 +227,6 @@ def convert_book_mark_to_pdf() -> None:
         check=True,
     )
 
-
 def build_homepage_metadata() -> str:
     """Generate homepage metadata from the publication records."""
     fields = (
@@ -275,7 +241,6 @@ def build_homepage_metadata() -> str:
     canonical = html.escape(METADATA["url"], quote=True)
     tags.append(f'<link rel="canonical" href="{canonical}" />')
     return "\n".join(tags) + "\n"
-
 
 def run_pandoc(source: str, output: Path, *, edition: str, homepage: bool = False) -> None:
     pandoc = shutil.which("pandoc")
@@ -309,7 +274,6 @@ def run_pandoc(source: str, output: Path, *, edition: str, homepage: bool = Fals
             check=True,
         )
 
-
 def get_html_page_filename(section: BookSection) -> str:
     if section.kind == "chapter":
         return f"chapter-{section.chapter_number:02d}.html"
@@ -317,7 +281,6 @@ def get_html_page_filename(section: BookSection) -> str:
         slug = re.sub(r"[^a-z0-9]+", "-", section.heading.lower()).strip("-")
         return f"{slug}.html"
     return f"{section.kind}.html"
-
 
 def build_html_navigation(
     previous: str | None, following: str | None, *, on_contents: bool = False
@@ -338,7 +301,6 @@ def build_html_navigation(
         + "".join(controls)
         + "</nav>"
     )
-
 
 def build_html() -> None:
     """Create a navigable HTML site, one document per book section."""
@@ -385,40 +347,3 @@ def build_html() -> None:
 
     print(f"HTML edition written to {DIST_DIR} ({len(pages) + 1} pages)")
 
-
-def main() -> None:
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument(
-        "--format",
-        choices=("pdf", "epub", "html", "all"),
-        default="all",
-        help="Which publication format to build.",
-    )
-    args = parser.parse_args()
-
-    DIST_DIR.mkdir(parents=True, exist_ok=True)
-
-    if args.format in ("pdf", "all"):
-        pdf_path = (
-            DIST_DIR / "science-and-engineering-of-applied-machine-learning.pdf"
-        )
-        run_pandoc(
-            source=build_pdf_source(), output=pdf_path, edition="pdf"
-        )
-
-    if args.format in ("epub", "all"):
-        epub_path = (
-            DIST_DIR / "science-and-engineering-of-applied-machine-learning.epub"
-        )
-        run_pandoc(
-            source=build_epub_source(), output=epub_path, edition="epub"
-        )
-
-    if args.format in ("html", "all"):
-        build_html()
-
-    print(f"Publication files written to {DIST_DIR}")
-
-
-if __name__ == "__main__":
-    main()
