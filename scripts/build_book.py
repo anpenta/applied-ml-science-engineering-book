@@ -298,6 +298,10 @@ def run_pandoc(source: str, output: Path, *, edition: str, homepage: bool = Fals
                 pandoc,
                 f"--defaults={ROOT / 'defaults' / f'{edition}.yaml'}",
                 f"--metadata-file={ROOT / 'metadata.json'}",
+                *(
+                    ["--metadata=title:", f"--metadata=pagetitle:{METADATA['title']}"]
+                    if edition == "html" else []
+                ),
                 *([f"--include-in-header={homepage_header}"] if homepage else []),
                 "--output",
                 str(output),
