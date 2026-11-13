@@ -16,7 +16,7 @@ permissions:
 
 jobs:
   build:
-    name: Build and validate editions
+    name: Build book
     runs-on: ubuntu-24.04
     steps:
       - name: Check out repository
@@ -62,7 +62,40 @@ jobs:
           pandoc --version
 
       - name: Build book editions
-        run: python scripts/build_book.py --format all
+        run: python -m tools.scripts.build_book --format all
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v7
+        with:
+          name: book-build-${{ github.run_id }}-${{ github.sha }}
+          path: dist/
+          if-no-files-found: error
+          retention-days: 30
+
+
+  validate:
+    name: Validate book
+    needs: build
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v8
+        with:
+          name: book-build-${{ github.run_id }}-${{ github.sha }}
+          path: dist/
+
+      - name: Install EPUBCheck runtime
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes default-jre-headless unzip
 
       - name: Check HTML links and fragments
         uses: lycheeverse/lychee-action@v2.9.0
@@ -88,7 +121,7 @@ jobs:
           python -m playwright install --with-deps chromium
 
       - name: Validate book-specific requirements
-        run: python scripts/validate_book.py
+        run: python -m tools.scripts.validate_book
 
       - name: Upload HTML screenshots
         if: always()
@@ -99,18 +132,11 @@ jobs:
           if-no-files-found: ignore
           retention-days: 7
 
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v7
-        with:
-          name: book-build-${{ github.run_id }}-${{ github.sha }}
-          path: dist/
-          if-no-files-found: error
-          retention-days: 30
 
   publish:
     name: Publish GitHub release
     if: startsWith(github.ref, 'refs/tags/v')
-    needs: build
+    needs: validate
     runs-on: ubuntu-24.04
     permissions:
       contents: write
@@ -150,7 +176,7 @@ jobs:
   deploy:
     name: Deploy HTML site
     if: startsWith(github.ref, 'refs/tags/v')
-    needs: [build, publish]
+    needs: publish
     runs-on: ubuntu-24.04
     concurrency:
       group: github-pages
