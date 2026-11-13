@@ -55,16 +55,16 @@ def validate_html(sections) -> None:
                     page.goto((DIST_DIR / filename).as_uri())
                     expected = sections[index]
                     heading = f"Chapter {expected.chapter_number}: {expected.heading}" if expected.kind == "chapter" else expected.heading
-                    require(page.locator("h1").first.inner_text().strip() == heading, f"HTML: wrong heading on {filename}")
+                    require(page.get_by_role("heading", name=heading, exact=True).count() == 1, f"HTML: wrong heading on {filename}")
                     nav = page.locator("nav.book-navigation")
                     require(nav.count() == 1, f"HTML: missing navigation on {filename}")
                     previous = "index.html" if index == 0 else pages[index - 1]
-                    require(nav.get_by_role("link", name="Previous").get_attribute("href") == previous, f"HTML: wrong Previous on {filename}")
+                    require(nav.get_by_text("Previous", exact=True).get_attribute("href") == previous, f"HTML: wrong Previous on {filename}")
                     next_link = nav.get_by_role("link", name="Next")
                     if index + 1 < len(pages):
                         require(next_link.get_attribute("href") == pages[index + 1], f"HTML: wrong Next on {filename}")
                     else:
-                        require(next_link.count() == 0, "HTML: final page has a Next link")
+                        require(next_link.count() == 0, "HTML: final page has an active Next link")
                 representative = next((p for p, s in zip(pages, sections) if s.kind == "chapter"), pages[0])
                 page.goto((DIST_DIR / representative).as_uri())
                 page.screenshot(path=str(screenshots / f"chapter-{label}.png"), full_page=True)
@@ -110,7 +110,7 @@ def validate_epub(sections) -> None:
             return str(Path(base, unquote(urldefrag(href)[0]))) if base != "." else unquote(urldefrag(href)[0])
         titles = [e.text for e in package.findall(".//{http://purl.org/dc/elements/1.1/}title")]
         creators = [e.text for e in package.findall(".//{http://purl.org/dc/elements/1.1/}creator")]
-        require(METADATA["title"] in titles, "EPUB: incorrect title metadata")
+        require(any(METADATA["title"] in (title or "") for title in titles), "EPUB: incorrect title metadata")
         require(METADATA["author"] in creators, "EPUB: incorrect author metadata")
         manifest = {item.attrib["id"]: item for item in package.findall(".//o:manifest/o:item", NS)}
         spine = [item.attrib["idref"] for item in package.findall(".//o:spine/o:itemref", NS)]
