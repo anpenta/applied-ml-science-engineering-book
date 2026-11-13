@@ -27,3 +27,5 @@ Citation metadata is available in [CITATION.cff](CITATION.cff). You can also use
 ## Support
 
 If you find the book useful, you can support its continued development by [buying me a coffee](https://buymeacoffee.com/anpenta). Contributions are entirely voluntary. The book remains freely available to read.
+
+You can also help others discover the book by sharing it or starring this repository.
