@@ -155,7 +155,7 @@ def validate_pdf(*, sections: list[BookSection]) -> None:
             "External links missing")
 
 
-def epub_resource(document: str, href: str) -> str:
+def resolve_epub_path(document: str, href: str) -> str:
     path = unquote(urldefrag(href)[0])
     return posixpath.normpath(posixpath.join(posixpath.dirname(document), path))
 
@@ -176,7 +176,7 @@ def check_epub_navigation(epub: zipfile.ZipFile, nav_path: str,
     ]
     actual = [" ".join("".join(entry.itertext()).split()) for entry in entries]
     require(actual == expected, f"Incorrect contents labels or order: {actual!r}")
-    return [epub_resource(nav_path, entry.attrib["href"]) for entry in entries]
+    return [resolve_epub_path(nav_path, entry.attrib["href"]) for entry in entries]
 
 
 def validate_epub(*, sections: list[BookSection]) -> None:
@@ -191,7 +191,7 @@ def validate_epub(*, sections: list[BookSection]) -> None:
             require(value.strip() == METADATA[key], f"Incorrect {tag} metadata: {value!r}")
 
         items = package.findall("o:manifest/o:item", NS)
-        paths = {item.attrib["id"]: epub_resource(opf_path, item.attrib["href"])
+        paths = {item.attrib["id"]: resolve_epub_path(opf_path, item.attrib["href"])
                  for item in items}
         nav = next((item for item in items if "nav" in item.get("properties", "").split()),
                    None)
@@ -207,6 +207,6 @@ def validate_epub(*, sections: list[BookSection]) -> None:
         require(title_page is not None, "Title page missing from start of reading order")
         logo = title_page.find(".//x:img", NS)
         require(logo is not None, "Title-page logo missing")
-        logo_path = epub_resource(spine[0], logo.attrib["src"])
+        logo_path = resolve_epub_path(spine[0], logo.attrib["src"])
         require(epub.read(logo_path) == (ROOT / "assets/applied-ml-mark.png").read_bytes(),
                 f"Incorrect title-page logo: {logo_path}")
