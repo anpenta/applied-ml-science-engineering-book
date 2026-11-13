@@ -48,6 +48,7 @@ def validate_html(*, sections) -> None:
                 check_requirement(condition=logo.count() == 1 and logo.evaluate("(img) => img.complete && img.naturalWidth > 0"), message="HTML: logo not loaded")
                 hrefs = page.locator(".book-contents a").evaluate_all("(links) => links.map(link => link.getAttribute('href'))")
                 check_requirement(condition=hrefs == pages, message="HTML: contents order differs from manuscript")
+                check_requirement(condition=page.evaluate("document.documentElement.scrollWidth <= window.innerWidth"), message=f"HTML: horizontal overflow on index.html ({label})")
                 page.screenshot(path=str(screenshots / f"home-{label}.png"), full_page=True)
                 page.locator(".book-contents").screenshot(path=str(screenshots / f"contents-{label}.png"))
                 for index, filename in enumerate(pages):
@@ -55,6 +56,7 @@ def validate_html(*, sections) -> None:
                     expected = sections[index]
                     heading = f"Chapter {expected.chapter_number}: {expected.heading}" if expected.kind == "chapter" else expected.heading
                     check_requirement(condition=page.get_by_role("heading", name=heading, exact=True).count() == 1, message=f"HTML: wrong heading on {filename}")
+                    check_requirement(condition=page.evaluate("document.documentElement.scrollWidth <= window.innerWidth"), message=f"HTML: horizontal overflow on {filename} ({label})")
                     nav = page.locator("nav.book-navigation")
                     check_requirement(condition=nav.count() == 1, message=f"HTML: missing navigation on {filename}")
                     previous = "index.html" if index == 0 else pages[index - 1]
@@ -64,6 +66,11 @@ def validate_html(*, sections) -> None:
                         check_requirement(condition=next_link.get_attribute("href") == pages[index + 1], message=f"HTML: wrong Next on {filename}")
                     else:
                         check_requirement(condition=next_link.count() == 0, message="HTML: final page has an active Next link")
+                page.goto((DIST_DIR / "index.html").as_uri())
+                page.locator("nav.book-navigation").get_by_role("link", name="Next").click()
+                check_requirement(condition=page.url.endswith("/" + pages[0]), message="HTML: landing Next navigation failed")
+                page.locator("nav.book-navigation").get_by_role("link", name="Contents").click()
+                check_requirement(condition=page.url.endswith("/index.html"), message="HTML: Contents navigation failed")
                 representative = next((p for p, s in zip(pages, sections) if s.kind == "chapter"), pages[0])
                 page.goto((DIST_DIR / representative).as_uri())
                 page.screenshot(path=str(screenshots / f"chapter-{label}.png"), full_page=True)
@@ -150,7 +157,7 @@ def validate_epub(*, sections) -> None:
         check_requirement(condition=len(chapter_labels) == len(expected), message="EPUB: wrong chapter count in contents")
         for label, prefix in zip(chapter_labels, expected):
             check_requirement(condition=label.startswith(prefix), message=f"EPUB: wrong contents entry: {label}")
-            check_requirement(condition=not re.match(r"^\\d+[.\\s]+Chapter ", label), message=f"EPUB: unwanted numbering: {label}")
+            check_requirement(condition=not re.match(r"^\d+[.\s]+Chapter ", label), message=f"EPUB: unwanted numbering: {label}")
         for anchor in toc.findall(".//x:a", NS):
             target = resolve_resource_path(href=anchor.attrib.get("href", ""))
             check_requirement(condition=target in names, message=f"EPUB: broken contents target {target}")
