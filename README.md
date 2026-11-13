@@ -28,4 +28,4 @@ Citation metadata is available in [CITATION.cff](CITATION.cff). You can also use
 
 If you find the book useful, you can help others discover it by sharing it or starring this repository.
 
-You can also support the book by [buying me a coffee](https://buymeacoffee.com/anpenta). Contributions are voluntary, and the book remains freely available to read.
+You can also support the book by [buying me a coffee](https://buymeacoffee.com/anpenta). Contributions are entirely voluntary. The book remains freely available to read.
