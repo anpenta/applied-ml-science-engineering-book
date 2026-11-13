@@ -6,7 +6,7 @@ highlight-style: tango
 number-sections: true
 pdf-engine: xelatex
 filters:
-  - scripts/pdf-example-tables.lua
+  - tools/filters/pdf-example-tables.lua
 include-in-header:
   - templates/pdf-header.tex
 variables:
