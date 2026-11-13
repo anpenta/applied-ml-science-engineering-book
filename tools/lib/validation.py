@@ -115,11 +115,7 @@ def validate_html(*, sections: list[BookSection]) -> None:
 
 
 def check_pdf_outline(pdf: PdfReader, sections: list[BookSection]) -> None:
-    headings = ["Contents", *(
-        f"{section.chapter_number} {section.heading}"
-        if section.kind == "chapter" else section.heading
-        for section in sections
-    )]
+    headings = [section.heading for section in sections]
     bookmarks = iter(item for item in pdf.outline if not isinstance(item, list))
     for heading in headings:
         bookmark = next((item for item in bookmarks if item.title == heading), None)
@@ -144,6 +140,8 @@ def validate_pdf(*, sections: list[BookSection]) -> None:
         for obj in resources.get_object().values()
     ), "Title-page logo graphic missing")
 
+    require("Contents" in (pdf.pages[1].extract_text() or ""),
+            "Contents missing after the title page")
     check_pdf_outline(pdf, sections)
     links = [
         ref.get_object()
