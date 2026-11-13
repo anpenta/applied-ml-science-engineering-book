@@ -1,6 +1,6 @@
 # Feedback and support
 
-Feedback and suggestions are welcome. If you find an error or have a suggestion for improving the book, please [open a GitHub issue](https://github.com/anpenta/applied-ml-science-engineering-book/issues).
+Feedback is welcome. If you find an error or have a suggestion for improving the book, please [open a GitHub issue](https://github.com/anpenta/applied-ml-science-engineering-book/issues).
 
 If you find the book useful, you can help others discover it by sharing it or starring its [GitHub repository](https://github.com/anpenta/applied-ml-science-engineering-book).
 
