@@ -18,6 +18,7 @@ FRONT_MATTER = [
 ]
 
 BACK_MATTER = [
+    ("about-the-author.md", "About the author"),
     ("feedback-and-support.md", "Feedback and support"),
 ]
 
