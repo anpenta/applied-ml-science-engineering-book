@@ -106,7 +106,7 @@ The example below shows how we can use the available evidence and the expected b
 >
 > Assume that the retailer’s technical team has enough evaluation data to estimate uncertainty about the average improvement using **bootstrapping**. They repeatedly resample the observed data and recompute the average improvement, using a resampling scheme that accounts for dependence between stores and weeks.
 >
-> At each stage, the technical team considers testing the same model on eight more ordinary weeks. Before running that test, they use **value-of-information analysis** to estimate how often the new results, combined with the evidence they already have, would lead the retailer to switch methods and how much switching would be worth in those cases.
+> At each stage, the technical team considers repeating the comparison on eight more ordinary weeks. Before running the new test, they use **value-of-information analysis** to estimate how often the new results, combined with the evidence they already have, would lead the retailer to switch methods and how much switching would be worth in those cases.
 >
 > Note that the estimated average improvements, uncertainty ranges, expected benefits, and test costs in the table below are assumed for this example, and they are not related to the four-week illustration in the previous example.
 >
