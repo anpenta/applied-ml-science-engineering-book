@@ -106,7 +106,7 @@ The example below shows how we can use the available evidence and the expected b
 >
 > Assume that the retailer’s technical team has enough evaluation data to estimate uncertainty about the average improvement using **bootstrapping**. They repeatedly resample the observed data and recompute the average improvement, using a resampling scheme that accounts for dependence between stores and weeks.
 >
-> At each stage, the technical team considers repeating the comparison on eight more ordinary weeks. Before running the new test, they use **value-of-information analysis** to estimate how often the new results, combined with the evidence they already have, would lead the retailer to switch methods and how much switching would be worth in those cases.
+> At each stage, the technical team considers repeating the comparison on eight more ordinary weeks. Before running the new test, they use **value-of-information analysis** to estimate how likely the test is to lead to a switch and how much switching would be worth in those cases.
 >
 > Note that the estimated average improvements, uncertainty ranges, expected benefits, and test costs in the table below are assumed for this example, and they are not related to the four-week illustration in the previous example.
 >
@@ -117,7 +117,7 @@ The example below shows how we can use the available evidence and the expected b
 >
 > As we can see above, the first test leaves uncertainty about whether the improvement reaches 5 units. The expected benefit justifies the follow-up, so the technical team evaluates both forecasting methods on eight more ordinary weeks. The new model shows smaller gains in those weeks than in the first test. Therefore, when the team combines the results from both tests, the estimated average improvement falls from 5 to 2.5 units, and the plausible range narrows from 2–8 to 1–4 units.
 >
-> The combined evidence favors keeping the current forecast method. The technical team then uses the combined evidence to repeat the value-of-information analysis for another eight ordinary weeks. Although another test could give the retailer enough evidence to switch, the team now estimates that this is less likely. The expected benefit falls to $200, below the $1,000 cost. The team stops testing, and the retailer keeps the current forecast method.
+> Using the updated evidence, the technical team repeats the value-of-information analysis for another eight ordinary weeks. Although another test could lead the retailer to switch, the team now estimates that a switch is less likely. As a result, the expected benefit falls to $200, which is below the $1,000 cost. Therefore, the team stops testing, and the retailer keeps the current forecast method.
 
 As the example above shows, we should only run another experiment if the expected benefit of making a better-informed decision outweighs the cost of gathering more evidence.
 
