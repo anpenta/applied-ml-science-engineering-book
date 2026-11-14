@@ -32,7 +32,12 @@ local function convert_table(tbl)
   for i, row in ipairs(rows) do
     local cells = {}
     for _, cell in ipairs(row.cells) do
-      table.insert(cells, cell_tex(cell))
+      local content = cell_tex(cell)
+      -- Match the bold styling of header cells in HTML and EPUB.
+      if i <= #tbl.head.rows and content ~= "" then
+        content = "{\\bfseries " .. content .. "}"
+      end
+      table.insert(cells, content)
     end
     table.insert(lines, table.concat(cells, " & ") .. " \\\\")
     if i == #tbl.head.rows and #tbl.head.rows > 0 then
