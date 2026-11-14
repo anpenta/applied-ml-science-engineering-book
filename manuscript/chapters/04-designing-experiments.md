@@ -115,9 +115,9 @@ The example below shows how we can use the available evidence and the expected b
 > | After the first test | 5 units | 2–8 units | $2,000 | $1,000 | **Keep the current method for now and run the follow-up.** |
 > | After combining the first test with the follow-up | 2.5 units | 1–4 units | $200 | $1,000 | **Stop testing and keep the current method.** |
 >
-> As we can see above, the first test leaves uncertainty about whether the improvement reaches 5 units. The expected benefit justifies the follow-up, so the technical team evaluates both forecasting methods on eight more ordinary weeks. The new model shows smaller gains in those weeks than in the first test. Therefore, when the team combines the results from both tests, the estimated average improvement falls from 5 to 2.5 units, and the plausible range narrows from 2–8 to 1–4 units.
+> As we can see above, the first test leaves uncertainty about whether the improvement reaches 5 units. The expected benefit justifies the follow-up, so the technical team evaluates both forecasting methods on eight more ordinary weeks. The new model shows smaller gains in those weeks than in the first test, so combining the results from both tests lowers the estimated average improvement from 5 to 2.5 units. With the combined data, the plausible range also narrows from 2–8 to 1–4 units.
 >
-> Using the updated evidence, the technical team repeats the value-of-information analysis for another eight ordinary weeks. Although another test could lead the retailer to switch, the team now estimates that a switch is less likely. As a result, the expected benefit falls to $200, which is below the $1,000 cost. Therefore, the team stops testing, and the retailer keeps the current forecast method.
+> Using the updated evidence, the technical team repeats the value-of-information analysis for another eight ordinary weeks. Although another test could lead the retailer to switch, the team now estimates that a switch is less likely. The updated analysis puts the expected benefit at $200, which is below the $1,000 cost. Therefore, the team stops testing, and the retailer keeps the current forecast method.
 
 As the example above shows, we should only run another experiment if the expected benefit of making a better-informed decision outweighs the cost of gathering more evidence.
 
