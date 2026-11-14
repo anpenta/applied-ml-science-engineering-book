@@ -112,8 +112,8 @@ The example below shows how we can use the available evidence and the expected b
 >
 > | Evidence available | Estimated average improvement | Plausible range | Expected benefit of testing eight more ordinary weeks | Cost of that test | What the retailer does |
 > | --- | ---: | --- | ---: | ---: | --- |
-> | After the first test | 5 units | 2–8 units | $2,000 | $1,000 | **Keep the current method for now and run the follow-up.** |
-> | After combining the first test with the follow-up | 2.5 units | 1–4 units | $200 | $1,000 | **Stop testing and keep the current method.** |
+> | After the first test | 5 units | 2–8 units | $2,000 | $1,000 | Keep the current method for now and run the follow-up. |
+> | After combining the first test with the follow-up | 2.5 units | 1–4 units | $200 | $1,000 | Stop testing and keep the current method. |
 >
 > As we can see above, the first test leaves uncertainty about whether the improvement reaches 5 units. Since the expected benefit exceeds the cost of the follow-up, the technical team evaluates both forecasting methods on eight more ordinary weeks. The new model shows smaller gains in those weeks than in the first test, so combining the results from both tests lowers the estimated average improvement from 5 to 2.5 units. With the combined data, the plausible range also narrows from 2–8 to 1–4 units.
 >
