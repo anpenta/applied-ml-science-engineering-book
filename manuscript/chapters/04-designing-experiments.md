@@ -106,7 +106,7 @@ The example below shows how we can use the available evidence and the expected b
 >
 > Assume that the retailer’s technical team has enough evaluation data to estimate uncertainty about the average improvement using **bootstrapping**. They repeatedly resample the observed data and recompute the average improvement, using a resampling scheme that accounts for dependence between stores and weeks.
 >
-> At each stage, the technical team considers repeating the comparison on eight more ordinary weeks. Before running the new test, they use **value-of-information analysis** to estimate how likely the test is to lead to a switch and how much switching would be worth in those cases.
+> At each stage, the technical team considers repeating the comparison on eight more ordinary weeks. Before running the new test, they use **value-of-information analysis** to estimate how likely the new test is to lead to a switch and how much switching would be worth in those cases.
 >
 > Note that the estimated average improvements, uncertainty ranges, expected benefits, and test costs in the table below are assumed for this example, and they are not related to the four-week illustration in the previous example.
 >
@@ -115,7 +115,7 @@ The example below shows how we can use the available evidence and the expected b
 > | After the first test | 5 units | 2–8 units | $2,000 | $1,000 | **Keep the current method for now and run the follow-up.** |
 > | After combining the first test with the follow-up | 2.5 units | 1–4 units | $200 | $1,000 | **Stop testing and keep the current method.** |
 >
-> As we can see above, the first test leaves uncertainty about whether the improvement reaches 5 units. The expected benefit justifies the follow-up, so the technical team evaluates both forecasting methods on eight more ordinary weeks. The new model shows smaller gains in those weeks than in the first test, so combining the results from both tests lowers the estimated average improvement from 5 to 2.5 units. With the combined data, the plausible range also narrows from 2–8 to 1–4 units.
+> As we can see above, the first test leaves uncertainty about whether the improvement reaches 5 units. Since the expected benefit exceeds the cost of the follow-up, the technical team evaluates both forecasting methods on eight more ordinary weeks. The new model shows smaller gains in those weeks than in the first test, so combining the results from both tests lowers the estimated average improvement from 5 to 2.5 units. With the combined data, the plausible range also narrows from 2–8 to 1–4 units.
 >
 > Using the updated evidence, the technical team repeats the value-of-information analysis for another eight ordinary weeks. Although another test could lead the retailer to switch, the team now estimates that a switch is less likely. The updated analysis puts the expected benefit at $200, which is below the $1,000 cost. Therefore, the team stops testing, and the retailer keeps the current forecast method.
 
