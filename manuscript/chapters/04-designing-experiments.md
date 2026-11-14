@@ -94,24 +94,32 @@ As the example above shows, reporting results by operating condition helps us se
 
 ## Know when to stop
 
-When considering whether to run another experiment, we should ask what we would do differently depending on its result. If the likely results would all lead to the same decision, we have enough evidence to stop experimenting.
+When considering whether to run another experiment, we should ask how likely its results are to change our decision and what we would gain from that change. If the expected benefit of additional experimentation does not justify the cost of gathering more evidence, we have enough reason to stop experimenting.
 
-The example below shows how a threshold can help us decide whether another test is worth running.
+Methods such as **value-of-information analysis** provide a formal way to estimate the expected benefit of another experiment. Alternatively, we could use a heuristic to make a rough estimate and judge whether another experiment is worth the cost.
+
+The example below shows how we can use the available evidence and the expected benefit of further testing to decide when to stop.
 
 > **Worked example: Deciding when we have enough evidence**
 >
-> Continuing the retail demand forecast example, assume that the retailer is trying to decide whether to use the new model during ordinary weeks. The switch is worth making only if the new model reduces average absolute forecast error by at least **5 units**.
+> Continuing the retail demand forecast example, assume that the retailer is trying to decide whether to use the new model during ordinary weeks. The switch is worth making only if the new model reduces average absolute forecast error by at least **5 units** compared to the current method.
 >
-> Note that the ranges below are illustrative estimates of uncertainty about the average improvement, not the smallest and largest errors observed. They are assumed for this example and are not calculated from the four-week table in the previous example. In practice, the team would need enough evaluation data and a method that accounts for dependence between stores and weeks to compute these ranges.
+> Assume that the retailer’s technical team has enough evaluation data to estimate uncertainty about the average improvement using **bootstrapping**. They repeatedly resample the observed data and recompute the average improvement, using a resampling scheme that accounts for dependence between stores and weeks.
 >
-> | Evidence | Plausible reduction in average error | What the retailer does |
-> | --- | --- | --- |
-> | After the first test | 2–8 units | **Keep testing.** The gain could be below or above 5 units. More evidence could change the decision. |
-> | After testing the same model on more ordinary weeks | 1–4 units | **Stop and keep the current forecast method.** Even a gain of 4 units would be too small to justify switching. |
+> At each stage, the technical team considers testing the same model on eight more ordinary weeks. They use **value-of-information analysis** to estimate how often the additional evidence would lead the retailer to switch methods and how much switching would be worth in those cases.
 >
-> As we can see above, the first test leaves the decision open, whereas the second test gives the retailer enough evidence to decide. Whether the gain is closer to 1 unit or 4 units, the retailer would still keep the current forecast method, so collecting more evidence about this candidate is unlikely to change the replacement decision.
+> Note that the uncertainty ranges, expected benefits, and test costs in the table below are assumed for this example, and are independent of the four-week illustration in the previous example.
+>
+> | Evidence available | Plausible reduction in average absolute error | Expected benefit of testing eight more ordinary weeks | Cost of that test | What the retailer does |
+> | --- | --- | --- | --- | --- |
+> | After the first test | 2–8 units | $2,000 | $1,000 | **Keep the current method for now and run the follow-up.** |
+> | After combining the first test with eight more ordinary weeks | 1–4 units | $200 | $1,000 | **Stop testing and keep the current method.** |
+>
+> As we can see above, the first test leaves uncertainty about whether the improvement reaches 5 units. The expected benefit justifies the follow-up, so the technical team evaluates both forecasting methods on eight more ordinary weeks. They then combine the results from those weeks with the results from the first test and recompute the average improvement and its uncertainty.
+>
+> The combined evidence favors keeping the current forecast method. The technical team then considers whether testing another eight ordinary weeks would be worthwhile. Although another test could give the retailer enough evidence to switch, the team judges that the expected benefit falls short of the cost. They stop testing, and the retailer keeps the current forecast method.
 
-As the example above shows, we should stop experimenting when the remaining uncertainty is unlikely to change our decision. Another test might give us a more precise estimate, but that extra precision is hard to justify if we would spend time and resources only to make the same decision.
+As the example above shows, we should only run another experiment if the expected benefit of making a better-informed decision outweighs the cost of gathering more evidence.
 
 ## Further reading
 
