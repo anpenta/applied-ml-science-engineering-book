@@ -1,6 +1,6 @@
 # Testing Operational Feasibility
 
-A photo search model runs quickly on a laptop during an experiment. But will a service using that model respond just as quickly when breaking news brings a surge of searches from across the newsroom?
+Correct calculations and explicit failure handling do not establish whether a system can meet its workload. Suppose a photo search model runs quickly on a laptop during an experiment. But will a service using that model respond just as quickly when breaking news brings a surge of searches from across the newsroom?
 
 To answer the question, we need to define the workload, measure the full path from request to usable result, and check capacity under load. We can then use this evidence to decide what to reuse and where the design needs to change.
 
@@ -27,7 +27,7 @@ As the example above shows, different uses of the same system can require differ
 
 ## Measure the full path from request to result
 
-Asymptotic complexity tells us how computational work grows with input size under specified assumptions. Benchmarks tell us how long an implementation takes for particular inputs and hardware. However, neither necessarily tells us how long users wait for a result. To determine that, we should measure the total response time and examine how much each stage of processing a request contributes to it.
+The search requirement concerns how long editors wait for usable results. Asymptotic complexity tells us how computational work grows with input size under specified assumptions. Benchmarks tell us how long an implementation takes for particular inputs and hardware. However, neither necessarily tells us how long users wait for a result. To determine that, we should measure the total response time and examine how much each stage of processing a request contributes to it.
 
 The example below shows why making the model faster may not be enough to meet the response-time target.
 
@@ -70,15 +70,15 @@ As the example above shows, a system can process individual requests quickly but
 
 ## Decide what to reuse
 
-Using an existing library or service can reduce development and maintenance effort, provided the library or service meets the system's requirements. We should compare the performance, limitations, and integration costs of existing solutions with those of building our own solution.
+The response-time and capacity checks identify requirements that a revised design must meet. Before building the changes ourselves, we should ask whether an existing library or service could meet those requirements with less development and maintenance effort. We should compare the performance, limitations, and integration costs of existing solutions with those of building our own solution.
 
 The example below shows how evaluating an existing library against explicit requirements can help us decide whether to reuse it.
 
 > **Worked example: Deciding whether to reuse a search library**
 >
-> Continuing the photo-search example, the technical team needs a way to search the photo archive efficiently. They consider using an existing search library instead of building a custom solution.
+> Continuing the photo-search example, the technical team investigates the slow archive retrieval and the capacity limit together. For a revised design, assume the newsroom approves increasing the service's total memory budget from 1,000 to 2,000 megabytes. The team considers using an existing search library instead of building a custom retrieval solution, and tests it as part of the complete service.
 >
-> The technical team tests the library against the system's requirements using a representative photo archive and up to 80 searches per second. The following table shows hypothetical results.
+> The technical team tests the revised service against the system's requirements using a representative photo archive and up to 80 searches per second. The following table shows hypothetical results.
 >
 > | Requirement | Result |
 > | --- | --- |

@@ -2,8 +2,10 @@ This book brings together the author’s positions on the scientific and enginee
 
 One lesson from this work is that scientific and engineering questions are rarely independent. How we define a problem affects what we measure. How we construct a dataset affects what we can learn from an experiment. How we build and operate a system affects whether its predictions remain useful in practice. That’s why a technical decision that makes sense from a scientific perspective may need to be revisited once we consider its engineering consequences, and vice versa.
 
-Each chapter in the book develops a position and illustrates it with worked examples. The examples are hypothetical and deliberately small so that we can follow the reasoning and see which assumptions the argument depends on. For readers who want to explore a topic in more detail, further reading is suggested at the end of each chapter.
+The book follows these connections from deciding whether machine learning is worth using to evaluating and operating a system. The early chapters examine the problem, the evidence needed to justify an action, and the data and experiments used to evaluate predictions. The middle chapters consider how to use, improve, and interpret those predictions. The later chapters examine what happens when models become parts of systems that people rely on, and how teams can revisit the decisions behind them.
+
+Within this progression, each chapter develops a position and illustrates it with worked examples. The examples are hypothetical and deliberately small so that we can follow the reasoning and see which assumptions the argument depends on. Further reading is suggested at the end of each chapter for readers who want to explore a topic in more detail.
 
 To follow the arguments and examples, readers should be familiar with basic concepts in machine learning and software engineering. They should also be comfortable with simple mathematical notation and calculations, but they do not need advanced mathematics or professional experience in machine learning.
 
-The author does not expect readers to agree with every position presented here. He hopes they will question the assumptions behind the arguments and use their own experience to decide which ones they find convincing.
+Following these arguments does not require agreeing with every position presented here. The author hopes readers will question the assumptions behind the arguments and use their own experience to decide which positions they find convincing.

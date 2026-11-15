@@ -1,6 +1,6 @@
 # Designing Experiments
 
-Assume that we want to design an experiment which will determine whether a new model predicts weekly demand better than the currently used method. How should we design the experiment so we can trust the result?
+Once we understand what our data can represent, we can design a comparison that uses it appropriately. Assume that we want to determine whether a new model predicts weekly demand better than the currently used method. How should we design the experiment so we can trust the result?
 
 We would need to define what we want to learn, choose a meaningful baseline, and test whether the model generalizes to the situations where we plan to use it. We would also need to make the evidence interpretable and decide when we have enough evidence to stop experimenting.
 
@@ -27,7 +27,7 @@ As the example above shows, what we want to learn determines what the experiment
 
 ## Choose a meaningful baseline
 
-When designing an experiment, we need to choose a baseline that answers the question we are interested in. If we want to know whether the model improves on a simple rule, such as a constant forecast, we should use that rule as our baseline. If we want to decide whether the model should replace the current forecasting method, our baseline should be the forecast we currently use. If obtaining that forecast is difficult or costly, we can use a defensible approximation in its place instead.
+When deciding whether to replace the current method, the choice of baseline determines which improvement we measure. If we want to know whether the model improves on a simple rule, such as a constant forecast, we should use that rule as our baseline. If we want to decide whether the model should replace the current forecasting method, our baseline should be the forecast we currently use. If obtaining that forecast is difficult or costly, we can use a defensible approximation in its place instead.
 
 The example below shows how the same model can look much better against a simple baseline than against the forecast it would actually replace.
 
@@ -47,7 +47,7 @@ As the example above shows, the choice of baseline determines what the improveme
 
 ## Test the generalization you need
 
-A data split determines what kind of generalization we test. To forecast future weeks, we should train on earlier weeks and evaluate on later ones. To forecast at new stores, we should leave entire stores out of training. If we need both, we should train on earlier weeks from one set of stores and evaluate on later weeks from a different set of stores. Additionally, a random split may be appropriate when the observations are reasonably exchangeable and the test reflects how we plan to use the model.
+A meaningful baseline is not enough if we test on observations that do not represent the intended use. A data split determines what kind of generalization we test. To forecast future weeks, we should train on earlier weeks and evaluate on later ones. To forecast at new stores, we should leave entire stores out of training. If we need both, we should train on earlier weeks from one set of stores and evaluate on later weeks from a different set of stores. Additionally, a random split may be appropriate when the observations are reasonably exchangeable and the test reflects how we plan to use the model.
 
 The example below shows why testing on new weeks at a familiar store answers a different question from testing on a store the model has never seen.
 
@@ -72,7 +72,7 @@ As the example above shows, we need to choose a split that reflects how we plan 
 
 ## Make the evidence interpretable
 
-When reporting an experimental result, we should show how performance varies across the conditions that matter to the decision. For example, an average can summarize the overall result while hiding a drop in performance under conditions where errors are especially costly.
+Even with an appropriate baseline and data split, a single summary can hide differences that matter to the decision. When reporting an experimental result, we should show how performance varies across those conditions. For example, an average can summarize the overall result while hiding a drop in performance under conditions where errors are especially costly.
 
 The example below shows how separating ordinary weeks from promotion weeks changes what we learn from a forecast comparison.
 
@@ -94,7 +94,7 @@ As the example above shows, reporting results by operating condition helps us se
 
 ## Know when to stop
 
-When considering whether to run another experiment, we should ask how likely its results are to change our decision and what we would gain from that change. If the expected benefit of additional experimentation does not justify the cost of gathering more evidence, we have enough reason to stop experimenting.
+Separating results by operating condition can reveal where more evidence is needed, as it did for promotion weeks. But uncertainty alone does not justify testing indefinitely. When considering whether to run another experiment, we should ask how likely its results are to change our decision and what we would gain from that change. If the expected benefit of additional experimentation does not justify the cost of gathering more evidence, we have enough reason to stop experimenting.
 
 Methods such as **value-of-information analysis** provide a formal way to estimate the expected benefit of running another experiment based on the evidence we already have. Alternatively, we could use a heuristic to make a rough estimate of what we might gain from further testing.
 
@@ -102,7 +102,7 @@ The example below shows how we can use the available evidence and the expected b
 
 > **Worked example: Deciding when we have enough evidence**
 >
-> Continuing the retail demand forecast example, assume that the retailer is trying to decide whether to use the new model during ordinary weeks. The switch is worth making only if the new model reduces average absolute forecast error by at least **5 units** compared to the current method.
+> Continuing the retail demand forecast example, suppose the retailer defers changing its forecasts for promotion weeks and evaluates whether to use the new model during ordinary weeks. The switch is worth making only if the new model reduces average absolute forecast error by at least **5 units** compared to the current method.
 >
 > Assume that the retailer’s technical team has enough evaluation data to estimate uncertainty about the average improvement using **bootstrapping**. They repeatedly resample the observed data and recompute the average improvement, using a resampling scheme that accounts for dependence between stores and weeks.
 >

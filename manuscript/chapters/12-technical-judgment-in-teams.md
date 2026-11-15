@@ -1,6 +1,6 @@
 # Technical Judgment in Teams
 
-Consider a technical team developing a model to help music teachers decide which passages their students should rehearse. A scientist evaluates the model, an engineer reviews its implementation, and a teacher examines its recommendations. What might each of them notice that the others overlook?
+The decisions examined throughout this book depend on knowledge that is rarely held by one person. Consider a technical team developing a model to help music teachers decide which passages their students should rehearse. A scientist evaluates the model, an engineer reviews its implementation, and a teacher examines its recommendations. What might each of them notice that the others overlook?
 
 To make sound decisions as a team, we need to understand how our work affects the rest of the system, challenge assumptions that could have important consequences, and document the reasoning behind our decisions so others can revisit them.
 
@@ -32,13 +32,13 @@ As the example above shows, each specialist can evaluate their part of a system 
 
 ## Question important decisions
 
-When questioning a decision, we should identify the underlying assumption, examine the evidence supporting it, and consider the consequences if it is wrong. How much effort we spend reviewing the decision should depend on its potential consequences and how easily it can be reversed.
+Bringing different perspectives together helps only if the team can examine the assumptions those perspectives reveal. When questioning a decision, we should identify the underlying assumption, examine the evidence supporting it, and consider the consequences if it is wrong. How much effort we spend reviewing the decision should depend on its potential consequences and how easily it can be reversed.
 
 The example below shows how questioning a proposed design can reveal important information that would otherwise be lost.    
 
 > **Worked example: Questioning what the tool should show**
 >
-> Continuing the rehearsal-tool example, the technical team wants to compare patterns of early and late notes across recordings. To do this, they divide each timing offset by the largest absolute offset in the recording.
+> With the first version limited to fixed-tempo exercises, the technical team now considers how to show teachers the timing differences. It wants to compare patterns of early and late notes across recordings. To do this, they divide each timing offset by the largest absolute offset in the recording.
 >
 > Consider two recordings of the same three-note passage. Positive offsets mean that a note was played late.
 >
@@ -61,7 +61,7 @@ We should focus our reviews on decisions that could significantly affect the res
 
 ## Document the reasoning
 
-We should document important decisions so that others can understand and reconsider them later. A short record should explain what was decided, why the decision was made, and what might justify changing it.
+Once a review has led to a decision, we should document its reasoning so that others can understand and reconsider it later. A short record should explain what was decided, why the decision was made, and what might justify changing it.
 
 The example below shows how documenting the reasoning behind a decision helps a new team member evaluate a proposed change.
 

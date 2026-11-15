@@ -1,6 +1,6 @@
 # Choosing Model Complexity
 
-We have a model that predicts which bike-share stations will run out of bikes the next morning. It misses some stations that do run out. Would a more complex model help, or are we leaving out information the current model could use?
+When changing the decision rule is not enough, we may need to improve the predictions themselves. Suppose we have a model that predicts which bike-share stations will run out of bikes the next morning. It misses some stations that do run out. Would a more complex model help, or are we leaving out information the current model could use?
 
 Before moving to a more complex model, we should check whether a simple change to the model's inputs is sufficient. We should then examine whether the model's assumptions are appropriate for the task and whether a more complex model improves predictions enough to justify its additional cost.
 
@@ -31,7 +31,7 @@ Building on the bike-share example, the example below shows how the same count c
 
 > **Worked example: Comparing shortage forecasts across station types**
 >
-> Continuing the bike-share example, suppose the technical team uses yesterday’s failed rentals to predict whether a station will run out of bikes the next morning. The table shows hypothetical shortage rates for commuter and residential stations.
+> The technical team now includes yesterday’s failed rentals, preserving the recent activity that the four-day total hid. It next checks whether that count has the same relationship with shortages at different types of station. The table shows hypothetical shortage rates for commuter and residential stations.
 >
 > | Station type | Ran out next morning after no failed rentals | Ran out next morning after two failed rentals |
 > | --- | ---: | ---: |
@@ -70,7 +70,7 @@ The example below shows how a small change to a model can deliver most of the be
 
 > **Worked example: Choosing how much flexibility to add**
 >
-> Continuing the bike-share example, the technical team wants to predict which stations will run out of bikes the next morning. The team trains three models on the same earlier records, using yesterday's failed-rental count and station type as inputs. They then compare them over the same four weeks of mornings excluded from training and model selection. Each model flags the same number of stations each morning. The team counts how often a station runs out of bikes without being flagged.
+> The interaction term can represent the difference between station types, but the technical team still needs evidence that this flexibility improves predictions on new mornings. It trains three models on the same earlier records, using yesterday's failed-rental count and station type as inputs. They then compare them over the same four weeks of mornings excluded from training and model selection. Each model flags the same number of stations each morning. The team counts how often a station runs out of bikes without being flagged.
 >
 > | Model | How it uses yesterday's failed-rental count | Missed shortages |
 > | --- | --- | ---: |

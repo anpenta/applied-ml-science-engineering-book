@@ -12,7 +12,7 @@ The example below illustrates these four components and shows how understanding 
 
 > **Worked example: Prioritizing equipment inspections**
 >
-> A company asks a technical team to build a model that predicts failures in industrial machines. Before building a model, the technical team should understand the operational problem that the company wants to address. We describe the company's operational problem in the table below.
+> A company asks a technical team to build a model that predicts failures in industrial machines. Its staff can inspect only 10 machines per week, so the model would help choose which machines receive those inspections. Before comparing models, the technical team needs to understand this operational problem, summarized in the table below.
 >
 > | Operational component | In this example |
 > | --- | --- |
@@ -52,7 +52,7 @@ As the example above shows, the operational constraints determine which predicti
 
 ## Define success
 
-Let's assume that we already understand the operational problem. That alone is not enough to proceed with building a model. We also need a preliminary way to judge whether building one would be worthwhile.
+Choosing a model that identifies more at-risk machines within the inspection capacity does not yet tell us whether it improves on the current inspection policy. We also need a preliminary way to judge whether building one would be worthwhile.
 
 The **business objective** describes what the company wants to improve. The **business metric** measures progress toward that business objective. The **success criterion** specifies what result on the business metric counts as success. A success criterion can be as simple as improving on the approach that is currently in use. We can always refine the business metric and success criterion as we learn more.
 
@@ -60,7 +60,7 @@ The example below builds on the previous example to illustrate these three conce
 
 > **Worked example: Defining success**
 >
-> Continuing the equipment-inspection example, consider the business objective, business metric, and success criterion for this use case, shown in the table below.
+> Model B places more at-risk machines in its top 10 than Model A, but the company already has an inspection policy. To judge whether either model is worth adopting, the technical team needs to compare the resulting failures with those under that policy. The table below defines what would count as success.
 >
 > | Concept | In this example |
 > | --- | --- |
@@ -85,7 +85,7 @@ As shown in the example above, a success criterion is helpful because it gives u
 
 ## Consider alternatives
 
-Imagine that we already understand the operational problem and have a definition of success. Should we start building a machine learning model?
+Model B meets the success criterion under the example's assumptions, but that does not establish that machine learning is the best way to meet it. Could a simpler approach achieve enough of the same benefit at a lower cost?
 
 Before building a machine learning model, we should compare machine learning with simpler approaches that could meet the same business objective. A simple rule can be cheap to build and maintain, while a machine learning model may pick up patterns the rule misses. The question is whether this improvement is worth the added cost.
 

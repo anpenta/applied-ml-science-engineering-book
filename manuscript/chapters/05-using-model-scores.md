@@ -1,6 +1,6 @@
 # Using Model Scores
 
-Suppose that a clinic's reception team can make up to ten reminder calls a day about patient appointments. A model scores each upcoming appointment by how likely the patient is to miss it. Should the reception team call the ten patients with the highest scores, or make fewer calls when the scores are low?
+Experiments can establish how well a model predicts, but using those predictions requires a decision rule. Suppose that a clinic's reception team can make up to ten reminder calls a day about patient appointments. A model scores each upcoming appointment by how likely the patient is to miss it. Should the reception team call the ten patients with the highest scores, or make fewer calls when the scores are low?
 
 In this chapter, we consider how to turn scores into decisions, how to determine whether to change the model or the decision rule, and how to check whether the decisions actually improve the desired outcome.
 
@@ -33,7 +33,7 @@ The example below shows how to determine whether changing the decision rule or i
 
 > **Worked example: Finding out why the calling list misses appointments**
 >
-> Continuing the clinic example, the technical team looks back at a day when no reminder calls were made and four appointments were missed. They use two different candidate models, both trained on earlier data, to score all appointments for that day using only information available when the calls would have been selected. For each model, they compare two decision rules: calling up to ten patients whose scores are at least 0.30, or calling the ten patients with the highest scores regardless of the cutoff. The table below illustrates the results.
+> To examine what the cutoff might exclude, the technical team looks back at a day when no reminder calls were made and four appointments were missed. They use two different candidate models, both trained on earlier data, to score all appointments for that day using only information available when the calls would have been selected. For each model, they compare two decision rules: calling up to ten patients whose scores are at least 0.30, or calling the ten patients with the highest scores regardless of the cutoff. The table below illustrates the results.
 >
 > | Where the four missed appointments fell | Model A | Model B |
 > | --- | ---: | ---: |
@@ -47,13 +47,13 @@ As the example above shows, the same result under the current decision rule can 
 
 ## Check whether the decisions improve the outcome
 
-Suppose that we are considering replacing our current decision rule with a new one for a particular application. To determine whether the change would improve the desired outcome, we should compare that outcome under both rules.
+The historical comparison tells us which missed appointments each rule would have selected, but not whether calling those patients would have changed their attendance. As with the greenhouse intervention, we need to compare the desired outcome under the two alternatives.
 
 The example below continues the clinic example and illustrates how to compare two decision rules based on the desired outcome.
 
 > **Worked example: Should the clinic change its calling rule?**
 >
-> Continuing the clinic example, assume that the reception team currently calls the ten patients with the highest scores. They are considering calling only patients who score at least 0.30, starting with the highest scores and keeping the daily limit of ten calls. The clinic wants to reduce the number of unused appointment slots. A slot goes unused when a patient misses an appointment or cancels and the clinic cannot fill the opening.
+> The retrospective comparison examined both rules; neither has yet been shown to improve appointment outcomes. Suppose the clinic currently calls the ten patients with the highest scores and is considering introducing the cutoff to avoid calls when scores are low. Under the proposed rule, staff call only patients who score at least 0.30, starting with the highest scores and keeping the daily limit of ten calls. The clinic wants to reduce the number of unused appointment slots. A slot goes unused when a patient misses an appointment or cancels and the clinic cannot fill the opening.
 >
 > For the pilot, the technical team randomly assigns comparable calling days to one of the two rules, keeping the same limit of ten calls per day. They track the appointment outcomes associated with each day's list, including appointments not selected for a call. Suppose the pilot covers 200 booked slots under each rule and produces the following results.
 >

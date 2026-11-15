@@ -1,6 +1,6 @@
 # From Experiment to System
 
-We have a model that predicts missed bus connections well in an experiment. What could go wrong when we put that model into a system that makes predictions throughout the day?
+After evaluating a model and investigating how it uses its inputs, we need to check whether the system that runs it preserves the conditions under which it was evaluated. Suppose we have a model that predicts missed bus connections well in an experiment. What could go wrong when we put that model into a system that makes predictions throughout the day?
 
 To ensure the system works as intended, we need to preserve the meaning of the model's inputs, train the model on the kind of inputs it is expected to receive, and evaluate how changes to individual components affect the whole system.
 
@@ -29,13 +29,13 @@ As the example above shows, checking feature names and data types is insufficien
 
 ## Train on realistic upstream inputs
 
-A model always needs to be trained on inputs that reflect what it will receive in production. Otherwise, differences between training and production inputs can undermine its performance, even when the model performs well in an experiment.
+Agreeing on a feature's calculation does not ensure that training uses the same source of information as production. A model needs to be trained on inputs that reflect what it will receive in production. Otherwise, differences between training and production inputs can undermine its performance, even when the model performs well in an experiment.
 
 The example below shows how a pattern learned by a model from actual delays can fail to predict missed connections when the model receives forecast delays as input instead.
 
 > **Worked example: Learning from forecast delays**
 >
-> Continuing the bus-connection example, let us suppose that the system uses two models. The first model forecasts the bus’s arrival delay at the transfer stop. The second model uses that forecast to predict whether passengers will miss their bus connection.
+> Now suppose the bus-connection system needs to anticipate the delay at a transfer stop the bus has not yet reached, rather than use a delay already measured at an earlier stop. To do this, it uses two models. The first model forecasts the bus’s arrival delay at the transfer stop. The second model uses that forecast to predict whether passengers will miss their bus connection.
 >
 > For illustration, assume that passengers miss their connection whenever the actual arrival delay exceeds 5 minutes. The first model underestimates every delay in this small example by 2 minutes.
 >

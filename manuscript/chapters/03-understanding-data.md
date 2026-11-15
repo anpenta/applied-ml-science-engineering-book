@@ -1,6 +1,6 @@
 # Understanding Data
 
-Let's say that a dataset passes every check in our schema. Is that enough to trust it when training a model to predict pump failures?
+The greenhouse comparison showed why the way records were produced matters when estimating causal effects. It also matters when training a predictive model. Let's say that a dataset passes every check in our schema. Is that enough to trust it when training a model to predict pump failures?
 
 To trust the dataset, we need to know when the features become available, what the data records represent, and how the labels were made. We also need to understand what unusual patterns in the data mean before deciding how to handle them.
 
@@ -28,7 +28,7 @@ As the example above shows, we must exclude the late reading both as a direct in
 
 ## Check what the data represent
 
-Before preparing data for modeling, we need to determine what each row represents and how its fields were measured. A row per pump prediction, a row per inspection, and a row per sensor reading describe different observations. Confusing these can produce incorrect training examples even when every column passes schema validation.
+Knowing which records were available is only the first step. Before combining them for modeling, we need to determine what each row represents and how its fields were measured. A row per pump prediction, a row per inspection, and a row per sensor reading describe different observations. Confusing these can produce incorrect training examples even when every column passes schema validation.
 
 The example below shows what can go wrong when we attempt to match temperature readings with failure outcomes.
 
@@ -69,7 +69,7 @@ Schema validation alone cannot tell us whether records have been matched correct
 
 ## Check how labels were made
 
-A label should always represent the outcome we want to predict. However, the meaning of a label depends on how it was produced, not simply on its name or data type. Before using labels for training or evaluation, we need to understand what was actually recorded in the data.
+Even when records are matched correctly, we still need to check what the attached labels mean. A label should always represent the outcome we want to predict. However, the meaning of a label depends on how it was produced, not simply on its name or data type. Before using labels for training or evaluation, we need to understand what was actually recorded in the data.
 
 The example below shows how different records can produce labels with different meanings.
 
@@ -91,7 +91,7 @@ As the example above shows, if our only record is a temperature alarm, the label
 
 ## Diagnose the data problem
 
-Data validation can identify unexpected patterns, but it cannot always determine whether they make the data unsuitable for the prediction task. A validation warning is therefore a reason to investigate, as the same warning may have different causes that require different responses.
+Understanding the timing, measurements, and labels gives us a basis for interpreting validation warnings. Data validation can identify unexpected patterns, but it cannot always determine whether they make the data unsuitable for the prediction task. A validation warning is therefore a reason to investigate, as the same warning may have different causes that require different responses.
 
 The example below illustrates this distinction.
 

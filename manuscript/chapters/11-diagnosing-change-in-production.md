@@ -1,6 +1,6 @@
 # Diagnosing Change in Production
 
-Imagine a recycling facility that uses a machine learning model to identify bottles that require manual sorting. One day, the system starts diverting more bottles than usual. Should the technical team retrain the model, repair a camera, or leave the system running as it is?
+Passing tests before deployment gives us evidence about the conditions we tested. Monitoring is needed to check whether those conditions and results hold as the system operates. Imagine a recycling facility that uses a machine learning model to identify bottles that require manual sorting. One day, the system starts diverting more bottles than usual. Should the technical team retrain the model, repair a camera, or leave the system running as it is?
 
 To decide, we need to monitor the system for different kinds of failure, distinguish changes in the data from declining predictive quality, and investigate the cause of any problems. Before replacing the model, we also need evidence that the replacement improves the system.
 
@@ -29,7 +29,7 @@ As the example above shows, different monitoring measures help us identify diffe
 
 ## Distinguish drift from degradation
 
-**Drift** refers to changes in the data distribution over time. These changes can affect the inputs, the outcomes, or the relationship between them. **Degradation** refers to a decline in predictive quality. Drift does not necessarily lead to degradation, even when the relationship between inputs and outcomes changes. Whether predictive quality declines depends on how the changes affect the model's predictions and the measure used to evaluate them.
+To interpret the increase in diversions, we need to distinguish a change in what arrives at the system from a decline in how well it predicts. **Drift** refers to changes in the data distribution over time. These changes can affect the inputs, the outcomes, or the relationship between them. **Degradation** refers to a decline in predictive quality. Drift does not necessarily lead to degradation, even when the relationship between inputs and outcomes changes. Whether predictive quality declines depends on how the changes affect the model's predictions and the measure used to evaluate them.
 
 The example below illustrates the difference between drift and degradation using a simplified model.
 
@@ -53,13 +53,13 @@ As the example above shows, different types of drift can have different effects 
 
 ## Investigate the cause
 
-The same monitoring alert can have several possible causes. We should investigate these causes before deciding what to change in the system.
+The two scenarios show why a change in diversions alone does not tell us whether to intervene. Even after staff confirm more errors, the same monitoring alert can have several possible causes. We should investigate these causes before deciding what to change in the system.
 
 The example below shows how an investigation can distinguish a technical failure from a change in the data.
 
 > **Worked example: Investigating an increase in diversions**
 >
-> Continuing the recycling example, assume that the increase in diversion recommendations begins when two changes occur at the same time: a software update is deployed, and bottles with a new packaging design start arriving. Operators report that bottles with the new design are frequently sorted incorrectly.
+> Returning from the simplified cap-color scenarios to the facility's investigation, assume that the increase in diversion recommendations begins when two changes occur at the same time: a software update is deployed, and bottles with a new packaging design start arriving. Operators report that bottles with the new design are frequently sorted incorrectly.
 >
 > The technical team investigates two possible explanations. The table shows their findings.
 >

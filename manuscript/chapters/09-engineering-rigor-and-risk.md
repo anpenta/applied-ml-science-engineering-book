@@ -1,6 +1,6 @@
 # Engineering Rigor and Risk
 
-A technical team at a public library system is experimenting with a model to forecast book requests. What would change if its libraries began relying on those forecasts to decide how many copies to transfer between locations?
+Preserving a model's behavior as it becomes part of a system requires engineering checks, but which checks matter depends on how the system is used. Consider a technical team at a public library system experimenting with a model to forecast book requests. What would change if its libraries began relying on those forecasts to decide how many copies to transfer between locations?
 
 As more people begin relying on the forecasts, failures can have greater consequences. We therefore need to choose engineering practices that reflect those consequences, test both the software and the predictions, and make failure states explicit. We also need to check that the system responds to those failures as intended.
 
@@ -26,7 +26,7 @@ As the example above shows, additional engineering controls should address ident
 
 ## Test software and predictive quality
 
-Software tests and predictive evaluation answer different questions. Software tests can check that a service performs its calculations correctly. Evaluation on held-out records tells us how well the model predicts in the setting we care about.
+Choosing controls for those risks requires distinguishing errors in the software from errors in the forecasts. Software tests and predictive evaluation answer different questions. Software tests can check that a service performs its calculations correctly. Evaluation on held-out records tells us how well the model predicts in the setting we care about.
 
 The example below shows how a correct calculation can still lead to a poor decision when the forecast is wrong.
 
@@ -63,7 +63,7 @@ As the example above shows, correct software behavior and useful predictions req
 
 ## Make failure states explicit
 
-When a system produces a result, we need to know whether it was calculated under normal conditions or whether something went wrong. Otherwise, we risk interpreting a fallback value as a valid result.
+The previous checks assumed that a forecast was available. We also need to decide what happens when it is not. When a system produces a result, we need to know whether it was calculated under normal conditions or whether something went wrong. Otherwise, we risk interpreting a fallback value as a valid result.
 
 The example below shows why a system needs to communicate not only its results, but also the conditions under which they were produced.
 
