@@ -23,7 +23,7 @@ The example below shows how different monitoring measures can help identify prob
 >
 > One morning, the proportion of bottles recommended for diversion increases, while response times and service errors remain stable. The technical team knows that the model is recommending more diversions, but they cannot yet determine whether those recommendations are correct.
 >
-> To investigate, the team examines recent images and compares the model's predictions with staff assessments of a sample of bottles, including those not diverted. This helps determine whether more bottles genuinely require manual sorting or whether the model's predictive quality has declined.
+> To investigate, the team examines recent images and compares the model's predictions with verified staff assessments of a sample of bottles, including those not diverted. This helps determine whether more bottles genuinely require manual sorting or whether the model's predictive quality has declined.
 
 As the example above shows, different monitoring measures help us identify different kinds of problems. We should monitor both system behavior and predictive quality to determine whether the system continues to work as intended.
 
@@ -65,10 +65,10 @@ The example below shows how an investigation can distinguish a technical failure
 >
 > | Possible cause | Investigation and finding |
 > | --- | --- |
-> | The software update introduced an error. | The team processes the same images using the old and new software versions. Both produce identical predictions, suggesting that the update did not cause the observed errors. |
+> | The software update introduced an error. | The team processes the same images using the old and new software versions. Both produce identical predictions on these images, providing evidence against a change in prediction behavior on the tested inputs, but not ruling out errors elsewhere in the updated system. |
 > | The new packaging design changed the relationship between bottle appearance and sorting needs. | Staff check a sample of bottles with the new design and find that the model frequently makes incorrect predictions. Bottles with the older design are still classified correctly. |
 >
-> The findings suggest that the new packaging design is responsible for the decline in predictive quality, rather than the software update. The technical team therefore collects additional labeled images of bottles with the new design and evaluates whether updating the model improves its predictions.
+> The findings suggest that the new packaging design is associated with the decline in predictive quality, while the comparison provides no evidence of a prediction-level regression from the software update. The technical team therefore collects additional labeled images of bottles with the new design and evaluates whether updating the model improves its predictions.
 >
 > Had the investigation instead identified a software error, correcting that error would have been more appropriate than retraining the model.
 
@@ -84,7 +84,7 @@ The example below shows how this comparison can help us decide whether a candida
 >
 > Continuing the recycling example, the technical team trains a candidate model using newly collected data. It compares the candidate with the current model on a separate sample of 400 bottles that were not used during training or model selection. Half have the older packaging design, and half have the new design.
 >
-> Before the comparison, the team agrees that the candidate must reduce the total number of missed bottles without substantially increasing unnecessary diversions or making predictions too slowly. They also agree to accept no more than two additional missed bottles with the older design.
+> Before the comparison, the team agrees that the candidate must reduce the total number of missed bottles, cause no more than two additional unnecessary diversions, and deliver at least 95 percent of predictions within 40 milliseconds. They also agree to accept no more than two additional missed bottles with the older design.
 >
 > The following table shows the evaluation results.
 >
