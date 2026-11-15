@@ -12,7 +12,7 @@ The example below shows why we need to understand how an explanation is construc
 
 > **Worked example: Explaining a forecast of late delivery**
 >
-> Suppose that a model gives a project a risk score of 70 on a scale from 0 to 100. To explain that score, we use a Shapley-based explanation that compares it with the model's average score on a chosen set of reference projects. Assume the following results for illustration.
+> Suppose that a model gives a project a risk score of 70 on a scale from 0 to 100. To explain that score, we use a Shapley-based explanation that compares it with the model's average score on a chosen set of reference projects. Assume that the explanation procedure, including how it handles feature dependence, stays the same when we change the reference projects. Assume the following results for illustration.
 >
 > | | Reference: Same team's projects | Reference: Company's projects |
 > | --- | ---: | ---: |
@@ -46,7 +46,7 @@ The example below shows how models can agree on every observed prediction while 
 > | 2 | 4 | 4 | 4 |
 > | 3 | 6 | 6 | 6 |
 >
-> All three models give identical predictions for every project in the dataset. However, their explanations can differ. An explanation of the first model could attribute the score to the board's count, while an explanation of the second could attribute it to the report's count. For the third model, both features could contribute to the score.
+> All three models give identical predictions for every project in the dataset, where $x_1=x_2$; they need not agree when the two counts differ. However, their explanations can differ. An explanation of the first model could attribute the score to the board's count, while an explanation of the second could attribute it to the report's count. For the third model, both features could contribute to the score.
 >
 > Since the report copies the board, neither source provides information that the other lacks. The different explanations therefore reflect how the models use the dependent features, rather than a difference in the information available to them.
 
@@ -69,7 +69,7 @@ The example below illustrates how examining a model's use of a feature can revea
 > | Yes | Low | High |
 > | No | Low | Low |
 >
-> The results show that the tree ignores the overdue-task count for projects handled entirely by one team. To investigate whether this is a problem, the technical team checks the actual delivery dates of such projects in held-out records. Suppose they find the following results.
+> Examining how the tree uses overdue tasks across project types reveals that it ignores the overdue-task count for projects handled entirely by one team. To investigate whether this is a problem, the technical team checks the actual delivery dates of such projects in held-out records. Suppose they find the following results.
 >
 > | Projects handled entirely by one team | Projects checked | Finished late | Proportion that finished late | Tree's score |
 > | --- | ---: | ---: | ---: | --- |
