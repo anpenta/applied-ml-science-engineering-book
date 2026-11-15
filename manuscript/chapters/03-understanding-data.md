@@ -6,7 +6,7 @@ To trust the dataset, we need to know when the features become available, what t
 
 ## Check when features become available
 
-A prediction must use only information available to the system at the time of prediction. A feature that is unavailable then must be excluded or handled as missing. To check that, we need to know when the event occurred, when it was recorded, and when the prediction system could access the record.
+A prediction must use only information available to the system at the time of prediction. If a feature is unavailable at that time, the system must either exclude it or handle it as missing. To check that, we need to know when the event occurred, when it was recorded, and when the prediction system could access the record.
 
 The example below illustrates why recording a reading before prediction time does not guarantee that it is available in time.
 
