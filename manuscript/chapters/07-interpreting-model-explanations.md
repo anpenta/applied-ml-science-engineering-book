@@ -46,7 +46,7 @@ The example below shows how models can agree on every observed prediction while 
 > | 2 | 4 | 4 | 4 |
 > | 3 | 6 | 6 | 6 |
 >
-> All three models give identical predictions for every project in the dataset, where $x_1=x_2$; they need not agree when the two counts differ. However, their explanations can differ. An explanation of the first model could attribute the score to the board's count, while an explanation of the second could attribute it to the report's count. For the third model, both features could contribute to the score.
+> All three models give identical predictions for every project in the dataset, where $x_1=x_2$. They need not agree when the two counts differ. However, their explanations can differ. An explanation of the first model could attribute the score to the board's count, while an explanation of the second could attribute it to the report's count. For the third model, both features could contribute to the score.
 >
 > Since the report copies the board, neither source provides information that the other lacks. The different explanations therefore reflect how the models use the dependent features, rather than a difference in the information available to them.
 
