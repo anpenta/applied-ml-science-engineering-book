@@ -58,7 +58,7 @@ Building on the bike-share example, the example below shows how the same count c
 >
 > For residential stations, $g=0$, so the count has weight $b$. For commuter stations, $g=1$, so its weight is $b+d$. The extra coefficient $d$ lets the relationship differ by station type while keeping one model.
 >
-> In the table, both groups start at 10 percent when $x=0$. Matching those starting probabilities forces $c=0$. The simpler model would then predict the same probability for both groups at $x=2$, so it cannot reproduce both 40 percent and 15 percent. The interaction term in the more flexible model allows for that difference. Therefore, it is worth testing whether the more flexible model improves predictive performance.
+> In the table, both groups start at 10 percent when $x=0$. Matching those starting probabilities forces $c=0$. The simpler model would then predict the same probability for both groups at $x=2$, so it cannot reproduce both 40 percent and 15 percent while also matching the two starting probabilities. The interaction term in the more flexible model allows for that difference. Therefore, it is worth testing whether the more flexible model improves predictive performance.
 
 As the example above shows, adding complexity can be worth testing when it lets the model represent a specific pattern the simpler model misses.
 
@@ -70,7 +70,7 @@ The example below shows how a small change to a model can deliver most of the be
 
 > **Worked example: Choosing how much flexibility to add**
 >
-> Continuing the bike-share example, the technical team wants to predict which stations will run out of bikes the next morning. The team trains three models on the same earlier records, using yesterday's failed-rental count and station type as inputs. They then compare them over the same four weeks of mornings excluded from training and model selection. Each model flags the same number of stations each morning. The team counts how often a station runs out of bikes without being flagged.
+> Continuing the bike-share example, the technical team wants to predict which stations will run out of bikes the next morning. The team trains three models on the same earlier records, using yesterday's failed-rental count and station type as inputs. They then compare them over the same four weeks of mornings excluded from training, using those results to select which model to pursue. Each model flags the same number of stations each morning. The team counts how often a station runs out of bikes without being flagged.
 >
 > | Model | How it uses yesterday's failed-rental count | Missed shortages |
 > | --- | --- | ---: |
@@ -78,7 +78,7 @@ The example below shows how a small change to a model can deliver most of the be
 > | Logistic regression with an interaction term | Allows the count to have a different weight for commuter and residential stations | 65 |
 > | Ensemble of decision trees | Can capture threshold effects in the count that differ by station type | 64 |
 >
-> The logistic regression model with an interaction term allows the count to have a different weight for each station type, reducing missed shortages by ten over four weeks compared with the simpler logistic regression model. The tree ensemble offers even more flexibility, as it can capture how the relationship between failed rentals and shortage risk changes at different count values within each station type. However, this additional flexibility reduces missed shortages by only one more, while requiring the technical team to tune additional hyperparameters, such as the number and depth of the trees, and explain the more complex model to stakeholders. The team therefore chooses to proceed with the logistic regression model with an interaction term, because the small improvement offered by the tree ensemble does not justify the additional complexity and work involved.
+> The logistic regression model with an interaction term allows the count to have a different weight for each station type, reducing missed shortages by ten over four weeks compared with the simpler logistic regression model. The tree ensemble offers even more flexibility, as it can capture how the relationship between failed rentals and shortage risk changes at different count values within each station type. However, this additional flexibility reduces missed shortages by only one more, while requiring the technical team to tune additional hyperparameters, such as the number and depth of the trees, and explain the more complex model to stakeholders. The team therefore chooses to proceed with the logistic regression model with an interaction term, judging that the one-shortage improvement observed for the tree ensemble may not justify the additional complexity and work involved.
 
 As the example above shows, we should always evaluate whether the improvement offered by a more complex model justifies its additional costs. A relatively simple change may already capture most of the potential benefit, making further complexity unnecessary.
 
