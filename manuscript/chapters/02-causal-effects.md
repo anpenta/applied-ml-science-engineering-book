@@ -14,7 +14,7 @@ The example below illustrates the difference between predicting an outcome and e
 
 > **Worked example: Deciding whether to give extra water**
 >
-> Suppose a model predicts that a greenhouse section is likely to produce a low yield under the usual routine. The greenhouse staff considers giving that section extra water. For illustration, assume that the section in question would yield 3 kilograms under the usual routine and 1 kilogram with extra water. The section is already at risk of a low yield under the usual routine, but extra water would actually lower it further.
+> Suppose a model predicts that a greenhouse section is likely to produce a low yield under the usual routine. The greenhouse staff considers giving that section extra water in the hope that it will improve the low yield. For illustration, assume that the section in question would yield 3 kilograms under the usual routine and 1 kilogram with extra water. The section is already at risk of a low yield under the usual routine, but extra water would actually lower it further.
 >
 > Here, the action under study is extra watering, the alternative is the usual routine, and the outcome is yield in kilograms at harvest. Let $Y(1)$ be the yield with extra water and $Y(0)$ the yield under the usual routine. These are the section's **potential outcomes**. The **causal effect** of extra water for the section is $Y(1) - Y(0) = 1 - 3 = -2$ kilograms in this example.
 >
@@ -32,14 +32,14 @@ Consider the continuation of the greenhouse example below for an illustration.
 
 > **Worked example: Comparing watered and unwatered sections**
 >
-> Continuing the greenhouse example, assume that the greenhouse staff gives extra water to two sunny sections and leaves two shaded sections on the usual routine. The staff chooses where to give extra water based on sunlight, without random assignment. For illustration, assume that the yields under both options are as follows.
+> Continuing the greenhouse example, assume that the greenhouse staff gives extra water to two sunny sections and leaves two shaded sections on the usual routine. The staff gives extra water to sunny sections because they expect those sections to lose more moisture. They do not assign watering at random. For illustration, assume that the yields under both options are as follows.
 >
 > | Sections | Staff decision | Yield per section with extra water | Yield per section under the usual routine |
 > | --- | --- | ---: | ---: |
 > | Two sunny sections | Extra water | **8 kilograms** | 10 kilograms |
 > | Two shaded sections | Usual routine | 1 kilogram | **3 kilograms** |
 >
-> The bold values are the yields the staff would observe. The watered sections yield 5 kilograms more per section than the others. The staff concludes that extra water increases yield by 5 kilograms. However, it assigned extra water only to sunny sections, so the comparison mixes the effect of watering with the effect of sunlight. The observed difference is an **association** between extra watering and yield, **confounded** by sunlight. It does not represent the causal effect of extra water.
+> The bold values are the yields the staff would observe. The watered sections yield $8 - 3 = 5$ kilograms more per section than the others. The staff concludes that extra water increases yield by 5 kilograms. However, it assigned extra water only to sunny sections, so the comparison mixes the effect of watering with the effect of sunlight. The observed difference is an **association** between extra watering and yield, **confounded** by sunlight. It does not represent the causal effect of extra water.
 >
 > We can check the actual causal effect using the assumed potential outcomes in the table. Sunny sections would yield 10 kilograms under the usual routine and 8 with extra water. Shaded sections would yield 3 kilograms under the usual routine and 1 with extra water. Extra water therefore reduces yield by 2 kilograms in both groups. Sunlight is a **confounder** here because it affects both where the staff waters and how much the sections yield.
 
@@ -66,13 +66,13 @@ The example below continues the greenhouse scenario and shows how the greenhouse
 >
 > The estimated average causal effect is $4.5 - 6.5 = -2$ kilograms per section. The estimate suggests that extra water lowers average yield. Unlike the historical comparison, this comparison uses randomly assigned groups rather than groups selected by sunlight. It still has sampling uncertainty, which the staff should assess before changing the watering routine. It also does not reveal the effect for each individual section.
 >
-> If random assignment is infeasible, observational causal inference methods, such as matching or weighting, could help compare sections in existing records. These methods require some assumptions, including that the comparison accounts for confounding factors, that comparable sections received both watering options, and that each watering option was applied consistently across sections.
+> If random assignment is infeasible, observational causal inference methods could help compare sections in existing records. For example, matching compares sections with similar observed characteristics, while weighting adjusts how much different sections contribute to the comparison. These methods require some assumptions, including that the comparison accounts for confounding factors, that comparable sections received both watering options, and that each watering option was applied consistently across sections.
 
 As the example above shows, random assignment provides a way to estimate an average causal effect without observing both potential outcomes for each section. When A/B testing is infeasible, observational causal inference methods can help estimate effects, but their conclusions depend on assumptions about the historical data. For example, observational causal inference methods cannot rule out unmeasured confounding or supply comparisons absent from the records.
 
-Returning to the prioritization of inspection decision, using the model's ranking for prioritization is a proposed change to the inspection workflow. We can evaluate the causal effect of that change. For example, an A/B test could randomly assign greenhouses to use either the current inspection workflow or one that prioritizes inspections using the model's predictions, then compare how many problems the staff identify in time to act. This comparison estimates the causal effect of the workflow change on timely problem detection. To determine whether the change also improves yield, the team would need to compare yield under the two workflows.
+The same distinction applies to the inspection question raised at the start of the chapter. Using the model's ranking to prioritize inspections changes the inspection workflow, and we can evaluate the causal effect of that change. We can evaluate the causal effect of that change. For example, an A/B test could randomly assign greenhouses to use either the current inspection workflow or one that prioritizes inspections using the model's predictions, then compare how many problems the staff identify in time to act. This comparison estimates the causal effect of the inspection workflow as a whole on timely problem detection, not the effect of the model in isolation. To determine whether the change also improves yield, the team would need to compare yield under the two workflows.
 
-This illustrates a broader point: even when predictions are used only to inform human decisions, such as prioritizing inspections, we cannot assume that changing those decisions automatically improves the desired outcome. Determining whether this is the case requires evaluating the causal effect of that change.
+This also explains why the equipment-inspection example in the previous chapter needed to assume that inspections prevent failures: the predictions alone cannot establish that effect. More generally, even when predictions are used only to inform human decisions, such as prioritizing inspections, we cannot assume that changing those decisions automatically improves the desired outcome. Determining whether this is the case requires evaluating the causal effect of that change.
 
 ## Further reading
 
