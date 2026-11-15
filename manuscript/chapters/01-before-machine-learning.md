@@ -70,13 +70,13 @@ The example below builds on the previous example to illustrate these three conce
 >
 > Assume again that 50 machines would fail over the next 30 days without preventive action. Additionally, assume that inspecting any of those machines always prevents its failure. With 10 available inspection slots, the current inspection policy selects 5 of those machines, Model A selects 2, and Model B selects 8.
 >
-> Under these assumptions, we can calculate the business metric directly from precision at top 10. Let $N$ be the number of machines that would fail without preventive action, $K$ the number of inspection slots, $P@K$ the proportion of the top $K$ machines that would otherwise fail, and $U$ the number of unexpected failures remaining. Because each inspection of a machine that would otherwise fail prevents one failure, the relationship is:
+> Under the assumptions above, we can actually calculate the business metric directly from the evaluation metric mentioned in the previous example. Let $N$ be the number of machines that would fail without preventive action, $K$ the number of available inspection slots, $P@K$ precision at top $K$, and $U$ the number of unexpected failures. We multiply precision at top $K$ by $K$ to get the number of failures prevented, then subtract that number from $N$ to get the number of unexpected failures:
 >
-> $
+> $$
 > U = N - K \times P@K
-> $
+> $$
 >
-> Here, $N = 50$ and $K = 10$. The current policy selects 5 machines that would otherwise fail ($P@K = 0.5$), Model A selects 2 ($P@K = 0.2$), and Model B selects 8 ($P@K = 0.8$). Substituting these values gives the results below.
+> With $N = 50$ and $K = 10$, the current inspection policy has $P@K = 0.5$, Model A has $P@K = 0.2$, and Model B has $P@K = 0.8$, giving the results shown in the table below.
 >
 > | | Current inspection policy | Model A | Model B |
 > | --- | ---: | ---: | ---: |
