@@ -242,6 +242,21 @@ def build_homepage_metadata() -> str:
     tags.append(f'<link rel="canonical" href="{canonical}" />')
     return "\n".join(tags) + "\n"
 
+def build_epub_stylesheet() -> str:
+    """Space the contents groups in Pandoc's navigation, which has no section classes."""
+    stylesheet = (ROOT / "assets" / "epub.css").read_text(encoding="utf-8")
+    if FRONT_MATTER:
+        stylesheet += (
+            f"nav#toc > ol > li:nth-child({len(FRONT_MATTER) + 1}) "
+            "{ margin-top: 1em; }\n"
+        )
+    if BACK_MATTER:
+        stylesheet += (
+            f"nav#toc > ol > li:nth-last-child({len(BACK_MATTER)}) "
+            "{ margin-top: 1em; }\n"
+        )
+    return stylesheet
+
 def run_pandoc(source: str, output: Path, *, edition: str, homepage: bool = False) -> None:
     pandoc = shutil.which("pandoc")
     if pandoc is None:
@@ -256,6 +271,9 @@ def run_pandoc(source: str, output: Path, *, edition: str, homepage: bool = Fals
         if homepage:
             homepage_header = Path(temporary_directory) / "homepage-metadata.html"
             homepage_header.write_text(build_homepage_metadata(), encoding="utf-8")
+        if edition == "epub":
+            epub_css = Path(temporary_directory) / "epub.css"
+            epub_css.write_text(build_epub_stylesheet(), encoding="utf-8")
         subprocess.run(
             [
                 pandoc,
@@ -266,6 +284,7 @@ def run_pandoc(source: str, output: Path, *, edition: str, homepage: bool = Fals
                     if edition == "html" else []
                 ),
                 *([f"--include-in-header={homepage_header}"] if homepage else []),
+                *([f"--css={epub_css}"] if edition == "epub" else []),
                 "--output",
                 str(output),
                 str(source_path),
