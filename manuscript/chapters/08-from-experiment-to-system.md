@@ -35,7 +35,7 @@ The example below shows how a pattern learned by a model from actual delays can 
 
 > **Worked example: Learning from forecast delays**
 >
-> Continuing the bus-connection example, let us suppose that the system uses two models. The first model forecasts the busâ€™s arrival delay at the transfer stop. The second model uses that forecast to predict whether passengers will miss their bus connection.
+> Continuing the bus-connection example, let us suppose that the system uses two models. Before the first bus reaches the transfer stop, the first model forecasts its arrival delay there using information available at that time. The second model uses that forecast to predict whether passengers will miss their bus connection.
 >
 > For illustration, assume that passengers miss their connection whenever the actual arrival delay exceeds 5 minutes. The first model underestimates every delay in this small example by 2 minutes.
 >
@@ -50,7 +50,7 @@ The example below shows how a pattern learned by a model from actual delays can 
 >
 > If we instead train the second model using the forecast delays along with the recorded connection outcomes, it could learn a threshold above 3 minutes that separates these four cases correctly. This would allow the second model to account for the first model's underestimation in this example.
 >
-> To construct the training forecasts described above, we should fit the first model on earlier journeys and use it to predict delays for later journeys that were excluded from its training. We should then repeat this process across successive time periods. The resulting forecasts would then become inputs for training the second model, paired with the recorded connection outcomes. Finally, we should evaluate both models together on a separate, later period.
+> To construct the training forecasts described above, we should fit the first model on earlier journeys and use only information available at the intended prediction time to forecast delays for later journeys that were excluded from its training. We should then repeat this process across successive time periods. The resulting forecasts would then become inputs for training the second model, paired with the recorded connection outcomes. Finally, we should evaluate both models together on a separate, later period.
 
 As the example above shows, training a model on inputs that reflect what it will receive in production helps it learn patterns that account for errors in those inputs.
 
@@ -73,7 +73,7 @@ The example below shows how a more accurate delay forecast can make the systemâ€
 > | C | 6 minutes | 4 minutes | 6 minutes | Yes | Yes | Yes |
 > | D | 8 minutes | 6 minutes | 8 minutes | Yes | Yes | Yes |
 >
-> The new delay forecasts are more accurate, but the unchanged second model now incorrectly flags journey B. Its threshold still compensates for an underestimation that the new model no longer makes.
+> The new delay forecasts are more accurate, but the unchanged second model now incorrectly flags journey B. Its threshold still compensates for an underestimation that the new model no longer makes. The input has the same meaning and type, but its distribution has changed in a way that affects the second model.
 >
 > Before replacing the delay model, we should compare the old and new combinations on the same held-out journeys, checking the final predictions against recorded missed connections. If the second model needs retraining, we should train it on out-of-sample forecasts from the replacement model and evaluate the revised combination on separate held-out data.
 
