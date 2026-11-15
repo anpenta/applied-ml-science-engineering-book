@@ -16,7 +16,7 @@ The example below shows how a change in use can justify additional engineering c
 >
 > | Use | Possible failure and consequence | Appropriate protection |
 > | --- | --- | --- |
-> | An initial feasibility experiment | Duplicate records inflate request counts and make the experiment misleading. | Check that each combination of title, branch, and forecast week appears once, and save the data extract so the result can be checked. |
+> | An initial feasibility experiment | Duplicate records inflate request counts and make the experiment misleading. | Check that each combination of title, branch, and forecast week appears once in the aggregated forecasting dataset, and save the data extract so the result can be checked. |
 > | Data preparation code shared with other teams | A change to the weekly aggregation silently changes the inputs used by several models. | Document what the function returns and add a regression test that checks a small set of reservation records against known weekly counts. |
 > | A daily service used by branches to plan transfers | An unavailable forecast leaves titles out of the transfer plan, which staff mistake for a complete plan. | Make unavailable forecasts visible and test that the staff-facing system marks the affected titles for attention. |
 >
@@ -71,7 +71,7 @@ The example below shows why a system needs to communicate not only its results, 
 >
 > Continuing the library example, imagine that the technical team wants their application to handle situations where a forecast is unavailable. The library has approved a fallback procedure: make no new transfer and flag the affected title for staff review.
 >
-> This creates a problem. A recommendation of zero additional copies could mean either that the forecast indicates no additional copies are needed or that the application has used the fallback. The technical team therefore decides to return both the number of additional copies and a status indicating how the result was obtained.
+> This creates a problem. A recommendation of zero additional copies could mean either that the forecast indicates no additional copies are needed or that the application has used the fallback. The technical team therefore decides to return both the number of additional copies and a status indicating how the result was obtained. Consumers must interpret the number together with its status, rather than treating a fallback zero as a normal recommendation.
 >
 > ```python
 > from dataclasses import dataclass
