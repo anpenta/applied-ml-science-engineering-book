@@ -68,7 +68,13 @@ The **business objective** describes what the company wants to improve. The **bu
 >
 > Assume again that 50 machines would fail over the next 30 days without preventive action. Additionally, assume that inspecting any of those machines always prevents its failure. With 10 available inspection slots, the current inspection policy selects 5 of those machines, Model A selects 2, and Model B selects 8.
 >
-> Under the assumptions above, we can actually calculate the business metric directly from the evaluation metric mentioned in the previous example. We multiply precision at top 10 by 10 to get the number of failures prevented, then subtract that number from 50 to get the number of unexpected failures as shown in the table below.
+> Under these assumptions, multiplying precision at top 10 by 10 gives the number of failures prevented. Subtracting those from the 50 failures that would occur without preventive action gives the business metric.
+>
+> $$
+> \text{Unexpected failures over 30 days} = 50 - 10 \times \text{precision at top 10}
+> $$
+>
+> For Model B, precision at top 10 is 0.8, so the number of unexpected failures is $50 - 10 \times 0.8 = 42$. The table compares both models with the current inspection policy.
 >
 > | | Current inspection policy | Model A | Model B |
 > | --- | ---: | ---: | ---: |
