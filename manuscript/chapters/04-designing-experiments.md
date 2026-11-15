@@ -14,7 +14,7 @@ The example below applies this distinction to a weekly demand forecast.
 >
 > Every Friday, a retailer’s planning team forecasts demand for the following week to decide how much stock each store will need. Over the next eight weeks, the retailer’s technical team tests whether a new model reduces average absolute forecast error. They compare the model’s forecasts with the planning team’s forecasts for the same stores and weeks. Both methods use only information available by the Friday deadline.
 >
-> The technical team also tests whether adding the promotion calendar as input information to the model reduces forecast error. They train two versions using the same model type and training procedure. One uses the promotions known by Friday, and the other leaves them out. The technical team evaluates both versions on the same stores and weeks. Because the promotion calendar is the only change, the comparison isolates its effect on forecast error.
+> The technical team also tests whether adding the promotion calendar as input information to the model reduces forecast error. They train two versions using the same model type and training procedure. One uses the promotions known by Friday, and the other leaves them out. The technical team evaluates both versions on the same stores and weeks. Because the promotion calendar is the only change to this modeling procedure, the comparison isolates its contribution to forecast error under these evaluation conditions.
 >
 > | Question | Comparison | What stays fixed? |
 > | --- | --- | --- |
@@ -27,7 +27,7 @@ As the example above shows, what we want to learn determines what the experiment
 
 ## Choose a meaningful baseline
 
-When designing an experiment, we need to choose a baseline that answers the question we are interested in. If we want to know whether the model improves on a simple rule, such as a constant forecast, we should use that rule as our baseline. If we want to decide whether the model should replace the current forecasting method, our baseline should be the forecast we currently use. If obtaining that forecast is difficult or costly, we can use a defensible approximation in its place instead.
+When designing an experiment, we need to choose a baseline that answers the question we are interested in. If we want to know whether the model improves on a simple rule, such as a constant forecast, we should use that rule as our baseline. If we want to decide whether the model should replace the current forecasting method, our baseline should be the forecast we currently use. If obtaining that forecast is difficult or costly, we can use a defensible approximation for an initial comparison, while recognizing that it may not support a final replacement decision.
 
 The example below shows how the same model can look much better against a simple baseline than against the forecast it would actually replace.
 
@@ -64,7 +64,7 @@ The example below shows why testing on new weeks at a familiar store answers a d
 >
 > In the first setup, the model can learn from Store B’s first four weeks of sales and use that history when making forecasts. In the second setup, we treat Store B as if it has yet to open, so we exclude its sales history from both training and forecast inputs. In both setups, we use Store B’s actual sales from weeks 5–8 only to calculate forecast errors for evaluation purposes.
 >
-> As a side note, demand during a store’s opening weeks may differ from demand at an established store. However, if we have no historical data from actual store openings, holding out Store B in the second setup gives us a practical way to test forecasting without local sales history. The limitation is that the resulting forecast errors may differ from those we would see at an actual opening. Let us assume that in this case they wouldn't differ.
+> As a side note, demand during a store’s opening weeks may differ from demand at an established store. However, if we have no historical data from actual store openings, holding out Store B in the second setup gives us a practical way to test forecasting without local sales history. The limitation is that the resulting forecast errors may differ from those we would see at an actual opening. For this illustration, assume that the difference does not affect the comparison.
 >
 > To summarize, the two experimental setups answer different questions. The first setup tells us how well the model forecasts demand for an existing store, whereas the second setup tells us how well the model forecasts demand for a new store. Even though both setups evaluate predictions for the same store and weeks, their results reflect different kinds of generalization.
 
@@ -102,11 +102,11 @@ The example below shows how we can use the available evidence and the expected b
 
 > **Worked example: Deciding when we have enough evidence**
 >
-> Continuing the retail demand forecast example, assume that the retailer is trying to decide whether to use the new model during ordinary weeks. The switch is worth making only if the new model reduces average absolute forecast error by at least **5 units** compared to the current method.
+> Continuing the retail demand forecast example, assume that the retailer is trying to decide whether to use the new model during ordinary weeks. The switch is worth making only if the new model reduces average absolute forecast error by at least **5 units** compared to the current method. Assume the retailer has translated forecast improvements into expected stock-planning benefits and costs, so that it can estimate the monetary value of making a better-informed switching decision.
 >
-> Assume that the retailer’s technical team has enough evaluation data to estimate uncertainty about the average improvement using **bootstrapping**. They repeatedly resample the observed data and recompute the average improvement, using a resampling scheme that accounts for dependence between stores and weeks.
+> Assume that the retailer’s technical team has enough evaluation data to estimate uncertainty about the average improvement using **bootstrapping**. They repeatedly resample the observed data and recompute the average improvement, using a resampling scheme that accounts for dependence between stores and weeks rather than treating every observation as independent. The resulting plausible ranges summarize uncertainty about the average improvement; they do not by themselves determine the monetary value of further testing.
 >
-> At each stage, the technical team considers repeating the comparison on eight more ordinary weeks. Before running the new test, they use **value-of-information analysis** to estimate how likely the new test is to lead to a switch and how much switching would be worth in those cases.
+> At each stage, the technical team considers repeating the comparison on eight more ordinary weeks. Before running the new test, they use **value-of-information analysis** to estimate the expected benefit of making a better switching decision after seeing new evidence, using the estimated uncertainty and the assumed economic consequences of each decision.
 >
 > Note that the estimated average improvements, uncertainty ranges, expected benefits, and test costs in the table below are assumed for this example, and they are not related to the four-week illustration in the previous example.
 >
