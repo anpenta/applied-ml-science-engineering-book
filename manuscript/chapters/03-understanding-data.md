@@ -6,7 +6,7 @@ To trust the dataset, we need to know when the features become available, what t
 
 ## Check when features become available
 
-A feature must always be available at the time of prediction. To check that, we need to know when the event occurred, when it was recorded, and when the prediction system could access the record.
+A prediction must use only information available to the system at the time of prediction. A feature that is unavailable then must be excluded or handled as missing. To check that, we need to know when the event occurred, when it was recorded, and when the prediction system could access the record.
 
 The example below illustrates why recording a reading before prediction time does not guarantee that it is available in time.
 
@@ -59,7 +59,7 @@ The example below shows what can go wrong when we attempt to match temperature r
 >
 > The resulting table has the expected shape and every value is valid, yet both labels are attached to the wrong pumps.
 >
-> In this example, joining on the pump identifier instead would give the correct matches, as we only have one prediction time per pump. Alternatively, if the data had contained multiple prediction times per pump, we would have joined on both the pump identifier and the prediction time. Before joining, we would have verified that each combination appears at most once in each table.
+> In this example, joining on the pump identifier instead would give the correct matches, as we only have one prediction time per pump. Alternatively, if the data had contained multiple prediction times per pump, we would have joined on both the pump identifier and the prediction time, after constructing the failure labels for each prediction's following 24-hour window. Before joining, we would have verified that each combination appears at most once in each table.
 
 The example above shows why we need to verify that a join preserves the observations we intend to model.
 
@@ -85,7 +85,7 @@ The example below shows how different records can produce labels with different 
 >
 > These records describe different events. A pump can trigger an alarm without failing, and a technician may replace a pump before it fails. Treating either event as a confirmed failure would change what the model learns to predict.
 >
-> To construct the label from maintenance records, we would need to identify confirmed failures and determine when they occurred. We should then label each prediction according to whether a confirmed failure occurred in the following 24 hours.
+> To construct the label from maintenance records, we would need to identify confirmed failures and determine when they occurred. We should then label each prediction according to whether a confirmed failure occurred in the following 24 hours. A prediction with no recorded failure can be labeled negative only if the full 24-hour outcome window was observed. Preventive replacement can also change whether a failure is observed, so the absence of a recorded failure does not necessarily mean the pump would have remained operational without intervention.
 
 As the example above shows, if our only record is a temperature alarm, the labels tell us whether the alarm went off. Consequently, we can only evaluate predictions of alarms with those labels. Evaluating predictions of pump failures instead requires records that tell us when the pumps actually failed.
 
