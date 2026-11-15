@@ -1,6 +1,6 @@
 This book brings together the author’s positions on the scientific and engineering decisions involved in applied machine learning. These positions grew out of his professional work and were informed by relevant technical literature.
 
-One lesson from this work is that scientific and engineering questions are rarely independent. How we define a problem affects what we measure. How we construct a dataset affects what we can learn from an experiment. How we build and operate a system affects whether its predictions remain useful in practice. That’s why a decision that makes sense from a scientific perspective may need to be revisited once we consider its engineering consequences, and vice versa.
+One lesson from this work is that scientific and engineering questions are rarely independent. How we define a problem affects what we measure. How we construct a dataset affects what we can learn from an experiment. How we build and operate a system affects whether its predictions remain useful in practice. That’s why a technical decision that makes sense from a scientific perspective may need to be revisited once we consider its engineering consequences, and vice versa.
 
 Each chapter in the book develops a position and illustrates it with worked examples. The examples are hypothetical and deliberately small so that we can follow the reasoning and see which assumptions the argument depends on. For readers who want to explore a topic in more detail, further reading is suggested at the end of each chapter.
 
