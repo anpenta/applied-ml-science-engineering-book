@@ -168,8 +168,8 @@ hr {
 
 /* Separate the three contents groups with whitespace. */
 .book-contents { list-style: none; padding-left: 0; }
-.book-contents > li:nth-child(5),
-.book-contents > li:last-child { margin-top: 1.5em; }
+.book-contents > .front-matter + .introduction,
+.book-contents > :not(.back-matter) + .back-matter { margin-top: 1.5em; }
 
 /* Book mark above the title on the HTML landing page. */
 .book-cover-mark {

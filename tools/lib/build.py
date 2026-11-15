@@ -317,7 +317,7 @@ def build_html() -> None:
             if section.kind == "chapter" else section.heading
         )
         toc_items.append(
-            f'<li><a href="{filename}">{html.escape(label)}</a></li>'
+            f'<li class="{section.kind}"><a href="{filename}">{html.escape(label)}</a></li>'
         )
     contents = '<ul class="book-contents">' + "\n".join(toc_items) + "</ul>"
 
