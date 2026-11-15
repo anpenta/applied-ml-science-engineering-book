@@ -66,11 +66,9 @@ As the example above shows, adding complexity can be worth testing when it lets 
 
 When a simpler model misses a useful pattern, we can start by adding enough flexibility to capture it. If a more complex model improves predictions further, we then need to determine whether the additional improvement justifies the added complexity and its associated costs.
 
-The example below shows how a small change to a model can deliver most of the benefit of a more complex approach.
-
 > **Worked example: Choosing how much flexibility to add**
 >
-> Continuing the bike-share example, the technical team wants to predict which stations will run out of bikes the next morning. The team trains three models on the same earlier records, using yesterday's failed-rental count and station type as inputs. They then compare them over the same four weeks of mornings excluded from training and model selection. Each model flags the same number of stations each morning. The team counts how often a station runs out of bikes without being flagged.
+> The bike-share team now wants to know how much flexibility it needs to account for the differences between station types when predicting which stations will run out of bikes the next morning. The team trains three models on the same earlier records, using yesterday's failed-rental count and station type as inputs. They then compare them over the same four weeks of mornings excluded from training and model selection. Each model flags the same number of stations each morning. The team counts how often a station runs out of bikes without being flagged.
 >
 > | Model | How it uses yesterday's failed-rental count | Missed shortages |
 > | --- | --- | ---: |

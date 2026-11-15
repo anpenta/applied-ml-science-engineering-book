@@ -54,11 +54,9 @@ As the example above shows, the performance of an individual component does not 
 
 Even if individual requests are processed quickly, they can still accumulate in a queue when requests arrive faster than the system can handle them. The number of requests a system can process depends on the work each request requires and how many requests it can handle concurrently.
 
-The example below shows how a system can develop a growing backlog despite processing individual requests quickly, and how increasing its capacity can introduce memory constraints.
-
 > **Worked example: Checking the model worker at peak demand**
 >
-> Continuing the photo-search example, assume that the service uses a queue and a single worker to run the model, processing one search at a time. Each search takes 20 milliseconds of model processing time, so the worker can handle up to 50 searches per second. For simplicity, assume that all other stages can keep up with demand.
+> The time spent processing one photo search tells us how quickly a model worker can serve it. The newsroom also needs to know whether the service can keep up during breaking news. Suppose the service uses a queue and a single model worker that processes one search at a time. Each search takes 20 milliseconds of model processing time, so the worker can handle up to 50 searches per second. For simplicity, assume that all other stages can keep up with demand.
 >
 > During breaking news, the service receives 80 searches per second. Since the worker can only process 50, another 30 searches are added to the queue every second. After 10 seconds of sustained demand, 300 searches are waiting to be processed, assuming the queue was initially empty. Even though the model processes each search quickly, users experience increasing delays.
 >

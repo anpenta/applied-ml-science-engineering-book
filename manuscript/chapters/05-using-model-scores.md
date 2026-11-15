@@ -47,9 +47,7 @@ As the example above shows, the same result under the current decision rule can 
 
 ## Check whether the decisions improve the outcome
 
-Suppose that we are considering replacing our current decision rule with a new one for a particular application. To determine whether the change would improve the desired outcome, we should compare that outcome under both rules.
-
-The example below continues the clinic example and illustrates how to compare two decision rules based on the desired outcome.
+The comparison above shows which calling lists would have included patients who missed their appointments when no calls were made. This is the same kind of question we asked about inspection workflows in Chapter 2. To decide whether to change the clinic's rule, we need to compare what happens when the clinic makes calls under each rule.
 
 > **Worked example: Should the clinic change its calling rule?**
 >

@@ -63,11 +63,9 @@ We should focus our reviews on decisions that could significantly affect the res
 
 We should document important decisions so that others can understand and reconsider them later. A short record should explain what was decided, why the decision was made, and what might justify changing it.
 
-The example below shows how documenting the reasoning behind a decision helps a new team member evaluate a proposed change.
-
 > **Worked example: Revisiting the report design**
 >
-> Continuing the rehearsal-tool example, assume that the technical team documents why it decided to show both normalized offsets and the largest absolute offset.
+> The rehearsal-tool team records why it chose to show both normalized offsets and the largest absolute offset. A new team member can use that reasoning when proposing a change to the report.
 >
 > | Part of the record | What the team writes |
 > | --- | --- |

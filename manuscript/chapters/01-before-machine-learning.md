@@ -12,7 +12,7 @@ The example below illustrates these four components and shows how understanding 
 
 > **Worked example: Prioritizing equipment inspections**
 >
-> A company asks a technical team to build a model that predicts failures in industrial machines. Before building a model, the technical team should understand the operational problem that the company wants to address. We describe the company's operational problem in the table below.
+> A company asks a technical team to build a model that predicts failures in industrial machines. The company can inspect only 10 machines per week. The team needs to decide which model will produce the more useful list of 10 machines to inspect. The table below describes the operational problem.
 >
 > | Operational component | In this example |
 > | --- | --- |
@@ -21,7 +21,7 @@ The example below illustrates these four components and shows how understanding 
 > | **Action** | Inspect the selected machines for signs of deterioration. |
 > | **Constraints** | Staff and time permit only 10 inspections per week. |
 >
-> Assume that the technical team builds two different models. At the start of the week, each model scores the same 1,000 machines on their risk of failure over the next 30 days. Without preventive action, 50 of those machines would fail within that period. Also, the company's staff has 10 available inspection slots that week.
+> Assume that the technical team builds two different models. At the start of the week, each model scores the same 1,000 machines on their risk of failure over the next 30 days. Without preventive action, 50 of those machines would fail within that period.
 >
 > To calculate classification accuracy and precision, the technical team uses a threshold of 0.5 to turn each score into a binary yes/no prediction. To help the company's staff schedule inspections, the technical team ranks the machines by score for each model and selects the 10 highest-scoring machines on each list for the staff to prioritize.
 >
@@ -52,11 +52,9 @@ As the example above shows, the operational constraints determine which predicti
 
 ## Define success
 
-Let's assume that we already understand the operational problem. That alone is not enough to proceed with building a model. We also need a preliminary way to judge whether building one would be worthwhile.
+Model B puts eight machines that would fail without preventive action on its inspection list. Before deciding whether to build it, the company needs a way to judge whether that list would improve on its current inspection policy.
 
 The **business objective** describes what the company wants to improve. The **business metric** measures progress toward that business objective. The **success criterion** specifies what result on the business metric counts as success. A success criterion can be as simple as improving on the approach that is currently in use. We can always refine the business metric and success criterion as we learn more.
-
-The example below builds on the previous example to illustrate these three concepts and show the importance of having a success criterion.
 
 > **Worked example: Defining success**
 >
@@ -85,11 +83,9 @@ As shown in the example above, a success criterion is helpful because it gives u
 
 ## Consider alternatives
 
-Imagine that we already understand the operational problem and have a definition of success. Should we start building a machine learning model?
+Under the example's assumptions, Model B reduces unexpected failures compared with the current inspection policy. Would Model B prevent enough failures to justify its cost compared with a simpler approach?
 
 Before building a machine learning model, we should compare machine learning with simpler approaches that could meet the same business objective. A simple rule can be cheap to build and maintain, while a machine learning model may pick up patterns the rule misses. The question is whether this improvement is worth the added cost.
-
-The example below continues the equipment-inspection scenario to illustrate this trade-off.
 
 > **Worked example: Considering alternatives**
 >

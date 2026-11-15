@@ -30,11 +30,9 @@ As the example above shows, we must exclude the late reading both as a direct in
 
 Before preparing data for modeling, we need to determine what each row represents and how its fields were measured. A row per pump prediction, a row per inspection, and a row per sensor reading describe different observations. Confusing these can produce incorrect training examples even when every column passes schema validation.
 
-The example below shows what can go wrong when we attempt to match temperature readings with failure outcomes.
-
 > **Worked example: Matching readings to pump failures**
 >
-> Continuing the pump-failure example, suppose we are preparing training data for a model that predicts pump failures at 08:00.
+> Once we know which temperature readings were available at 08:00, we still need to match them to the outcomes for the right pumps.
 >
 > The first table shows one temperature value per pump, computed from readings available to the prediction system by 08:00.
 >
@@ -71,11 +69,9 @@ Schema validation alone cannot tell us whether records have been matched correct
 
 A label should always represent the outcome we want to predict. However, the meaning of a label depends on how it was produced, not simply on its name or data type. Before using labels for training or evaluation, we need to understand what was actually recorded in the data.
 
-The example below shows how different records can produce labels with different meanings.
-
 > **Worked example: What counts as a pump failure?**
 >
-> Continuing the pump-failure example, suppose we want to predict whether a pump will fail within the next 24 hours. Our dataset contains a binary column called `failure`, but different data collection procedures could have produced that column.
+> Once we have matched the records to the right pumps, we need to check what the recorded outcomes mean. Suppose we want to predict whether a pump will fail within the next 24 hours. Our dataset contains a binary column called `failure`, but different data collection procedures could have produced that column.
 >
 > | How the label was produced | What it actually records |
 > | --- | --- |

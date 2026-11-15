@@ -29,11 +29,9 @@ As the example above shows, what we want to learn determines what the experiment
 
 When designing an experiment, we need to choose a baseline that answers the question we are interested in. If we want to know whether the model improves on a simple rule, such as a constant forecast, we should use that rule as our baseline. If we want to decide whether the model should replace the current forecasting method, our baseline should be the forecast we currently use. If obtaining that forecast is difficult or costly, we can use a defensible approximation in its place instead.
 
-The example below shows how the same model can look much better against a simple baseline than against the forecast it would actually replace.
-
 > **Worked example: Comparing with the planning team's forecast**
 >
-> Continuing the retail demand forecast example, assume that actual demand at one store is 120 units for the week. The table below shows how far each forecast was from actual demand.
+> To decide whether to replace the planning team's forecast, the retailer needs to see how the new model compares with it. Suppose actual demand at one store is 120 units for the week. The table below shows how far each forecast was from actual demand.
 >
 > | Method | Forecast (units) | Absolute error (units) |
 > | --- | ---: | ---: |
@@ -98,11 +96,9 @@ When considering whether to run another experiment, we should ask how likely its
 
 Methods such as **value-of-information analysis** provide a formal way to estimate the expected benefit of running another experiment based on the evidence we already have. Alternatively, we could use a heuristic to make a rough estimate of what we might gain from further testing.
 
-The example below shows how we can use the available evidence and the expected benefit of further testing to decide when to stop.
-
 > **Worked example: Deciding when we have enough evidence**
 >
-> Continuing the retail demand forecast example, assume that the retailer is trying to decide whether to use the new model during ordinary weeks. The switch is worth making only if the new model reduces average absolute forecast error by at least **5 units** compared to the current method.
+> After looking separately at ordinary weeks and promotion weeks, the retailer focuses on whether to use the new model during ordinary weeks. The switch is worth making only if the new model reduces average absolute forecast error by at least **5 units** compared to the current method.
 >
 > Assume that the retailer’s technical team has enough evaluation data to estimate uncertainty about the average improvement using **bootstrapping**. They repeatedly resample the observed data and recompute the average improvement, using a resampling scheme that accounts for dependence between stores and weeks.
 >

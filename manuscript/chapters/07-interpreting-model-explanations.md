@@ -56,11 +56,9 @@ As the example above shows, different models can make the same predictions while
 
 What should we check when an explanation points to a feature? We can start by investigating how the model uses that feature and whether this behavior is consistent with what we know about the task. This investigation may confirm a useful pattern or reveal a potential problem, such as target leakage, a preprocessing error, or a feature unavailable at prediction time.
 
-The example below illustrates how examining a model's use of a feature can reveal where to look for missed predictions.
-
 > **Worked example: Investigating how a tree uses overdue tasks**
 >
-> Continuing the late-delivery example, assume that the project risk model is a decision tree. An explanation points to overdue tasks as a reason for a high risk score. The technical team examines the tree's splits and finds that it first checks whether a project depends on another project team. For projects with this dependency, the tree assigns a high score when three or more tasks are overdue and a low score otherwise. For projects handled entirely by one team, it assigns a low score regardless of the number of overdue tasks.
+> Suppose the project team takes an explanation about overdue tasks as a starting point for checking when its model flags late-delivery risk. In this example, the model is a decision tree. An explanation points to overdue tasks as a reason for a high risk score. The technical team examines the tree's splits and finds that it first checks whether a project depends on another project team. For projects with this dependency, the tree assigns a high score when three or more tasks are overdue and a low score otherwise. For projects handled entirely by one team, it assigns a low score regardless of the number of overdue tasks.
 >
 > The technical team confirms this behavior by changing the overdue-task count from two to three while keeping the other inputs fixed. The table below shows the results.
 >

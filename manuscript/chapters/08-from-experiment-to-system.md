@@ -2,7 +2,7 @@
 
 We have a model that predicts missed bus connections well in an experiment. What could go wrong when we put that model into a system that makes predictions throughout the day?
 
-To ensure the system works as intended, we need to preserve the meaning of the model's inputs, train the model on the kind of inputs it is expected to receive, and evaluate how changes to individual components affect the whole system.
+The experiment tells us how the model performed under the conditions we tested. Once the model becomes part of a system, those conditions can change. To ensure the system works as intended, we need to preserve the meaning of the model's inputs, train the model on the kind of inputs it is expected to receive, and evaluate how changes to individual components affect the whole system.
 
 ## Preserve the meaning of inputs
 
@@ -58,11 +58,9 @@ As the example above shows, training a model on inputs that reflect what it will
 
 Improving one component does not guarantee that the whole system will improve. When another component has learned to use the outputs of the component we changed, changing those outputs can affect the final predictions as well. We should therefore evaluate a proposed replacement together with the components that depend on it.
 
-The example below shows how a more accurate delay forecast can make the system’s connection predictions worse.
-
 > **Worked example: Replacing the delay model**
 >
-> Continuing the bus-connection example, let's assume that the second model learned to flag forecast delays above 3 minutes. This accounted for the original delay model's consistent underestimation by 2 minutes.
+> In the bus-connection system, suppose the second model learned to flag forecast delays above 3 minutes, accounting for the original delay model's consistent underestimation by 2 minutes. What happens to that rule if we replace the model that supplies the forecast delays?
 >
 > We now consider replacing the delay model. For illustration, assume that the replacement predicts the actual delays exactly on the four journeys below. The second model remains unchanged.
 >

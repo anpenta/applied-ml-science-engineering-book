@@ -65,11 +65,9 @@ As the example above shows, correct software behavior and useful predictions req
 
 When a system produces a result, we need to know whether it was calculated under normal conditions or whether something went wrong. Otherwise, we risk interpreting a fallback value as a valid result.
 
-The example below shows why a system needs to communicate not only its results, but also the conditions under which they were produced.
-
 > **Worked example: Distinguishing a recommendation from a fallback**
 >
-> Continuing the library example, imagine that the technical team wants their application to handle situations where a forecast is unavailable. The library has approved a fallback procedure: make no new transfer and flag the affected title for staff review.
+> The library's transfer calculation depends on having a forecast. The technical team also needs to decide what the application should return when a forecast is unavailable. The library has approved a fallback procedure: make no new transfer and flag the affected title for staff review.
 >
 > This creates a problem. A recommendation of zero additional copies could mean either that the forecast indicates no additional copies are needed or that the application has used the fallback. The technical team therefore decides to return both the number of additional copies and a status indicating how the result was obtained.
 >

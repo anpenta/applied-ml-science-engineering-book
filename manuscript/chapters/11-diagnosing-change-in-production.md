@@ -2,7 +2,7 @@
 
 Imagine a recycling facility that uses a machine learning model to identify bottles that require manual sorting. One day, the system starts diverting more bottles than usual. Should the technical team retrain the model, repair a camera, or leave the system running as it is?
 
-To decide, we need to monitor the system for different kinds of failure, distinguish changes in the data from declining predictive quality, and investigate the cause of any problems. Before replacing the model, we also need evidence that the replacement improves the system.
+A system that meets its requirements at launch can still run into trouble as the inputs or software change. To decide what to do when an alert goes off, we need to monitor the system for different kinds of failure, distinguish changes in the data from declining predictive quality, and investigate the cause of any problems. Before replacing the model, we also need evidence that the replacement improves the system.
 
 ## Monitor different kinds of failure
 
@@ -55,11 +55,9 @@ As the example above shows, different types of drift can have different effects 
 
 The same monitoring alert can have several possible causes. We should investigate these causes before deciding what to change in the system.
 
-The example below shows how an investigation can distinguish a technical failure from a change in the data.
-
 > **Worked example: Investigating an increase in diversions**
 >
-> Continuing the recycling example, assume that the increase in diversion recommendations begins when two changes occur at the same time: a software update is deployed, and bottles with a new packaging design start arriving. Operators report that bottles with the new design are frequently sorted incorrectly.
+> At the recycling facility, an increase in diversion recommendations gives the team a reason to investigate. Suppose the increase begins when two changes occur at the same time: a software update is deployed, and bottles with a new packaging design start arriving. Operators report that bottles with the new design are frequently sorted incorrectly.
 >
 > The technical team investigates two possible explanations. The table shows their findings.
 >
@@ -78,11 +76,9 @@ As the example above shows, the timing of a change does not necessarily tell us 
 
 Identifying a problem with the current model does not mean that a replacement will perform better. Before making a change, we should compare the candidate with the existing model, considering both predictive quality and operational requirements.
 
-The example below shows how this comparison can help us decide whether a candidate is ready for a limited trial.
-
 > **Worked example: Deciding whether to try a new model**
 >
-> Continuing the recycling example, the technical team trains a candidate model using newly collected data. It compares the candidate with the current model on a separate sample of 400 bottles that were not used during training or model selection. Half have the older packaging design, and half have the new design.
+> The recycling team uses the newly collected images to train a candidate model. It needs to find out whether the candidate handles the new design better while still meeting its requirements on the sorting line. It compares the candidate with the current model on a separate sample of 400 bottles that were not used during training or model selection. Half have the older packaging design, and half have the new design.
 >
 > Before the comparison, the team agrees that the candidate must reduce the total number of missed bottles without substantially increasing unnecessary diversions or making predictions too slowly. They also agree to accept no more than two additional missed bottles with the older design.
 >
