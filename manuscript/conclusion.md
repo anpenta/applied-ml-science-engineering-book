@@ -1,5 +1,5 @@
 Writing this book has been an opportunity to bring together lessons from working on both the scientific and engineering sides of applied machine learning. Across the chapters, we’ve examined why particular decisions make sense and what assumptions they depend on.
 
-Throughout the book, we have seen that an approach can be reasonable in one setting and unsuitable in another. Before applying an approach that has worked for us before, we should ask what made it work and whether those conditions hold in the new setting.
+Throughout the book, we have seen that an approach can be reasonable in one setting and unsuitable in another. Before reusing an approach that has worked for us, we should ask what made it work and whether those conditions hold in the new setting.
 
 The author does not expect every reader to agree with all the positions presented in this book. Disagreement can be valuable when it leads us to question our reasoning and consider what we may have overlooked. If this book helps readers to think more critically about their own technical decisions, it will have served its purpose.
