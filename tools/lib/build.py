@@ -114,6 +114,7 @@ def iter_book_sections() -> Iterator[BookSection]:
 
 def build_pdf_source() -> str:
     sections = [r"\frontmatter", "", r"\tableofcontents", r"\clearpage", ""]
+    previous_kind = None
 
     for section in iter_book_sections():
         if section.kind == "front-matter":
@@ -167,16 +168,19 @@ def build_pdf_source() -> str:
             )
         elif section.kind == "back-matter":
             escaped_heading = escape_tex(section.heading)
+            sections.append(rf"\chapter*{{{escaped_heading}}}")
+            if previous_kind != "back-matter":
+                sections.append(r"\addtocontents{toc}{\protect\vspace{\baselineskip}}")
             sections.extend(
                 [
-                    rf"\chapter*{{{escaped_heading}}}",
-                    r"\addtocontents{toc}{\protect\vspace{\baselineskip}}",
                     rf"\addcontentsline{{toc}}{{chapter}}{{{escaped_heading}}}",
                     "",
                     section.body,
                     "",
                 ]
             )
+
+        previous_kind = section.kind
 
     return "\n\n".join(sections) + "\n"
 
