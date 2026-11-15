@@ -21,7 +21,7 @@ The example below illustrates these four components and shows how understanding 
 > | **Action** | Inspect the selected machines for signs of deterioration. |
 > | **Constraints** | Staff and time permit only 10 inspections per week. |
 >
-> Assume that the technical team builds two different models. At the start of the week, each model scores the same 1,000 machines on their risk of failure over the next 30 days. Without preventive action, 50 of those machines would fail within that period. Also, the company's staff has 10 available inspection slots that week.
+> Assume that the technical team builds two different models. At the start of the week, each model scores the same 1,000 machines on their risk of failure over the next 30 days. Without preventive action, 50 of those machines would fail within that period. Also, the company's staff has 10 available inspection slots that week. The example considers this single inspection round and tracks failures over the following 30 days; it does not include further inspection rounds during that period.
 >
 > To calculate classification accuracy and precision, the technical team uses a threshold of 0.5 to turn each score into a binary yes/no prediction. To help the company's staff schedule inspections, the technical team ranks the machines by score for each model and selects the 10 highest-scoring machines on each list for the staff to prioritize.
 >
@@ -68,7 +68,7 @@ The example below builds on the previous example to illustrate these three conce
 > | **Business metric** | Number of unexpected equipment failures over 30 days. |
 > | **Success criterion** | Fewer unexpected equipment failures over 30 days than under the current inspection policy, with the same inspection capacity. |
 >
-> Assume again that 50 machines would fail over the next 30 days without preventive action. Additionally, assume that inspecting any of those machines always prevents its failure. With 10 available inspection slots, the current inspection policy selects 5 of those machines, Model A selects 2, and Model B selects 8.
+> Assume again that 50 machines would fail over the next 30 days without preventive action. Additionally, assume that inspecting any of those machines always prevents its failure. This is a simplifying assumption about the effect of inspection, not something established by the models' predictions. With 10 available inspection slots, the current inspection policy selects 5 of those machines, Model A selects 2, and Model B selects 8.
 >
 > Under the assumptions above, we can actually calculate the business metric directly from the evaluation metric mentioned in the previous example. Let $N$ be the number of machines that would fail without preventive action, $K$ the number of available inspection slots, $P@K$ precision at top $K$, and $U$ the number of unexpected failures. We multiply precision at top $K$ by $K$ to get the number of failures prevented, then subtract that number from $N$ to get the number of unexpected failures:
 >
@@ -101,7 +101,7 @@ The example below continues the equipment-inspection scenario to illustrate this
 >
 > Continuing the equipment-inspection example, assume that the company could prioritize machines using a simple rule: inspect the 10 machines with the most operating hours since their last inspection.
 >
-> The technical team compares the simple rule with Model B to see whether preventing more failures justifies the model’s higher cost. As in the previous example, assume that inspecting a machine that would otherwise fail always prevents its failure. For the comparison, the technical team uses an estimated cost of $10,000 per unexpected failure and $200 per inspection provided by the company. They also assign a share of each approach’s development and maintenance costs to that week.
+> The technical team compares the simple rule with Model B to see whether preventing more failures justifies the model’s higher cost. As in the previous example, assume that inspecting a machine that would otherwise fail always prevents its failure. For the comparison, the technical team uses an estimated cost of $10,000 per unexpected failure and $200 per inspection provided by the company. They also assign a share of each approach’s development and maintenance costs to this inspection round and its 30-day outcome period.
 >
 > | | Simple rule | Model B |
 > | --- | ---: | ---: |
@@ -109,7 +109,7 @@ The example below continues the equipment-inspection scenario to illustrate this
 > | Avoided failure costs | $70,000 | $80,000 |
 > | Inspection costs | $2,000 | $2,000 |
 > | Net benefit from inspections | $68,000 | $78,000 |
-> | Development and maintenance costs allocated to the week | $1,000 | $15,000 |
+> | Development and maintenance costs allocated to the comparison period | $1,000 | $15,000 |
 > | **Total net benefit** | **$67,000** | **$63,000** |
 >
 > As we can see in the table above, Model B prevents one more failure, worth $10,000 under these assumptions. However, its development and maintenance costs are $14,000 higher, so the simple rule actually comes out $4,000 ahead. In this case, it would make more sense to choose the simple rule as the solution to the problem.
