@@ -19,7 +19,7 @@ The example below shows how different workloads lead to different performance re
 > | Indexing photos | The system processes the photo archive overnight to prepare it for searching the next day. | The entire job must finish before the morning shift. |
 > | Searching photos | Editors search the archive throughout the day, sometimes simultaneously when breaking news occurs. | At least 95 percent of searches must display results within 120 milliseconds of the request, even when 80 searches arrive per second. |
 >
-> The technical team must therefore test the two workloads differently. For indexing, they need to measure whether the system can process the full archive before the deadline. For searching, they need to measure response times under the expected arrival rate; the number of searches arriving per second is distinct from the number being processed concurrently.
+> The technical team must therefore test the two workloads differently. For indexing, they need to measure whether the system can process the full archive before the deadline. For searching, they need to measure response times under the expected arrival rate. The number of searches arriving per second is different from the number being processed at the same time.
 >
 > The same system can therefore meet the performance requirements of one workload while failing those of another.
 
@@ -78,7 +78,7 @@ The example below shows how evaluating an existing library against explicit requ
 >
 > Continuing the photo-search example, the technical team needs a way to search the photo archive efficiently. They consider using an existing search library instead of building a custom solution.
 >
-> The technical team tests the integrated search service using the candidate library against the system's requirements, including the time until results are displayed, with a representative photo archive and up to 80 searches per second. The complete service has a 2,000-megabyte memory budget, distinct from the 1,000-megabyte model-serving component budget in the previous example. The following table shows hypothetical results.
+> The technical team tests the integrated search service using the candidate library against the system's requirements, including the time until results are displayed, with a representative photo archive and up to 80 searches per second. The complete service has a 2,000-megabyte memory budget. This differs from the 1,000-megabyte budget for the model-serving component in the previous example. The following table shows hypothetical results.
 >
 > | Requirement | Result |
 > | --- | --- |
