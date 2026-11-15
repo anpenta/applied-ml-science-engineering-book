@@ -66,7 +66,7 @@ The example below continues the greenhouse scenario and shows how the greenhouse
 >
 > The estimated average causal effect is $4.5 - 6.5 = -2$ kilograms per section. The estimate suggests that extra water lowers average yield. Unlike the historical comparison, this comparison uses randomly assigned groups rather than groups selected by sunlight. It still has sampling uncertainty, which the staff should assess before changing the watering routine. It also does not reveal the effect for each individual section.
 >
-> If random assignment is infeasible, observational causal inference methods could help compare sections in existing records. These methods require assumptions, including that the comparison accounts for confounding factors, that comparable sections received both watering options, and that each watering option was applied consistently across sections.
+> If random assignment is infeasible, observational causal inference methods could help compare sections in existing records. These methods require assumptions, including that the comparison accounts for confounding factors, that both watering options were used among sections with similar characteristics, and that each watering option was applied consistently across sections.
 
 As the example above shows, random assignment provides a way to estimate an average causal effect without observing both potential outcomes for each section. When A/B testing is infeasible, observational causal inference methods can help estimate effects, but their conclusions depend on assumptions about the historical data. For example, observational causal inference methods cannot rule out unmeasured confounding or supply comparisons absent from the records.
 
