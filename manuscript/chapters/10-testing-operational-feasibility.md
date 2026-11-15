@@ -17,9 +17,9 @@ The example below shows how different workloads lead to different performance re
 > | Workload | How it is used | Performance requirement |
 > | --- | --- | --- |
 > | Indexing photos | The system processes the photo archive overnight to prepare it for searching the next day. | The entire job must finish before the morning shift. |
-> | Searching photos | Editors search the archive throughout the day, sometimes simultaneously when breaking news occurs. | At least 95 percent of searches must return results within 120 milliseconds, even when 80 searches arrive per second. |
+> | Searching photos | Editors search the archive throughout the day, sometimes simultaneously when breaking news occurs. | At least 95 percent of searches must display results within 120 milliseconds of the request, even when 80 searches arrive per second. |
 >
-> The technical team must therefore test the two workloads differently. For indexing, they need to measure whether the system can process the full archive before the deadline. For searching, they need to measure response times while many editors are using the system simultaneously.
+> The technical team must therefore test the two workloads differently. For indexing, they need to measure whether the system can process the full archive before the deadline. For searching, they need to measure response times under the expected arrival rate; the number of searches arriving per second is distinct from the number being processed concurrently.
 >
 > The same system can therefore meet the performance requirements of one workload while failing those of another.
 
@@ -52,7 +52,7 @@ As the example above shows, the performance of an individual component does not 
 
 ## Check capacity under load
 
-Even if individual requests are processed quickly, they can still accumulate in a queue when requests arrive faster than the system can handle them. The number of requests a system can process depends on the work each request requires and how many requests it can handle concurrently.
+Even if individual requests are processed quickly, they can still accumulate in a queue when requests arrive faster than the system can handle them. The number of requests a system can process depends on the work each request requires and how many requests it can handle concurrently. Even when processing capacity exceeds the average arrival rate, queueing delays can still prevent the service from meeting its response-time target.
 
 The example below shows how a system can develop a growing backlog despite processing individual requests quickly, and how increasing its capacity can introduce memory constraints.
 
@@ -62,7 +62,7 @@ The example below shows how a system can develop a growing backlog despite proce
 >
 > During breaking news, the service receives 80 searches per second. Since the worker can only process 50, another 30 searches are added to the queue every second. After 10 seconds of sustained demand, 300 searches are waiting to be processed, assuming the queue was initially empty. Even though the model processes each search quickly, users experience increasing delays.
 >
-> The technical team considers adding another worker to increase capacity. However, each worker requires 600 megabytes of memory to load the model, while the service has a total memory budget of 1,000 megabytes. Two workers would require 1,200 megabytes for the models alone, exceeding the available memory.
+> The technical team considers adding another worker to increase capacity. However, each worker requires 600 megabytes of memory to load the model, while the model-serving component has a memory budget of 1,000 megabytes. Two workers would require 1,200 megabytes for the models alone, exceeding the available memory.
 >
 > To increase the number of workers without exceeding the available memory, the technical team must therefore consider alternatives, such as increasing the memory budget or reducing the model's memory requirements.
 
@@ -78,11 +78,11 @@ The example below shows how evaluating an existing library against explicit requ
 >
 > Continuing the photo-search example, the technical team needs a way to search the photo archive efficiently. They consider using an existing search library instead of building a custom solution.
 >
-> The technical team tests the library against the system's requirements using a representative photo archive and up to 80 searches per second. The following table shows hypothetical results.
+> The technical team tests the integrated search service using the candidate library against the system's requirements, including the time until results are displayed, with a representative photo archive and up to 80 searches per second. The complete service has a 2,000-megabyte memory budget, distinct from the 1,000-megabyte model-serving component budget in the previous example. The following table shows hypothetical results.
 >
 > | Requirement | Result |
 > | --- | --- |
-> | At least 95 percent of searches return results within 120 milliseconds | 95th-percentile response time of 110 milliseconds: passes |
+> | At least 95 percent of searches display results within 120 milliseconds | 95th-percentile time until display of 110 milliseconds: passes |
 > | Total memory use stays within 2,000 megabytes | Peak use of 1,800 megabytes: passes |
 > | Complete index updates before the morning shift | Passes |
 > | Return only photos editors are allowed to access | Passes after integrating access checks |
