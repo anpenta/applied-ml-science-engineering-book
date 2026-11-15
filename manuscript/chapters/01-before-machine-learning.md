@@ -21,7 +21,7 @@ The example below illustrates these four components and shows how understanding 
 > | **Action** | Inspect the selected machines for signs of deterioration. |
 > | **Constraints** | Staff and time permit only 10 inspections per week. |
 >
-> Assume that the technical team builds two different models. At the start of the week, each model scores the same 1,000 machines on their risk of failure over the next 30 days. Without preventive action, 50 of those machines would fail within that period. Also, the company's staff has 10 available inspection slots that week. The example considers this single inspection round and tracks failures over the following 30 days; it does not include further inspection rounds during that period.
+> Assume that the technical team builds two different models. At the start of the week, each model scores the same 1,000 machines on their risk of failure over the next 30 days. Without preventive action, 50 of those machines would fail within that period. Also, the company's staff has 10 available inspection slots that week. The example considers this single inspection round and tracks failures over the following 30 days. It assumes that no further inspections take place during that period.
 >
 > To calculate classification accuracy and precision, the technical team uses a threshold of 0.5 to turn each score into a binary yes/no prediction. To help the company's staff schedule inspections, the technical team ranks the machines by score for each model and selects the 10 highest-scoring machines on each list for the staff to prioritize.
 >
