@@ -41,15 +41,15 @@ The example below shows how to determine whether changing the decision rule or i
 > | In the top ten but below the cutoff | 3 | 0 |
 > | Outside the top ten | 0 | 3 |
 >
-> Under the cutoff rule, only one of the four missed appointments would be selected for a reminder call with either model. Removing the cutoff would increase that number to four for Model A, while leaving it at one for Model B. For Model A, the technical team could test a different decision rule without changing the model. For Model B, they would need to improve the model's ranking to reach the other three appointments within the limit of ten calls.
+> Under the cutoff rule, only one of the four missed appointments would be selected for a reminder call with either model. Removing the cutoff would increase that number to four for Model A, while leaving it at one for Model B. For Model A, the technical team could test a different decision rule without changing the model. For Model B, reaching the other three missed appointments within the limit of ten calls would require a better ranking.
 
-As the example above shows, the same result under the current decision rule can actually point to different changes. Before deciding what to change, we need to determine where the problem comes from: the scores the model produces or how the decision rule uses them.
+These retrospective results show which missed appointments each rule would have selected, not which patients would have attended if called. That requires evidence about the effect of reminder calls. As the example above shows, the same result under the current decision rule can actually point to different changes. Before deciding what to change, we need to determine where the problem comes from: the scores the model produces or how the decision rule uses them.
 
 ## Check whether the decisions improve the outcome
 
 Suppose that we are considering replacing our current decision rule with a new one for a particular application. To determine whether the change would improve the desired outcome, we should compare that outcome under both rules.
 
-The example below continues the clinic example and illustrates how to compare two decision rules based on the desired outcome.
+Unlike the retrospective ranking comparison, the example below tests the outcomes of actually using two decision rules.
 
 > **Worked example: Should the clinic change its calling rule?**
 >
@@ -65,7 +65,7 @@ The example below continues the clinic example and illustrates how to compare tw
 >
 > If the technical team had judged the rules by missed appointments alone, the cutoff rule would appear better. However, the clinic wants to keep appointment slots in use, and under the cutoff rule, two more slots went unused. This corresponds to 10% of slots under the proposed rule, compared with 9% under the current rule.
 >
-> Based on these results, the clinic decides to keep the current rule, since the proposed rule did not demonstrate an improvement in the desired outcome.
+> Based on these results, the clinic decides to keep the current rule, since the proposed rule did not demonstrate an improvement in the desired outcome. The small difference in this pilot does not establish that either rule is better under all conditions.
 
 As the example above shows, we need to evaluate the decision rule against the outcome we want to improve. That outcome can be tricky to define, so we need to be explicit about what we intend to measure.
 
