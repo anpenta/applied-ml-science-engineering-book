@@ -2,7 +2,7 @@
 
 Assume that we want to design an experiment which will determine whether a new model predicts weekly demand better than the currently used method. How should we design the experiment so we can trust the result?
 
-We would need to define what we want to learn, choose a meaningful baseline, and test whether the model generalizes to the situations where we plan to use it. We would also need to make the evidence interpretable and decide when we have enough evidence to stop experimenting.
+Chapter 3 asked whether the records we have support the prediction task. Even with suitable records, we still need to decide what comparison would tell us whether to replace the current forecasting method. We need to define what we want to learn, choose a meaningful baseline, and test whether the model generalizes to the situations where we plan to use it. We also need to make the evidence interpretable and decide when we have enough evidence to stop experimenting.
 
 ## Define what you want to learn
 

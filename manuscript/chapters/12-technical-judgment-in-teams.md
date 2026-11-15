@@ -2,7 +2,7 @@
 
 Consider a technical team developing a model to help music teachers decide which passages their students should rehearse. A scientist evaluates the model, an engineer reviews its implementation, and a teacher examines its recommendations. What might each of them notice that the others overlook?
 
-To make sound decisions as a team, we need to understand how our work affects the rest of the system, challenge assumptions that could have important consequences, and document the reasoning behind our decisions so others can revisit them.
+Earlier chapters showed how a decision can depend on what a label means, which inputs a system supplies, or what people do with a prediction. To uncover those assumptions and make sound decisions as a team, we need to understand how our work affects the rest of the system, challenge assumptions that could have important consequences, and document the reasoning behind our decisions so others can revisit them.
 
 ## Understand the whole system
 

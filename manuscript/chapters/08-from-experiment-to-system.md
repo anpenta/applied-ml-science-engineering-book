@@ -2,7 +2,7 @@
 
 We have a model that predicts missed bus connections well in an experiment. What could go wrong when we put that model into a system that makes predictions throughout the day?
 
-The experiment tells us how the model performed under the conditions we tested. Once the model becomes part of a system, those conditions can change. To ensure the system works as intended, we need to preserve the meaning of the model's inputs, train the model on the kind of inputs it is expected to receive, and evaluate how changes to individual components affect the whole system.
+In Chapter 4, we designed different tests depending on whether a demand forecast would be used at an existing or a new store. Putting a model into a system raises a related question: will it receive the same kind of inputs it received in the experiment? To ensure the system works as intended, we need to preserve the meaning of the model's inputs, train the model on the kind of inputs it is expected to receive, and evaluate how changes to individual components affect the whole system.
 
 ## Preserve the meaning of inputs
 
