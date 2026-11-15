@@ -38,7 +38,7 @@ The example below shows how questioning a proposed design can reveal important i
 
 > **Worked example: Questioning what the tool should show**
 >
-> Continuing the rehearsal-tool example, the technical team wants to compare patterns of early and late notes across recordings. To do this, they divide each timing offset by the largest absolute offset in the recording.
+> Continuing the rehearsal-tool example, the technical team wants to compare patterns of early and late notes across recordings. To do this, they divide each timing offset by the largest absolute offset in the recording, assuming at least one offset is nonzero.
 >
 > Consider two recordings of the same three-note passage. Positive offsets mean that a note was played late.
 >
@@ -80,9 +80,9 @@ The example below shows how documenting the reasoning behind a decision helps a 
 >
 > Later, a new team member suggests removing the largest absolute offset to simplify the report. After reading the record, they understand why it was included and decide not to remove it without checking with teachers.
 >
-> However, the record also highlights a limitation. A single unusually late note could make the largest absolute offset misleading. The new team member proposes showing the average absolute offset instead.
+> However, the record also highlights a limitation. A single unusually late note could make the largest absolute offset misleading. The new team member proposes showing the average absolute offset instead, which summarizes typical error magnitude but may hide an isolated large error.
 >
-> The team can now compare the two approaches with teachers and decide which better supports their needs. If the team decides to eventually change the report, they update the record to explain the new decision.
+> The team can now compare the two approaches with teachers and decide which better supports their needs. If the team eventually decides to change the report, they update the record to explain the new decision.
 
 As the example above shows, documenting the reasoning behind a decision helps others understand it and evaluate possible improvements without having to start from scratch.
 
