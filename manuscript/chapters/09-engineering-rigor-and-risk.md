@@ -20,13 +20,13 @@ The example below shows how a change in use can justify additional engineering c
 > | Data preparation code shared with other teams | A change to the weekly aggregation silently changes the inputs used by several models. | Document what the function returns and add a regression test that checks a small set of reservation records against known weekly counts. |
 > | A daily service used by branches to plan transfers | An unavailable forecast leaves titles out of the transfer plan, which staff mistake for a complete plan. | Make unavailable forecasts visible and test that the staff-facing system marks the affected titles for attention. |
 >
-> The duplicate-record check is useful from the first experiment. Testing the staff-facing response becomes necessary when staff begin depending on the plan. If the notebook remains a one-off feasibility experiment, building that operational response would serve no immediate purpose.
+> The duplicate-record check is useful even in the first experiment. Before branches begin using the daily service to plan transfers, the team needs to test that the staff-facing system marks titles with unavailable forecasts for attention. If the notebook remained a one-off feasibility experiment, building that staff-facing response would serve no immediate purpose.
 
 As the example above shows, additional engineering controls should address identifiable failures and their consequences. Our goal should not be to apply as many engineering practices as possible, but to choose those that address the risks that matter.
 
 ## Test software and predictive quality
 
-Software tests and predictive evaluation answer different questions. Software tests can check that a service performs its calculations correctly. Evaluation on held-out records tells us how well the model predicts in the setting we care about.
+Software tests and predictive evaluation answer different questions. While software tests can check that a service performs its calculations correctly, evaluation on held-out records tells us how well the model predicts in the setting we care about.
 
 The example below shows how a correct calculation can still lead to a poor decision when the forecast is wrong.
 
@@ -57,7 +57,7 @@ The example below shows how a correct calculation can still lead to a poor decis
 >
 > Software tests cannot reveal this forecasting problem because they check the calculation using supplied inputs. To evaluate predictive quality, the technical team must compare the model's forecasts with actual request counts across held-out weeks.
 >
-> Conversely, accurate forecasts would not reveal an error in the application's calculation. That requires software testing.
+> Conversely, accurate forecasts would not reveal an error in the application's calculation. That requires software testing instead.
 
 As the example above shows, correct software behavior and useful predictions require separate evidence. Passing one set of checks does not remove the need for the other.
 
