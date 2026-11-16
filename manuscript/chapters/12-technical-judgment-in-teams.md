@@ -26,7 +26,7 @@ The example below shows how bringing different perspectives together can reveal 
 >
 > The team decides to limit the first version to exercises intended to follow a fixed tempo. The teacher identifies suitable exercises, the scientist evaluates the model on those exercises, and the engineer ensures that the tool does not provide timing recommendations for unsupported passages.
 >
-> The team also documents this limitation so that future versions can consider how to evaluate passages with intentional tempo changes.
+> The team also documents this limitation so it can revisit it in future versions.
 
 As the example above shows, each specialist can evaluate their part of a system correctly while overlooking a problem that affects the system as a whole. Shared understanding helps us identify such problems and bring together the expertise needed to address them.
 
@@ -47,7 +47,7 @@ The example below shows how questioning a proposed design can reveal important i
 > | A | 10, 20, 10 | 20 | 0.5, 1, 0.5 |
 > | B | 100, 200, 100 | 200 | 0.5, 1, 0.5 |
 >
-> Both recordings have the same normalized offsets, even though the timing errors in recording B are ten times larger.
+> Both recordings have the same normalized offsets, even though the timing errors in recording B are ten times as large.
 >
 > During a design review, a member of the technical team asks whether showing only the normalized offsets would hide useful information. The team asks a music teacher, who explains that the size of the timing errors also matters when deciding what students should rehearse.
 >
@@ -73,7 +73,7 @@ The example below shows how documenting the reasoning behind a decision helps a 
 > | --- | --- |
 > | Context | Teachers use the report to decide which passages students should rehearse. |
 > | Decision | Show both normalized offsets and the largest absolute offset. |
-> | Evidence | Recordings A and B have identical normalized offsets, although B's timing errors are ten times larger. A teacher confirmed that the size of the timing errors also matters when deciding what students should rehearse. |
+> | Evidence | Recordings A and B have identical normalized offsets, although B's timing errors are ten times as large. A teacher confirmed that the size of the timing errors also matters when deciding what students should rehearse. |
 > | Alternative considered | Show only normalized offsets, which would hide the size of timing errors. |
 > | Limitation | The largest absolute offset reflects only the largest timing error, not the overall performance. |
 > | Reason to revisit | Teachers report that the largest absolute offset is not a useful summary of timing errors. |
