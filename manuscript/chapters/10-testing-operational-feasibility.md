@@ -87,7 +87,7 @@ The example below shows how evaluating an existing library against explicit requ
 > | Complete index updates before the morning shift | Passes |
 > | Return only photos editors are allowed to access | Passes after integrating access checks |
 >
-> The service meets the tested requirements with the library in place, although the team must still maintain the access checks and index updates. Since this work is less demanding than building and maintaining a custom search solution, the team decides to reuse the library.
+> The service meets the tested requirements with the library in place, although the team must still maintain the access checks and index updates. Since this work is less demanding than building and maintaining a full custom search solution, the team decides to reuse the library.
 
 As the example above shows, reusing an existing solution depends on whether it meets our requirements and how much additional work it requires. We should evaluate both before deciding whether to build our own custom solution.
 
