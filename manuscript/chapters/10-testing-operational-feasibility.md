@@ -1,8 +1,8 @@
 # Testing Operational Feasibility
 
-A photo search model runs quickly on a laptop during an experiment. But will a service using that model respond just as quickly when breaking news brings a surge of searches from across the newsroom?
+A photo search model runs quickly on a laptop during an experiment. But will a service using that model meet its response-time target when breaking news brings a surge of searches from across the newsroom?
 
-To answer the question, we need to define the workload, measure the full path from request to usable result, and check capacity under load. We can then use this evidence to decide what to reuse and where the design needs to change.
+To answer the question above, we need to define the workload, measure the full path from request to usable result, and check capacity under load. We can then use this evidence to decide what to reuse and where the design needs to change.
 
 ## Define the workload
 
@@ -27,7 +27,7 @@ As the example above shows, different uses of the same system can require differ
 
 ## Measure the full path from request to result
 
-Asymptotic complexity tells us how computational work grows with input size under specified assumptions. Benchmarks tell us how long an implementation takes for particular inputs and hardware. However, neither necessarily tells us how long users wait for a result. To determine that, we should measure the total response time and examine how much each stage of processing a request contributes to it.
+We should measure response time from the moment a user submits a request until they receive a usable result. Timing each stage of request processing shows where that time is spent. To investigate a slow stage, we can use **asymptotic time complexity** to understand how the number of basic operations grows with input size and **benchmarking** to measure how long the stage takes for specific inputs on specific hardware.
 
 The example below shows why making the model faster may not be enough to meet the response-time target.
 
@@ -48,7 +48,7 @@ The example below shows why making the model faster may not be enough to meet th
 >
 > As a side note, this example is simplified for illustrative purposes. Measuring a single search is not enough to determine whether the system meets its performance target. The technical team must also measure response times across many searches, including periods of high demand. They can then determine whether at least 95 percent of searches return results within the target of 120 milliseconds.
 
-As the example above shows, the performance of an individual component does not necessarily reflect the performance of the entire system. We should measure end-to-end performance to determine whether the system meets its requirements, and examine individual components to identify where improvements are needed.
+As the example above shows, a fast stage can still be part of a slow search. We should measure end-to-end response time to determine whether the service meets its target and examine individual stages to identify where improvements are needed.
 
 ## Check capacity under load
 
@@ -60,7 +60,7 @@ The example below shows how a system can develop a growing backlog despite proce
 >
 > Continuing the photo-search example, assume that the service uses a queue and a single worker to run the model, processing one search at a time. Each search takes 20 milliseconds of model processing time, so the worker can handle up to 50 searches per second. For simplicity, assume that all other stages can keep up with demand.
 >
-> During breaking news, the service receives 80 searches per second. Since the worker can only process 50, another 30 searches are added to the queue every second. After 10 seconds of sustained demand, 300 searches are waiting to be processed, assuming the queue was initially empty. Even though the model processes each search quickly, users experience increasing delays.
+> During breaking news, the service receives 80 searches per second. Since the worker can process only 50 searches per second, the backlog grows by 30 searches per second. After 10 seconds of sustained demand, 300 searches are waiting to be processed, assuming the queue was initially empty. Even though the model processes each search quickly, users experience increasing delays.
 >
 > The technical team considers adding another worker to increase capacity. However, each worker requires 600 megabytes of memory to load the model, while the service has a total memory budget of 1,000 megabytes. Two workers would require 1,200 megabytes for the models alone, exceeding the available memory.
 >
@@ -82,9 +82,9 @@ The example below shows how evaluating an existing library against explicit requ
 >
 > | Requirement | Result |
 > | --- | --- |
-> | At least 95 percent of searches return results within 120 milliseconds | 95th-percentile response time of 110 milliseconds: passes |
+> | At least 95 percent of searches return results within 120 milliseconds | 95th-percentile response time of 110 milliseconds at 80 searches per second: passes |
 > | Total memory use stays within 2,000 megabytes | Peak use of 1,800 megabytes: passes |
-> | Complete index updates before the morning shift | Passes |
+> | Index the full photo archive before the morning shift | Passes |
 > | Return only photos editors are allowed to access | Passes after integrating access checks |
 >
 > The service meets the tested requirements with the library in place, although the team must still maintain the access checks and index updates. Since this work is less demanding than building and maintaining a full custom search solution, the team decides to reuse the library.

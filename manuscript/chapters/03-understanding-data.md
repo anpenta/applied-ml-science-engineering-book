@@ -1,6 +1,6 @@
 # Understanding Data
 
-Let's say that a dataset passes every check in our schema. Is that enough to trust it when training a model to predict pump failures?
+Let's assume that a dataset passes every check in our schema. Is that enough to trust it when training a model to predict pump failures?
 
 To trust the dataset, we need to know when the features become available, what the data records represent, and how the labels were made. We also need to understand what unusual patterns in the data mean before deciding how to handle them.
 
@@ -65,7 +65,7 @@ The example above shows why we need to verify that a join preserves the observat
 
 Beyond matching records correctly, we also need to understand what their values represent. Assume that a sensor upgrade changes temperature reporting from Celsius to Fahrenheit. A reading of 176 degrees Fahrenheit represents the same temperature as 80 degrees Celsius, but the values appear different without knowledge of their measurement units. Since both values satisfy a numeric schema, we could mistake a change in recording conventions for a change in operating conditions if we fail to check those units.
 
-Schema validation alone cannot tell us whether records have been matched correctly or measurements have been interpreted consistently. We need to understand how the data were collected and verify that these assumptions hold before preparing them for modeling.
+The point here is that schema validation alone cannot tell us whether records have been matched correctly or measurements have been interpreted consistently. To verify both, we need to know what each row represents and how to interpret the measurements it contains.
 
 ## Check how labels were made
 
@@ -81,7 +81,7 @@ The example below shows how different records can produce labels with different 
 > | --- | --- |
 > | A maintenance record confirms that the pump stopped working | An observed pump failure |
 > | A technician replaced the pump because it appeared likely to fail | A preventive maintenance action |
-> | A temperature alarm exceeded a predefined threshold | An alarm event |
+> | A temperature reading exceeded a predefined threshold | An alarm event |
 >
 > These records describe different events. A pump can trigger an alarm without failing, and a technician may replace a pump before it fails. Treating either event as a confirmed failure would change what the model learns to predict.
 >
