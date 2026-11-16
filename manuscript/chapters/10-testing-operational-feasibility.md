@@ -1,6 +1,6 @@
 # Testing Operational Feasibility
 
-A photo search model runs quickly on a laptop during an experiment. But will a service using that model respond just as quickly when breaking news brings a surge of searches from across the newsroom?
+A photo search model runs quickly on a laptop during an experiment. But will a service using that model meet its response-time target when breaking news brings a surge of searches from across the newsroom?
 
 To answer the question above, we need to define the workload, measure the full path from request to usable result, and check capacity under load. We can then use this evidence to decide what to reuse and where the design needs to change.
 
@@ -27,7 +27,7 @@ As the example above shows, different uses of the same system can require differ
 
 ## Measure the full path from request to result
 
-We should measure response time from the moment a user submits a request until they receive a usable result. Timing each step in processing the request shows where that time is spent. To investigate a slow step, we can use **asymptotic time complexity** to understand how the number of operations grows with input size and **benchmarking** to measure how long the step takes for specific inputs on specific hardware.
+We should measure response time from the moment a user submits a request until they receive a usable result. Timing each stage of request processing shows where that time is spent. To investigate a slow stage, we can use **asymptotic time complexity** to understand how the number of basic operations grows with input size and **benchmarking** to measure how long the stage takes for specific inputs on specific hardware.
 
 The example below shows why making the model faster may not be enough to meet the response-time target.
 
@@ -48,7 +48,7 @@ The example below shows why making the model faster may not be enough to meet th
 >
 > As a side note, this example is simplified for illustrative purposes. Measuring a single search is not enough to determine whether the system meets its performance target. The technical team must also measure response times across many searches, including periods of high demand. They can then determine whether at least 95 percent of searches return results within the target of 120 milliseconds.
 
-As the example above shows, the performance of an individual component does not necessarily reflect the performance of the entire system. We should measure end-to-end performance to determine whether the system meets its requirements, and examine individual components to identify where improvements are needed.
+As the example above shows, a fast stage can still be part of a slow search. We should measure end-to-end response time to determine whether the service meets its target and examine individual stages to identify where improvements are needed.
 
 ## Check capacity under load
 
