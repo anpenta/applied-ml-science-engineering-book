@@ -55,7 +55,7 @@ The example below continues the greenhouse scenario and shows how the greenhouse
 >
 > Continuing the greenhouse example, the old records contain no sunny sections on the usual routine and no shaded sections with extra water. Therefore, comparing sections with similar sunlight would require observations the greenhouse staff does not have.
 >
-> Assume that in a new growing period the staff has 24 sections. They randomly assign 12 to receive extra water and 12 to stay on the usual routine. Assignment is determined by chance rather than by sunlight or other characteristics that affect yield. As a result, extra water is not systematically given to sections that would already have higher yields under the usual routine. Therefore, the difference in average yields between the two groups provides an estimate of the **average causal effect** of extra water.
+> Assume that in a new growing period the staff has 24 sections. They randomly assign 12 to receive extra water and 12 to stay on the usual routine. Notice that assignment is determined by chance rather than by sunlight or other characteristics that affect yield. As a result, extra water is not systematically given to sections that would already have higher yields under the usual routine. Therefore, the difference in average yields between the two groups provides an estimate of the **average causal effect** of extra water.
 >
 > Suppose the experiment produces the following results. These numbers are constructed for illustration.
 >
