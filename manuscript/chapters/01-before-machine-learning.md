@@ -1,12 +1,12 @@
 # Before Machine Learning
 
-Suppose we receive a request to build a machine learning model for a company. How would we know whether building the model is worth the effort?
+Suppose we receive a request to build a machine learning model for a company. How would we know whether building the model is worth the effort in the first place?
 
-To make that judgment, we need to understand the operational problem, define what success means, and compare machine learning with alternative approaches.
+To make that judgment, we first need to understand the operational problem, define what success means for our use case, and compare machine learning with alternative approaches that could solve the problem.
 
 ## Understand the operational problem
 
-A model is useful only in relation to the operational problem it is meant to address. To understand the operational problem, we need to identify the **business objective**, the **decision** to be made, the **action** that follows, and the **constraints** on what can be done.
+A model is useful only in relation to the operational problem it is meant to address. To understand the operational problem, we need to identify the **business objective**, the **decision** to be made, the **action** that follows from that decision, and the **constraints** on what can be done.
 
 The example below illustrates these four components and shows how understanding the operational problem can actually change which model we prefer.
 
@@ -35,7 +35,7 @@ The example below illustrates these four components and shows how understanding 
 >
 > From the classification results above, we can see that Model A predicts that 20 machines will fail, whereas Model B predicts that 110 will fail. We can use these counts to calculate accuracy and precision at the 0.5 threshold.
 >
-> The next table compares these metrics with precision among the 10 highest-ranked machines. Note that the failure counts used to calculate precision for each model are additional hypothetical results introduced for this example.
+> The next table compares these metrics with precision among the 10 highest-ranked machines. Note that the failure counts among the 10 highest-ranked machines for each model are additional hypothetical results introduced for this example.
 >
 > | Evaluation result | Model A | Model B |
 > | --- | ---: | ---: |
@@ -44,7 +44,7 @@ The example below illustrates these four components and shows how understanding 
 > | Actual failures among the 10 highest-ranked machines | 2 | 8 |
 > | **Precision at top 10** | **2/10 = 20%** | **8/10 = 80%** |
 >
-> **Accuracy at the 0.5 threshold** measures the proportion of correct yes/no classifications. **Precision at the 0.5 threshold** measures the proportion of flagged machines that would fail without preventive action. **Precision at top 10** measures that proportion only among the 10 machines selected for inspection.
+> **Accuracy at the 0.5 threshold** measures the proportion of correct yes/no classifications. **Precision at the 0.5 threshold** measures the proportion of flagged machines that would fail without preventive action. **Precision at top 10** measures the proportion of the 10 highest-ranked machines that would fail without preventive action.
 >
 > At the 0.5 threshold, Model A has higher classification accuracy and higher precision, so it may seem better initially. However, the inspection team has only 10 inspection slots, so each model will be actually used to select its 10 highest-scoring machines for inspection. As the table above shows, Model B puts eight machines that would fail without preventive action on the list, whereas Model A puts only two. Precision at top 10 captures this difference because it evaluates the list the team would actually use, and it is therefore a better way to evaluate and choose a model for this operational problem.
 
@@ -101,7 +101,7 @@ The example below continues the equipment-inspection scenario to illustrate this
 >
 > Continuing the equipment-inspection example, assume that the company could prioritize machines using a simple rule: inspect the 10 machines with the most operating hours since their last inspection.
 >
-> The technical team compares the simple rule with Model B to see whether preventing more failures justifies the model’s higher cost. As in the previous example, assume that inspecting a machine that would otherwise fail always prevents its failure. For the comparison, the technical team uses an estimated cost of $10,000 per unexpected failure and $200 per inspection provided by the company. They also assign a share of each approach’s development and maintenance costs to that week.
+> The technical team compares the simple rule with Model B to see whether preventing more failures justifies the model’s higher cost. As in the previous example, assume that inspecting a machine that would otherwise fail always prevents its failure. For the comparison, the technical team uses company-provided estimates of $10,000 per unexpected failure and $200 per inspection. They also assign a share of each approach’s development and maintenance costs to that week.
 >
 > | | Simple rule | Model B |
 > | --- | ---: | ---: |
@@ -114,7 +114,7 @@ The example below continues the equipment-inspection scenario to illustrate this
 >
 > As we can see in the table above, Model B prevents one more failure, worth $10,000 under these assumptions. However, its development and maintenance costs are $14,000 higher, so the simple rule actually comes out $4,000 ahead. In this case, it would make more sense to choose the simple rule as the solution to the problem.
 
-The example above shows that the additional cost of machine learning needs to be justified by the business value it adds. Machine learning shouldn't be considered a default approach, especially if other approaches provide higher total net benefit.
+The example above shows that the additional cost of machine learning needs to be justified by the business value it adds. Machine learning shouldn't be considered the default approach, especially when other approaches provide higher total net benefit.
 
 ## Further reading
 
