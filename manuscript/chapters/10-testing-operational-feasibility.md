@@ -60,7 +60,7 @@ The example below shows how a system can develop a growing backlog despite proce
 >
 > Continuing the photo-search example, assume that the service uses a queue and a single worker to run the model, processing one search at a time. Each search takes 20 milliseconds of model processing time, so the worker can handle up to 50 searches per second. For simplicity, assume that all other stages can keep up with demand.
 >
-> During breaking news, the service receives 80 searches per second. Since the worker can only process 50, another 30 searches are added to the queue every second. After 10 seconds of sustained demand, 300 searches are waiting to be processed, assuming the queue was initially empty. Even though the model processes each search quickly, users experience increasing delays.
+> During breaking news, the service receives 80 searches per second. Since the worker can process only 50 searches per second, the backlog grows by 30 searches per second. After 10 seconds of sustained demand, 300 searches are waiting to be processed, assuming the queue was initially empty. Even though the model processes each search quickly, users experience increasing delays.
 >
 > The technical team considers adding another worker to increase capacity. However, each worker requires 600 megabytes of memory to load the model, while the service has a total memory budget of 1,000 megabytes. Two workers would require 1,200 megabytes for the models alone, exceeding the available memory.
 >
@@ -82,9 +82,9 @@ The example below shows how evaluating an existing library against explicit requ
 >
 > | Requirement | Result |
 > | --- | --- |
-> | At least 95 percent of searches return results within 120 milliseconds | 95th-percentile response time of 110 milliseconds: passes |
+> | At least 95 percent of searches return results within 120 milliseconds | 95th-percentile response time of 110 milliseconds at 80 searches per second: passes |
 > | Total memory use stays within 2,000 megabytes | Peak use of 1,800 megabytes: passes |
-> | Complete index updates before the morning shift | Passes |
+> | Index the full photo archive before the morning shift | Passes |
 > | Return only photos editors are allowed to access | Passes after integrating access checks |
 >
 > The service meets the tested requirements with the library in place, although the team must still maintain the access checks and index updates. Since this work is less demanding than building and maintaining a full custom search solution, the team decides to reuse the library.
