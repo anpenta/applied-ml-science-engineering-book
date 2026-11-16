@@ -78,7 +78,7 @@ The example below shows how evaluating an existing library against explicit requ
 >
 > Continuing the photo-search example, assume that the technical team obtains approval to increase the service's memory budget from 1,000 to 2,000 megabytes and adds a second model worker. The two workers can process up to 100 searches per second under the earlier assumptions, exceeding the peak arrival rate of 80. However, retrieving candidates from the archive remains a major contributor to response time, as identified earlier. To address this, they consider using an existing search library instead of building a custom solution.
 >
-> The technical team integrates the library and access checks into the service, then tests the complete system using a representative photo archive and up to 80 searches per second. The following table shows hypothetical results.
+> The technical team tests the service with the library integrated, using a representative photo archive and up to 80 searches per second. The following table shows hypothetical results.
 >
 > | Requirement | Result |
 > | --- | --- |
