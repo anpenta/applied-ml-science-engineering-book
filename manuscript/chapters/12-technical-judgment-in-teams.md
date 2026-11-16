@@ -49,7 +49,7 @@ The example below shows how questioning a proposed design can reveal important i
 >
 > Both recordings have the same normalized offsets, even though the timing errors in recording B are ten times larger.
 >
-> A reviewer questions whether showing only the normalized offsets would hide useful information. The team asks a music teacher, who explains that the size of the timing errors also matters when deciding what students should rehearse.
+> During a design review, a member of the technical team asks whether showing only the normalized offsets would hide useful information. The team asks a music teacher, who explains that the size of the timing errors also matters when deciding what students should rehearse.
 >
 > The team therefore decides to show both the normalized offsets and the largest absolute offset. This allows teachers to see both the pattern and the size of the timing errors.
 >
