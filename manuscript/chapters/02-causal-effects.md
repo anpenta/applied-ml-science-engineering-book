@@ -39,7 +39,7 @@ Consider the continuation of the greenhouse example below for an illustration.
 > | Two sunny sections | Extra water | **8 kilograms** | 10 kilograms |
 > | Two shaded sections | Usual routine | 1 kilogram | **3 kilograms** |
 >
-> The bold values are the yields the staff would observe. The watered sections yield 5 kilograms more per section than the others. The staff concludes that extra water increases yield by 5 kilograms. However, it assigned extra water only to sunny sections, so the comparison mixes the effect of watering with the effect of sunlight. The observed difference is an **association** between extra watering and yield, **confounded** by sunlight. It does not represent the causal effect of extra water.
+> The bold values are the yields the staff would observe. The watered sections yield 5 kilograms more per section than the others. The staff incorrectly concludes that extra water increases yield by 5 kilograms. However, they assigned extra water only to sunny sections, so the comparison mixes the effect of watering with the effect of sunlight. The observed difference is an **association** between extra watering and yield, **confounded** by sunlight. It does not represent the causal effect of extra water.
 >
 > We can check the actual causal effect using the assumed potential outcomes in the table. Sunny sections would yield 10 kilograms under the usual routine and 8 with extra water. Shaded sections would yield 3 kilograms under the usual routine and 1 with extra water. Extra water therefore reduces yield by 2 kilograms in both groups. Sunlight is a **confounder** here because it affects both where the staff waters and how much the sections yield.
 
