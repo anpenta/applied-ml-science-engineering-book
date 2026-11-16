@@ -1,6 +1,6 @@
 # Causal Effects
 
-Imagine that a model predicts which sections of a greenhouse are likely to produce a low yield. Could we use these predictions to decide which sections to inspect first? What about which sections to water more than others?
+Imagine that a model predicts which sections of a greenhouse are likely to produce a low yield. Could we use these predictions to decide which sections to inspect first? What about which sections to give extra water?
 
 To answer these questions, we need to understand how to distinguish predictions from causal effects, how to avoid comparisons that can mislead us, and how to estimate causal effects reliably.
 
@@ -8,7 +8,7 @@ To answer these questions, we need to understand how to distinguish predictions 
 
 A prediction of low yield can help us identify greenhouse sections to prioritize for inspection, but it does not tell us whether giving those sections extra water would improve their yield. The latter is a causal question. In fact, whether prioritizing inspections based on predictions improves yield is also a causal question, which we will return to later. For now, let us focus only on the action of providing extra water to some sections.
 
-In causal inference, the action whose effect we study is called the **treatment**, and the quantity that the treatment affects is called the **outcome**. In this chapter, we use **action** to describe the treatment under study and always specify the alternative we compare it with.
+In causal inference, the action whose effect we study is called the **treatment**, and the quantity it may change is called the **outcome**. In this chapter, we use **action** to describe the treatment under study and always specify the alternative we compare it with.
 
 The example below illustrates the difference between predicting an outcome and estimating the effect of an action.
 
