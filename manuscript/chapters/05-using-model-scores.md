@@ -12,7 +12,7 @@ The clinic example below shows how two different decision rules can lead to diff
 
 > **Worked example: Deciding how many patients to call**
 >
-> Each morning, a model scores clinic appointments scheduled for one week later based on the likelihood that patients will miss them. The clinic's reception team can make up to ten reminder calls per day. Under the first decision rule, they call the ten patients with the highest scores. Under the second decision rule, they call only patients with scores of 0.30 or higher, starting with the highest scores and making no more than ten calls. The table below illustrates how the two rules differ.
+> Each morning, a model scores clinic appointments scheduled for one week later based on the likelihood that patients will miss them. The clinic's reception team can make up to ten reminder calls per day. Under the first decision rule, they call the ten patients with the highest scores. Under the second decision rule, they call only patients with scores of 0.30 or higher, starting with the highest scores and making no more than ten calls. They consider this cutoff to avoid spending staff time on calls that may provide little benefit when patients are already likely to attend. The table below illustrates how the two rules differ.
 >
 > | | Monday | Tuesday |
 > | --- | ---: | ---: |

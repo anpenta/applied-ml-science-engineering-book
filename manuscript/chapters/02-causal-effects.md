@@ -18,7 +18,7 @@ The example below illustrates the difference between predicting an outcome and e
 >
 > Here, the action under study is extra watering, the alternative is the usual routine, and the outcome is yield in kilograms at harvest. Let $Y(1)$ be the yield with extra water and $Y(0)$ the yield under the usual routine. These are the section's **potential outcomes**. The **causal effect** of extra water for the section is $Y(1) - Y(0) = 1 - 3 = -2$ kilograms in this example.
 >
-> Note that we have assumed knowledge of both potential outcomes to make the example checkable. In a real growing period, we observe only the outcome under the action the staff actually takes. The outcome that would have occurred under the alternative is the **counterfactual outcome**. If the staff gives extra water, it observes $Y(1)$, while $Y(0)$ remains unobserved.
+> Note that we have assumed knowledge of both potential outcomes to make the example checkable. In a real growing period, we observe only the outcome under the action the staff actually takes. The outcome that would have occurred under the alternative is the **counterfactual outcome**. If the staff gives extra water, they observe $Y(1)$, while $Y(0)$ remains unobserved.
 >
 > Under the stated assumptions, the section would yield more under the usual routine than with extra water. Choosing extra water requires evidence that extra water would improve yield, and the model's prediction does not provide this information.
 
@@ -32,14 +32,14 @@ Consider the continuation of the greenhouse example below for an illustration.
 
 > **Worked example: Comparing watered and unwatered sections**
 >
-> Continuing the greenhouse example, assume that the greenhouse staff gives extra water to two sunny sections and leaves two shaded sections on the usual routine. The staff chooses where to give extra water based on sunlight, without random assignment. For illustration, assume that the yields under both options are as follows.
+> Continuing the greenhouse example, assume that the greenhouse staff gives extra water to two sunny sections and leaves two shaded sections on the usual routine. The staff chooses the sunny sections because they think that those sections need more water due to greater sunlight exposure. For illustration, assume that the yields under both options are as follows.
 >
 > | Sections | Staff decision | Yield per section with extra water | Yield per section under the usual routine |
 > | --- | --- | ---: | ---: |
 > | Two sunny sections | Extra water | **8 kilograms** | 10 kilograms |
 > | Two shaded sections | Usual routine | 1 kilogram | **3 kilograms** |
 >
-> The bold values are the yields the staff would observe. The watered sections yield 5 kilograms more per section than the others. The staff concludes that extra water increases yield by 5 kilograms. However, it assigned extra water only to sunny sections, so the comparison mixes the effect of watering with the effect of sunlight. The observed difference is an **association** between extra watering and yield, **confounded** by sunlight. It does not represent the causal effect of extra water.
+> The bold values are the yields the staff would observe. The watered sections yield 5 kilograms more per section than the others. The staff incorrectly concludes that extra water increases yield by 5 kilograms. However, they assigned extra water only to sunny sections, so the comparison mixes the effect of watering with the effect of sunlight. The observed difference is an **association** between extra watering and yield, **confounded** by sunlight. It does not represent the causal effect of extra water.
 >
 > We can check the actual causal effect using the assumed potential outcomes in the table. Sunny sections would yield 10 kilograms under the usual routine and 8 with extra water. Shaded sections would yield 3 kilograms under the usual routine and 1 with extra water. Extra water therefore reduces yield by 2 kilograms in both groups. Sunlight is a **confounder** here because it affects both where the staff waters and how much the sections yield.
 
@@ -55,7 +55,7 @@ The example below continues the greenhouse scenario and shows how the greenhouse
 >
 > Continuing the greenhouse example, the old records contain no sunny sections on the usual routine and no shaded sections with extra water. Therefore, comparing sections with similar sunlight would require observations the greenhouse staff does not have.
 >
-> Assume that in a new growing period the staff has 24 sections. They randomly assign 12 to receive extra water and 12 to stay on the usual routine. At harvest, they compare average yields between the two groups to estimate the average causal effect of extra water. Random assignment prevents staff preferences from determining which sections receive extra water, although the groups may still differ by chance.
+> Assume that in a new growing period the staff has 24 sections. They randomly assign 12 to receive extra water and 12 to stay on the usual routine. Since assignment is determined by chance rather than by sunlight or other characteristics that affect yield, extra water is not systematically given to sections that would already have higher yields under the usual routine. Therefore, the difference in average yields between the two groups provides an estimate of the **average causal effect** of extra water.
 >
 > Suppose the experiment produces the following results. These numbers are constructed for illustration.
 >
@@ -64,9 +64,11 @@ The example below continues the greenhouse scenario and shows how the greenhouse
 > | Extra water | 12 | 54 kilograms | 4.5 kilograms |
 > | Usual routine | 12 | 78 kilograms | 6.5 kilograms |
 >
-> The estimated average causal effect is $4.5 - 6.5 = -2$ kilograms per section. The estimate suggests that extra water lowers average yield. Unlike the historical comparison, this comparison uses randomly assigned groups rather than groups selected by sunlight. It still has sampling uncertainty, which the staff should assess before changing the watering routine. It also does not reveal the effect for each individual section.
+> The estimated average causal effect is $4.5 - 6.5 = -2$ kilograms per section. The estimate suggests that extra water lowers average yield. Unlike the historical comparison, this comparison uses randomly assigned groups rather than groups selected by sunlight and therefore provides an unbiased estimate of the true average causal effect.
 >
-> If random assignment is infeasible, observational causal inference methods, such as matching or weighting, could help compare sections in existing records. These methods require some assumptions, including that the comparison accounts for confounding factors, that comparable sections received both watering options, and that each watering option was applied consistently across sections.
+> Note that the two groups may still differ by chance, so the estimated effect is uncertain. Although there are statistical methods to quantify this uncertainty, we do not apply them in this example for simplicity. This comparison also does not reveal the causal effect for each individual section. For that, we would need to observe its yield both with extra water and under the usual routine in the same growing period, which is not possible.
+>
+> If random assignment is infeasible, observational causal inference methods could help compare sections in existing records. These methods require some assumptions, including that the comparison accounts for confounding factors, that comparable sections received both watering options, and that each watering option was applied consistently across sections.
 
 As the example above shows, random assignment provides a way to estimate an average causal effect without observing both potential outcomes for each section. When A/B testing is infeasible, observational causal inference methods can help estimate effects, but their conclusions depend on assumptions about the historical data. For example, observational causal inference methods cannot rule out unmeasured confounding or supply comparisons absent from the records.
 

@@ -82,9 +82,9 @@ The example below shows how this comparison can help us decide whether a candida
 
 > **Worked example: Deciding whether to try a new model**
 >
-> Continuing the recycling example, the technical team trains a candidate model using newly collected data. It compares the candidate with the current model on a separate sample of 400 bottles that were not used during training or model selection. Half have the older packaging design, and half have the new design.
+> Continuing the recycling example, the technical team trains a candidate model using newly collected data. They compare the candidate with the current model on a separate sample of 400 bottles that were not used during training or model selection. Half have the older packaging design, and half have the new design.
 >
-> Before the comparison, the team agrees that the candidate must reduce the total number of missed bottles without substantially increasing unnecessary diversions or making predictions too slowly. They also agree to accept no more than two additional missed bottles with the older design.
+> Before the comparison, the team agrees on four criteria for accepting the candidate model. Compared with the current model, it must reduce the total number of missed bottles, miss no more than two additional bottles with the older design, and make no more than two additional unnecessary diversions. Finally, at least 95% of its predictions must be returned within 40 milliseconds of receiving a request.
 >
 > The following table shows the evaluation results.
 >

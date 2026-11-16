@@ -24,7 +24,7 @@ The example below shows why we need to understand how an explanation is construc
 >
 > The model predicts the same risk score of 70 in both cases. However, when compared with projects from the same team, overdue tasks contribute 25 points toward explaining why the score is higher than the reference. When compared with projects across the company, their contribution is only 5 points. The remaining contributions also differ, but in both cases they add up to the difference between the prediction and the reference score.
 >
-> A local surrogate provides a different kind of explanation. It fits a simpler model to approximate the risk model's predictions near the current project's inputs. Its explanation describes that local approximation, whose accuracy we also need to check.
+> A local surrogate provides a different kind of explanation. It fits a simpler model to approximate the risk model's predictions near the current project's inputs. Its explanation describes that local approximation, so we also need to check how closely the simpler model reproduces the original model's predictions near the current project.
 >
 > The two methods describe different aspects of the model's prediction and may therefore produce different explanations. Furthermore, neither method tells us whether finishing a particular overdue task would bring delivery forward. That requires evidence about what work is holding up the project and what changing it would do.
 
