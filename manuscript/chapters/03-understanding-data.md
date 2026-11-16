@@ -59,7 +59,7 @@ The example below shows what can go wrong when we attempt to match temperature r
 >
 > The resulting table has the expected shape and every value is valid, yet both labels are attached to the wrong pumps.
 >
-> In this example, joining on the pump identifier instead would give the correct matches, as we only have one prediction time per pump. Alternatively, if the data had contained multiple prediction times per pump, we would have joined on both the pump identifier and the prediction time. Before joining, we would have verified that each combination appears at most once in each table. Otherwise, multiple matching rows could repeat the same training example in the joined dataset, giving it more weight during training.
+> In this example, joining on the pump identifier instead would give the correct matches, as we only have one prediction time per pump. Alternatively, if the data had contained multiple prediction times per pump, we would have joined on both the pump identifier and the prediction time. Before joining, we would have verified that each combination appears at most once in each table.
 
 The example above shows why we need to verify that a join preserves the observations we intend to model.
 

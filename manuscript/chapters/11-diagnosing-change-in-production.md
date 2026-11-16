@@ -23,7 +23,7 @@ The example below shows how different monitoring measures can help identify prob
 >
 > One morning, the proportion of bottles recommended for diversion increases, while response times and service errors remain stable. The technical team knows that the model is recommending more diversions, but they cannot yet determine whether those recommendations are correct.
 >
-> To investigate, the team examines recent images and compares the model's predictions with staff assessments of a sample of bottles, including those not diverted. Checking only diverted bottles would reveal unnecessary diversions but miss bottles that should have been diverted and were left on the line. Therefore, sampling both groups helps determine whether more bottles genuinely require manual sorting or whether the model's predictive quality has declined.
+> To investigate, the team examines recent images and compares the model's predictions with staff assessments of a sample of bottles, including those not diverted. This helps determine whether more bottles genuinely require manual sorting or whether the model's predictive quality has declined.
 
 As the example above shows, different monitoring measures help us identify different kinds of problems. We should monitor both system behavior and predictive quality to determine whether the system continues to work as intended.
 
