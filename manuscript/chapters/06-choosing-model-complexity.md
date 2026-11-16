@@ -6,7 +6,7 @@ Before moving to a more complex model, we should check whether a simple change t
 
 ## Check whether a simple feature is enough
 
-When a model misses an important pattern, we should check whether its inputs make that pattern visible. For example, if an input combines measurements from several days into a single total, even a more complex model cannot tell when the events had occurred.
+When a model misses an important pattern, we should check whether its inputs make that pattern visible. For example, if an input combines measurements from several days into a single total, even a more complex model cannot tell when the events occurred.
 
 The bike-share example below shows how a simple change to an input can give the existing model information that the total hides.
 
