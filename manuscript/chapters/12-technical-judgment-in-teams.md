@@ -2,7 +2,7 @@
 
 Consider a technical team developing a model to help music teachers decide which passages their students should rehearse. A scientist evaluates the model, an engineer reviews its implementation, and a teacher examines its recommendations. What might each of them notice that the others overlook?
 
-To make sound decisions as a team, we need to understand how our work affects the rest of the system, challenge assumptions that could have important consequences, and document the reasoning behind our decisions so others can revisit them.
+To make sound decisions as a team, we need to understand how our work affects the rest of the system, question decisions that could have important consequences, and document the reasoning behind our decisions so others can revisit them.
 
 ## Understand the whole system
 
@@ -38,7 +38,7 @@ The example below shows how questioning a proposed design can reveal important i
 
 > **Worked example: Questioning what the tool should show**
 >
-> Continuing the rehearsal-tool example, the technical team wants to compare patterns of early and late notes across recordings. To do this, they divide each timing offset by the largest absolute offset in the recording.
+> Continuing the rehearsal-tool example, the technical team wants to compare patterns of early and late notes across recordings. To do this, they divide each timing offset by the largest absolute offset in the recording. If all offsets are zero, they leave them at zero.
 >
 > Consider two recordings of the same three-note passage. Positive offsets mean that a note was played late.
 >
@@ -73,7 +73,7 @@ The example below shows how documenting the reasoning behind a decision helps a 
 > | --- | --- |
 > | Context | Teachers use the report to decide which passages students should rehearse. |
 > | Decision | Show both normalized offsets and the largest absolute offset. |
-> | Evidence | Recordings A and B have identical normalized offsets, although B's timing errors are ten times larger. A teacher confirmed that both measures are useful. |
+> | Evidence | Recordings A and B have identical normalized offsets, although B's timing errors are ten times larger. A teacher confirmed that the size of the timing errors also matters when deciding what students should rehearse. |
 > | Alternative considered | Show only normalized offsets, which would hide the size of timing errors. |
 > | Limitation | The largest absolute offset reflects only the largest timing error, not the overall performance. |
 > | Reason to revisit | Teachers report that the largest absolute offset is not a useful summary of timing errors. |
