@@ -1,14 +1,14 @@
 # Causal Effects
 
-Imagine that a model predicts which sections of a greenhouse are likely to produce a low yield. Could we use these predictions to decide which sections to inspect? What about which sections to water more?
+Imagine that a model predicts which sections of a greenhouse are likely to produce a low yield. Could we use these predictions to decide which sections to inspect first? What about which sections to water more than others?
 
-To answer these questions, we need to understand how to distinguish predictions from causal effects, avoid misleading comparisons, and estimate causal effects.
+To answer these questions, we need to understand how to distinguish predictions from causal effects, how to avoid comparisons that can mislead us, and how to estimate causal effects reliably.
 
 ## Distinguish predictions from causal effects
 
-A prediction of low yield can help us identify greenhouse sections to prioritize for inspection, but it does not tell us whether giving those sections extra water would improve their yield. The latter is a causal question. In fact, whether prioritizing inspections based on predictions improves yield is also a causal question, which we will return to later. For now, let us focus on the action of providing extra water.
+A prediction of low yield can help us identify greenhouse sections to prioritize for inspection, but it does not tell us whether giving those sections extra water would improve their yield. The latter is a causal question. In fact, whether prioritizing inspections based on predictions improves yield is also a causal question, which we will return to later. For now, let us focus only on the action of providing extra water to some sections.
 
-In causal inference, the action whose effect we study is called the **treatment**, and the quantity it may change is the **outcome**. In this chapter, we use **action** to describe the treatment under study and always specify the alternative we compare it with.
+In causal inference, the action whose effect we study is called the **treatment**, and the quantity that the treatment affects is called the **outcome**. In this chapter, we use **action** to describe the treatment under study and always specify the alternative we compare it with.
 
 The example below illustrates the difference between predicting an outcome and estimating the effect of an action.
 
@@ -47,34 +47,34 @@ As the example above shows, an observed difference between groups can point in t
 
 ## Estimate causal effects
 
-We cannot observe both potential outcomes for the same section in the same growing period. Therefore, to estimate an average causal effect across sections, we need groups whose outcomes can be credibly compared. **Causal inference** concerns learning about causal effects from data. **Randomized experiments**, including A/B tests, and **observational methods** are two approaches for estimating causal effects.
+We cannot observe both potential outcomes for the same section in the same growing period. Therefore, to estimate an average causal effect across sections, we need groups whose outcomes can be credibly compared. **Causal inference** concerns learning about causal effects from data. **Randomized experiments**, including A/B tests, and **observational causal inference methods** are two approaches for estimating causal effects.
 
 The example below continues the greenhouse scenario and shows how the greenhouse team could obtain the comparison missing from their historical records.
 
 > **Worked example: Designing an irrigation comparison**
 >
-> Continuing the greenhouse example, the old records contain no sunny sections on the usual routine and no shaded sections with extra water. Therefore, comparing sections with similar sunlight would require observations the greenhouse staff does not have.
+> Continuing the greenhouse example, imagine that the old records contain no sunny sections on the usual routine and no shaded sections with extra water. Therefore, comparing sections with similar sunlight would require observations the greenhouse staff does not have.
 >
-> Assume that in a new growing period the staff has 24 sections. They randomly assign 12 to receive extra water and 12 to stay on the usual routine. Since assignment is determined by chance rather than by sunlight or other characteristics that affect yield, extra water is not systematically given to sections that would already have higher yields under the usual routine. Therefore, the difference in average yields between the two groups provides an estimate of the **average causal effect** of extra water.
+> Now assume that in a new growing period the staff has 24 sections in the greenhouse. They randomly assign 12 to receive extra water and 12 to stay on the usual routine. Since assignment is determined by chance rather than by sunlight or other characteristics that affect yield, extra water is not systematically given to sections that would already have higher yields under the usual routine. Therefore, the difference in average yields between the two groups provides an estimate of the **average causal effect** of extra water.
 >
-> Suppose the experiment produces the following results. These numbers are constructed for illustration.
+> Suppose the experiment produces the following results. Note that these numbers are constructed for illustration purposes.
 >
 > | Assigned action | Number of sections | Total yield | Average yield per section |
 > | --- | ---: | ---: | ---: |
 > | Extra water | 12 | 54 kilograms | 4.5 kilograms |
 > | Usual routine | 12 | 78 kilograms | 6.5 kilograms |
 >
-> The estimated average causal effect is $4.5 - 6.5 = -2$ kilograms per section. The estimate suggests that extra water lowers average yield. Unlike the historical comparison, this comparison uses randomly assigned groups rather than groups selected by sunlight and therefore provides an unbiased estimate of the true average causal effect.
+> The estimated average causal effect is $4.5 - 6.5 = -2$ kilograms per section. The estimate suggests that extra water actually lowers average yield. Unlike the historical comparison in the previous example, this comparison uses randomly assigned groups rather than groups selected by sunlight and therefore provides an unbiased estimate of the true average causal effect.
 >
-> Note that the two groups may still differ by chance, so the estimated effect is uncertain. Although there are statistical methods to quantify this uncertainty, we do not apply them in this example for simplicity. This comparison also does not reveal the causal effect for each individual section. For that, we would need to observe its yield both with extra water and under the usual routine in the same growing period, which is not possible.
+> Note that the two groups may still differ by chance, so the estimated effect above is uncertain. Although there are statistical methods to quantify this uncertainty, we omit them in this example for simplicity. Furthermore, this comparison does not reveal the causal effect for each individual section. For that, we would need to observe its yield both with extra water and under the usual routine in the same growing period, which is not possible.
 >
-> If random assignment is infeasible, observational causal inference methods could help compare sections in existing records. These methods require some assumptions, including that the comparison accounts for confounding factors, that comparable sections received both watering options, and that each watering option was applied consistently across sections.
+> As a side note, if random assignment were infeasible, observational causal inference methods could help compare sections using existing records. However, these methods would require some assumptions, including that the comparison accounts for confounding factors, that the records include comparable sections under each watering option, and that each watering option was applied consistently across sections.
 
-As the example above shows, random assignment provides a way to estimate an average causal effect without observing both potential outcomes for each section. When A/B testing is infeasible, observational causal inference methods can help estimate effects, but their conclusions depend on assumptions about the historical data. For example, observational causal inference methods cannot rule out unmeasured confounding or supply comparisons absent from the records.
+As the example above shows, random assignment provides a way to estimate an average causal effect without observing both potential outcomes for each section. When A/B testing is infeasible, observational causal inference methods can help estimate effects, but their conclusions depend on assumptions about the historical data. For example, observational causal inference methods cannot rule out unmeasured confounding or supply comparisons that are absent from the historical records.
 
-Returning to the prioritization of inspection decision, using the model's ranking for prioritization is a proposed change to the inspection workflow. We can evaluate the causal effect of that change. For example, an A/B test could randomly assign greenhouses to use either the current inspection workflow or one that prioritizes inspections using the model's predictions, then compare how many problems the staff identify in time to act. This comparison estimates the causal effect of the workflow change on timely problem detection. To determine whether the change also improves yield, the team would need to compare yield under the two workflows.
+As promised earlier in the chapter, we now return to the question of which sections to inspect first. Notice that using the model’s ranking to prioritize inspections would change the greenhouse’s inspection workflow. To estimate the causal effect of this change on yield, we could randomly assign greenhouses to follow either the current workflow or one that uses the model’s ranking to decide which sections to inspect first. The difference in average yield per greenhouse between the two groups would estimate the causal effect of the workflow change on yield. The downside is that this experiment would require access to several comparable greenhouses.
 
-This illustrates a broader point: even when predictions are used only to inform human decisions, such as prioritizing inspections, we cannot assume that changing those decisions automatically improves the desired outcome. Determining whether this is the case requires evaluating the causal effect of that change.
+The above illustrates a broader point: even when predictions are used only to inform human decisions, such as prioritizing inspections, we cannot assume that changing those decisions automatically improves the desired outcome. Determining whether this is the case requires evaluating the causal effect of that change.
 
 ## Further reading
 
