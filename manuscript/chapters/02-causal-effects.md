@@ -55,7 +55,7 @@ The example below continues the greenhouse scenario and shows how the greenhouse
 >
 > Continuing the greenhouse example, the old records contain no sunny sections on the usual routine and no shaded sections with extra water. Therefore, comparing sections with similar sunlight would require observations the greenhouse staff does not have.
 >
-> Assume that in a new growing period the staff has 24 sections. They randomly assign 12 to receive extra water and 12 to stay on the usual routine. Assignment is determined by chance rather than by sunlight or other characteristics that affect yield. This means that, on average across random assignments, neither group would have higher yields than the other if both followed the usual routine. Comparing their average yields after giving one group extra water therefore estimates the average causal effect of that action. The groups may still differ by chance in this particular experiment, so the estimate remains uncertain.
+> Assume that in a new growing period the staff has 24 sections. They randomly assign 12 to receive extra water and 12 to stay on the usual routine. Assignment is determined by chance rather than by sunlight or other characteristics that affect yield. This means that, on average across random assignments, neither group would have higher yields than the other if both followed the usual routine. Comparing their average yields after giving one group extra water therefore estimates the average causal effect of that action.
 >
 > Suppose the experiment produces the following results. These numbers are constructed for illustration.
 >
@@ -64,7 +64,7 @@ The example below continues the greenhouse scenario and shows how the greenhouse
 > | Extra water | 12 | 54 kilograms | 4.5 kilograms |
 > | Usual routine | 12 | 78 kilograms | 6.5 kilograms |
 >
-> The estimated average causal effect is $4.5 - 6.5 = -2$ kilograms per section. The estimate suggests that extra water lowers average yield. Unlike the historical comparison, this comparison uses randomly assigned groups rather than groups selected by sunlight. It still has sampling uncertainty, which the staff should assess before changing the watering routine. It also does not reveal the effect for each individual section.
+> The estimated average causal effect is $4.5 - 6.5 = -2$ kilograms per section. The estimate suggests that extra water lowers average yield. Unlike the historical comparison, this comparison uses randomly assigned groups rather than groups selected by sunlight. The groups may still differ by chance, so the estimated effect is uncertain. There are statistical methods to quantify this uncertainty, but for simplicity, we do not apply them in this example. It also does not reveal the effect for each individual section.
 >
 > If random assignment is infeasible, observational causal inference methods could help compare sections in existing records. These methods require some assumptions, including that the comparison accounts for confounding factors, that comparable sections received both watering options, and that each watering option was applied consistently across sections.
 
