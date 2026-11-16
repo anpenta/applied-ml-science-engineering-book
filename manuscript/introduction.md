@@ -2,7 +2,7 @@ This book brings together the author’s positions on the scientific and enginee
 
 Scientific and engineering decisions in applied machine learning should be considered together because they often influence one another. For example, a more complex model may perform better in experiments but may also require more computing resources. Therefore, choosing a model depends on both its predictive performance and the constraints of the production environment. Considering both perspectives helps us make more informed technical decisions.
 
-Each chapter in the book develops a position and illustrates it with worked examples. The examples are hypothetical and deliberately small so that we can follow the reasoning and see which assumptions the argument depends on. For readers who want to explore a topic in more detail, further reading is suggested at the end of each chapter.
+Each chapter in the book develops a position on how to approach these scientific and engineering decisions and illustrates it with worked examples. The examples are hypothetical and deliberately small so that we can follow the reasoning and see which assumptions the argument depends on. For readers who want to explore a topic in more detail, further reading is suggested at the end of each chapter.
 
 To follow the arguments and examples, readers should be familiar with basic concepts in machine learning and software engineering. They should also be comfortable with simple mathematical notation and calculations, but they do not need advanced mathematics or professional experience in machine learning.
 
