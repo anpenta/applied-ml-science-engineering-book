@@ -104,20 +104,20 @@ The example below shows how we can use the available evidence and the expected b
 >
 > Continuing the retail demand forecast example, assume that the retailer is trying to decide whether to use the new model during ordinary weeks. The switch is worth making only if the new model reduces average absolute forecast error by at least **5 units** compared to the current method.
 >
-> Assume that the retailer’s technical team has enough evaluation data to estimate uncertainty about the average improvement using **bootstrapping**. They repeatedly resample the observed data and recompute the average improvement, using a resampling scheme that accounts for dependence between stores and weeks.
+> The available evidence is not strong enough to justify switching, so the retailer would keep the current method if testing stopped now. The technical team considers comparing the methods over eight more ordinary weeks at a cost of $1,000.
 >
-> At each stage, the technical team considers repeating the comparison on eight more ordinary weeks. Before running the new test, they use **value-of-information analysis** to estimate how likely the new test is to lead to a switch and how much switching would be worth in those cases.
+> For a rough estimate of the test's value, suppose the team judges that there is a 20% chance its results would justify switching. If the retailer switches after seeing those results, the estimated average net benefit over the next year is $10,000 compared with keeping the current method. This estimate includes the costs of switching and operating the model, as well as the possibility that the switch turns out worse than expected. If the results do not justify switching, the retailer keeps the current method and gains nothing from a change.
 >
-> Note that the estimated average improvements, uncertainty ranges, expected benefits, and test costs in the table below are assumed for this example, and they are not related to the four-week illustration in the previous example.
+> Under these assumptions, the expected benefit of testing is $0.20 \times 10{,}000 = 2{,}000$ dollars before the test cost. Subtracting the $1,000 test cost leaves an expected net benefit of $1,000, so the team runs the follow-up.
 >
-> | Evidence available | Estimated average improvement | Plausible range | Expected benefit of testing eight more ordinary weeks | Cost of that test | What the retailer does |
-> | --- | ---: | --- | ---: | ---: | --- |
-> | After the first test | 5 units | 2–8 units | $2,000 | $1,000 | Keep the current method for now and run the follow-up. |
-> | After combining the first test with the follow-up | 2.5 units | 1–4 units | $200 | $1,000 | Stop testing and keep the current method. |
+> Suppose the follow-up shows smaller gains than the first test. The retailer still keeps the current method, and the team now judges that another eight weeks of testing would have only a 2% chance of producing results that justify switching. For simplicity, assume that the estimated average net benefit if it switches remains $10,000. The table below compares the two decisions.
 >
-> As we can see above, the first test leaves uncertainty about whether the improvement reaches 5 units. Since the expected benefit exceeds the cost of the follow-up, the technical team evaluates both forecasting methods on eight more ordinary weeks. The new model shows smaller gains in those weeks than in the first test, so combining the results from both tests lowers the estimated average improvement from 5 to 2.5 units. With the combined data, the plausible range also narrows from 2–8 to 1–4 units.
+> | Evidence available | Chance that another test leads to switching | Expected benefit before test cost | Cost of that test | What the retailer does |
+> | --- | ---: | ---: | ---: | --- |
+> | After the first test | 20% | $2,000 | $1,000 | Keep the current method for now and run the follow-up. |
+> | After combining the first test with the follow-up | 2% | $200 | $1,000 | Stop testing and keep the current method. |
 >
-> Using the updated evidence, the technical team repeats the value-of-information analysis for another eight ordinary weeks. Although another test could lead the retailer to switch, the team now estimates that a switch is less likely. The updated analysis puts the expected benefit at $200, which is below the $1,000 cost. Therefore, the team stops testing, and the retailer keeps the current forecast method.
+> With the updated evidence, the expected benefit of another test is $0.02 \times 10{,}000 = 200$ dollars, below its $1,000 cost. The team therefore stops testing. The probabilities and benefits are hypothetical judgments for this example, not quantities derived from the four-week comparison above. In practice, both need justification from the available evidence and the consequences of switching. A change in decision is valuable only to the extent that it improves the outcome compared with the decision made without further testing.
 
 As the example above shows, we should only run another experiment if the expected benefit of making a better-informed decision outweighs the cost of gathering more evidence.
 
