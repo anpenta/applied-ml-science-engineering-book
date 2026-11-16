@@ -1,6 +1,6 @@
 # Diagnosing Change in Production
 
-Imagine a recycling facility that uses a machine learning model to identify bottles that require manual sorting. One day, the system starts diverting more bottles than usual. Should the technical team retrain the model, repair a camera, or leave the system running as it is?
+Imagine a recycling facility that uses a machine learning model to identify bottles that require manual sorting. One day, the system starts recommending a higher proportion of bottles for manual sorting. Should the technical team retrain the model, repair a camera, or leave the system running as it is?
 
 To decide what to do in a situation like this, we need to monitor the system for different kinds of failure, distinguish changes in the data from declining predictive quality, and investigate the cause of any problems. Before replacing the model, we also need evidence that the replacement improves the system as a whole.
 
@@ -66,7 +66,7 @@ The example below shows how an investigation can distinguish a technical failure
 > | Possible cause | Investigation and finding |
 > | --- | --- |
 > | The software update introduced an error. | The team processes the same images using the old and new software versions. Both produce identical predictions, suggesting that the update did not cause the observed errors. |
-> | The new packaging design changed the relationship between bottle appearance and sorting needs. | Staff check a sample of bottles with the new design and find that the model frequently makes incorrect predictions. Bottles with the older design are still classified correctly. |
+> | The model makes more errors on bottles with the new packaging design. | Staff check a sample of bottles with the new design and find that the model frequently makes incorrect predictions. Bottles with the older design are still classified correctly. |
 >
 > The findings suggest that the new packaging design is responsible for the decline in predictive quality, rather than the software update. The technical team therefore collects additional labeled images of bottles with the new design and evaluates whether updating the model improves its predictions.
 >
