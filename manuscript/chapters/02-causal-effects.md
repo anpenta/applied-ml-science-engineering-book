@@ -32,7 +32,7 @@ Consider the continuation of the greenhouse example below for an illustration.
 
 > **Worked example: Comparing watered and unwatered sections**
 >
-> Continuing the greenhouse example, assume that the greenhouse staff gives extra water to two sunny sections and leaves two shaded sections on the usual routine. The staff chooses the sunny sections because it expects them to need more water. For illustration, assume that the yields under both options are as follows.
+> Continuing the greenhouse example, assume that the greenhouse staff gives extra water to two sunny sections and leaves two shaded sections on the usual routine. The staff chooses the sunny sections because it assumes they need more water. For illustration, assume that the yields under both options are as follows.
 >
 > | Sections | Staff decision | Yield per section with extra water | Yield per section under the usual routine |
 > | --- | --- | ---: | ---: |
