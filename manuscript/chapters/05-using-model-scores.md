@@ -33,7 +33,7 @@ The example below shows how to determine whether changing the decision rule or i
 
 > **Worked example: Finding out why the calling list misses appointments**
 >
-> Continuing the clinic example, the technical team looks back at a day with four missed appointments. Assume that no reminder calls had been made for any appointments scheduled that day, so their observed outcomes were not affected by reminder calls. They use two different candidate models, both trained on earlier data, to score all appointments for that day using only information available when the calls would have been selected. For each model, they compare two decision rules: calling up to ten patients whose scores are at least 0.30, or calling the ten patients with the highest scores regardless of the cutoff. The table below illustrates the results.
+> Continuing the clinic example, the technical team looks back at a day when no reminder calls were made and four appointments were missed. They use two different candidate models, both trained on earlier data, to score all appointments for that day using only information available when the calls would have been selected. For each model, they compare two decision rules: calling up to ten patients whose scores are at least 0.30, or calling the ten patients with the highest scores regardless of the cutoff. The table below illustrates the results.
 >
 > | Where the four missed appointments fell | Model A | Model B |
 > | --- | ---: | ---: |
