@@ -76,7 +76,7 @@ The example below shows how evaluating an existing library against explicit requ
 
 > **Worked example: Deciding whether to reuse a search library**
 >
-> Continuing the photo-search example, assume that the team obtains approval to increase the service's memory budget from 1,000 to 2,000 megabytes and adds a second model worker. The two workers can process up to 100 searches per second under the earlier assumptions, exceeding the peak arrival rate of 80. However, the team still needs to reduce the time spent retrieving candidates from the archive. They consider using an existing search library instead of building a custom solution.
+> Continuing the photo-search example, assume that the technical team obtains approval to increase the service's memory budget from 1,000 to 2,000 megabytes and adds a second model worker. The two workers can process up to 100 searches per second under the earlier assumptions, exceeding the peak arrival rate of 80. However, the team still needs to reduce the time spent retrieving candidates from the archive. They consider using an existing search library instead of building a custom solution.
 >
 > The technical team integrates the library and access checks into the service, then tests the complete system using a representative photo archive and up to 80 searches per second. Response time is measured from submitting a search to displaying its results, including time spent waiting in the queue. Memory measurements cover the whole service, including both model workers and the search library. The following table shows hypothetical results.
 >
