@@ -81,7 +81,7 @@ The example below shows how different records can produce labels with different 
 > | --- | --- |
 > | A maintenance record confirms that the pump stopped working | An observed pump failure |
 > | A technician replaced the pump because it appeared likely to fail | A preventive maintenance action |
-> | A temperature alarm exceeded a predefined threshold | An alarm event |
+> | A temperature reading exceeded a predefined threshold | An alarm event |
 >
 > These records describe different events. A pump can trigger an alarm without failing, and a technician may replace a pump before it fails. Treating either event as a confirmed failure would change what the model learns to predict.
 >
