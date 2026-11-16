@@ -1,6 +1,6 @@
 # Causal Effects
 
-Imagine that a model predicts which sections of a greenhouse are likely to produce a low yield. Could we use these predictions to decide which sections to inspect first? What about which sections to give extra water?
+Imagine that a model predicts which sections of a greenhouse are likely to produce a low yield. Could we use these predictions to decide which sections to inspect first? What about which sections to water more?
 
 To answer these questions, we need to understand how to distinguish predictions from causal effects, how to avoid comparisons that can mislead us, and how to estimate causal effects reliably.
 
