@@ -1,6 +1,6 @@
 # Using Model Scores
 
-Suppose that a clinic's reception team can make up to ten reminder calls a day about patient appointments. A model scores each upcoming appointment by how likely the patient is to miss it. Should the reception team call the ten patients with the highest scores, or make fewer calls when the scores are low?
+Suppose that a clinic's reception team can make up to ten reminder calls a day about patient appointments. A model scores each upcoming appointment by how likely the patient is to miss it. Should the reception team call the ten patients with the highest scores, or make fewer calls when the scores are low in general?
 
 In this chapter, we consider how to turn scores into decisions, how to determine whether to change the model or the decision rule, and how to check whether the decisions actually improve the desired outcome.
 
@@ -41,7 +41,7 @@ The example below shows how to determine whether changing the decision rule or i
 > | In the top ten but below the cutoff | 3 | 0 |
 > | Outside the top ten | 0 | 3 |
 >
-> Under the cutoff rule, only one of the four missed appointments would be selected for a reminder call with either model. Removing the cutoff would increase that number to four for Model A, while leaving it at one for Model B. For Model A, the technical team could test a different decision rule without changing the model. For Model B, they would need to improve the model's ranking to reach the other three appointments within the limit of ten calls.
+> Under the cutoff rule, only one of the four missed appointments would be selected for a reminder call with either model. Removing the cutoff would increase that number to four for Model A, while leaving it at one for Model B. Therefore, for Model A, the technical team could test removing the cutoff without changing the model. However, for Model B, they would need to improve the model’s ranking to reach the other three appointments within the limit of ten calls.
 
 As the example above shows, the same result under the current decision rule can actually point to different changes. Before deciding what to change, we need to determine where the problem comes from: the scores the model produces or how the decision rule uses them.
 
