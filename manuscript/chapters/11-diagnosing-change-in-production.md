@@ -17,13 +17,13 @@ The example below shows how different monitoring measures can help identify prob
 > | Measure | What it helps the team check |
 > | --- | --- |
 > | Missing or unusable images | Whether the camera provides usable inputs |
-> | Proportion of bottles recommended for diversion | Whether the model is recommending more manual sorting |
+> | Proportion of bottles recommended for diversion | Whether the proportion of bottles recommended for manual sorting is changing |
 > | Response times and service errors | Whether predictions arrive reliably and on time |
 > | Predictions compared with staff assessments | Whether the model correctly identifies bottles requiring manual sorting |
 >
-> One morning, the proportion of bottles recommended for diversion increases, while response times and service errors remain stable. The technical team knows that the model is recommending more diversions, but they cannot yet determine whether those recommendations are correct.
+> One morning, the proportion of bottles recommended for diversion increases, while response times and service errors remain stable. The technical team knows that the model is recommending diversion for a higher proportion of bottles, but they cannot yet determine whether those recommendations are correct.
 >
-> To investigate, the team examines recent images and compares the model's predictions with staff assessments of a sample of bottles, including those not diverted. This helps determine whether more bottles genuinely require manual sorting or whether the model's predictive quality has declined.
+> To investigate, the team examines recent images and compares the model's predictions with staff assessments of a sample of bottles, including those not diverted. This helps determine whether a higher proportion of bottles genuinely requires manual sorting or whether the model's predictive quality has declined.
 
 As the example above shows, different monitoring measures help us identify different kinds of problems. We should monitor both system behavior and predictive quality to determine whether the system continues to work as intended.
 
@@ -66,9 +66,9 @@ The example below shows how an investigation can distinguish a technical failure
 > | Possible cause | Investigation and finding |
 > | --- | --- |
 > | The software update introduced an error. | The team processes the same images using the old and new software versions. Both produce identical predictions, suggesting that the update did not cause the observed errors. |
-> | The model makes more errors on bottles with the new packaging design. | Staff check a sample of bottles with the new design and find that the model frequently makes incorrect predictions. Bottles with the older design are still classified correctly. |
+> | The model recommends unnecessary diversions for bottles with the new packaging design. | Staff check a sample of bottles with the new design and find that the model often recommends diverting bottles they assess as suitable for automated sorting. Bottles with the older design are still classified correctly. |
 >
-> The findings suggest that the model struggles with bottles with the new packaging design, while both software versions produced identical predictions on the images tested. The technical team therefore collects additional labeled images of bottles with the new design and evaluates whether updating the model improves its predictions.
+> The findings suggest that unnecessary diversion recommendations for bottles with the new packaging design contributed to the increase, while both software versions produced identical predictions on the images tested. The technical team therefore collects additional labeled images of bottles with the new design and evaluates whether updating the model improves its predictions.
 >
 > Had the investigation instead identified a software error, correcting that error would have been more appropriate than retraining the model.
 
