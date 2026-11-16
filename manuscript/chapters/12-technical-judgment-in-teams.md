@@ -26,7 +26,7 @@ The example below shows how bringing different perspectives together can reveal 
 >
 > The team decides to limit the first version to exercises intended to follow a fixed tempo. The teacher identifies suitable exercises, the scientist evaluates the model on those exercises, and the engineer ensures that the tool does not provide timing recommendations for unsupported passages.
 >
-> The team also documents this limitation so it can revisit it in future versions.
+> The team also documents this limitation so it can revisit how the tool evaluates passages with intentional tempo changes.
 
 As the example above shows, each specialist can evaluate their part of a system correctly while overlooking a problem that affects the system as a whole. Shared understanding helps us identify such problems and bring together the expertise needed to address them.
 
