@@ -6,7 +6,7 @@ To make sound decisions as a team, we need to understand how our work affects th
 
 ## Understand the whole system
 
-Scientific and engineering decisions often depend on assumptions made by people with different expertise. Understanding how the different parts of a system work together helps us recognize when to involve others and how our decisions may affect their work.
+Technical decisions often depend on assumptions made by people with different expertise. Understanding how the different parts of a system work together helps us recognize when to involve others and how our decisions may affect their work.
 
 The example below shows how bringing different perspectives together can reveal a problem that separate reviews might miss.
 
