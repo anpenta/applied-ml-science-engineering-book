@@ -41,7 +41,7 @@ The example below shows how to determine whether changing the decision rule or i
 > | In the top ten but below the cutoff | 3 | 0 |
 > | Outside the top ten | 0 | 3 |
 >
-> Under the cutoff rule, only one of the four missed appointments would be selected for a reminder call with either model. Removing the cutoff would increase that number to four for Model A, while leaving it at one for Model B. Therefore, for Model A, the technical team could test removing the cutoff without changing the model. However, for Model B, they would need to improve the model’s ranking to reach the other three appointments within the limit of ten calls.
+> Under the cutoff rule, only one of the four missed appointments would be selected for a reminder call with either model. Removing the cutoff would increase that number to four for Model A, while leaving it at one for Model B. Therefore, for Model A, the technical team could test removing the cutoff without changing the model. However, for Model B, they would need to improve the model's ranking to reach the other three appointments within the limit of ten calls.
 
 As the example above shows, the same result under the current decision rule can actually point to different changes. Before deciding what to change, we need to determine where the problem comes from: the scores the model produces or how the decision rule uses them.
 
