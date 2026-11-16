@@ -68,7 +68,7 @@ The example below shows how an investigation can distinguish a technical failure
 > | The software update introduced an error. | The team processes the same images using the old and new software versions. Both produce identical predictions, suggesting that the update did not cause the observed errors. |
 > | The model makes more errors on bottles with the new packaging design. | Staff check a sample of bottles with the new design and find that the model frequently makes incorrect predictions. Bottles with the older design are still classified correctly. |
 >
-> The findings suggest that the new packaging design is responsible for the decline in predictive quality, rather than the software update. The technical team therefore collects additional labeled images of bottles with the new design and evaluates whether updating the model improves its predictions.
+> The findings suggest that the model struggles with bottles with the new packaging design, while both software versions produced identical predictions on the images tested. The technical team therefore collects additional labeled images of bottles with the new design and evaluates whether updating the model improves its predictions.
 >
 > Had the investigation instead identified a software error, correcting that error would have been more appropriate than retraining the model.
 
