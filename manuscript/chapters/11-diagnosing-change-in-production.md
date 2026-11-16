@@ -2,7 +2,7 @@
 
 Imagine a recycling facility that uses a machine learning model to identify bottles that require manual sorting. One day, the system starts diverting more bottles than usual. Should the technical team retrain the model, repair a camera, or leave the system running as it is?
 
-To decide, we need to monitor the system for different kinds of failure, distinguish changes in the data from declining predictive quality, and investigate the cause of any problems. Before replacing the model, we also need evidence that the replacement improves the system.
+To decide what to do in a situation like this, we need to monitor the system for different kinds of failure, distinguish changes in the data from declining predictive quality, and investigate the cause of any problems. Before replacing the model, we also need evidence that the replacement improves the system as a whole.
 
 ## Monitor different kinds of failure
 
