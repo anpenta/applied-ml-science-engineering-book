@@ -1,8 +1,8 @@
 # Designing Experiments
 
-Assume that we want to design an experiment which will determine whether a new model predicts weekly demand better than the currently used method. How should we design the experiment so we can trust the result?
+Assume that we want to design an experiment which will determine whether a new model predicts weekly demand better than the currently used method. How should we design the experiment so that we can trust the result?
 
-We would need to define what we want to learn, choose a meaningful baseline, and test whether the model generalizes to the situations where we plan to use it. We would also need to make the evidence interpretable and decide when we have enough evidence to stop experimenting.
+We would need to define what we want to learn from the experiment, choose a meaningful baseline to compare against, and test whether the model generalizes to the situations where we plan to use it. We would also need to make the experimental evidence interpretable and decide when we have enough evidence to stop experimenting.
 
 ## Define what you want to learn
 
@@ -19,7 +19,7 @@ The example below applies this distinction to a weekly demand forecast.
 > | Question | Comparison | What stays fixed? |
 > | --- | --- | --- |
 > | Does the new model improve on the current method? | New model versus the planning team's forecast | Evaluation stores and weeks, forecast deadline, and error measure |
-> | Does the promotion calendar improve this model? | The same model with and without the promotion calendar | Training records, other inputs, model type, training procedure, and evaluation conditions |
+> | Does the promotion calendar improve this model? | The same model with and without the promotion calendar | Training data except for the promotion calendar, model type, training procedure, and evaluation conditions |
 >
 > The first comparison tells us whether the new model improves on the current method, but not how much the promotion calendar contributes, since the methods may differ in other ways. The second comparison isolates the contribution of the promotion calendar by keeping everything else fixed.
 
