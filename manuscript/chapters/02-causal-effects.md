@@ -32,7 +32,7 @@ Consider the continuation of the greenhouse example below for an illustration.
 
 > **Worked example: Comparing watered and unwatered sections**
 >
-> Continuing the greenhouse example, assume that the greenhouse staff gives extra water to two sunny sections and leaves two shaded sections on the usual routine. The staff chooses where to give extra water based on sunlight, without random assignment. For illustration, assume that the yields under both options are as follows.
+> Continuing the greenhouse example, assume that the greenhouse staff gives extra water to two sunny sections and leaves two shaded sections on the usual routine. The staff chooses the sunny sections because it expects them to need more water. For illustration, assume that the yields under both options are as follows.
 >
 > | Sections | Staff decision | Yield per section with extra water | Yield per section under the usual routine |
 > | --- | --- | ---: | ---: |
@@ -55,7 +55,7 @@ The example below continues the greenhouse scenario and shows how the greenhouse
 >
 > Continuing the greenhouse example, the old records contain no sunny sections on the usual routine and no shaded sections with extra water. Therefore, comparing sections with similar sunlight would require observations the greenhouse staff does not have.
 >
-> Assume that in a new growing period the staff has 24 sections. They randomly assign 12 to receive extra water and 12 to stay on the usual routine. At harvest, they compare average yields between the two groups to estimate the average causal effect of extra water. Random assignment prevents staff preferences from determining which sections receive extra water, although the groups may still differ by chance.
+> Assume that in a new growing period the staff has 24 sections. They randomly assign 12 to receive extra water and 12 to stay on the usual routine. Assignment is determined by chance rather than by sunlight or other characteristics that affect yield. This means that, on average across random assignments, neither group would have higher yields than the other if both followed the usual routine. Comparing their average yields after giving one group extra water therefore estimates the average causal effect of that action. The groups may still differ by chance in this particular experiment, so the estimate remains uncertain.
 >
 > Suppose the experiment produces the following results. These numbers are constructed for illustration.
 >
@@ -66,7 +66,7 @@ The example below continues the greenhouse scenario and shows how the greenhouse
 >
 > The estimated average causal effect is $4.5 - 6.5 = -2$ kilograms per section. The estimate suggests that extra water lowers average yield. Unlike the historical comparison, this comparison uses randomly assigned groups rather than groups selected by sunlight. It still has sampling uncertainty, which the staff should assess before changing the watering routine. It also does not reveal the effect for each individual section.
 >
-> If random assignment is infeasible, observational causal inference methods, such as matching or weighting, could help compare sections in existing records. These methods require some assumptions, including that the comparison accounts for confounding factors, that comparable sections received both watering options, and that each watering option was applied consistently across sections.
+> If random assignment is infeasible, observational causal inference methods could help compare sections in existing records. These methods require some assumptions, including that the comparison accounts for confounding factors, that comparable sections received both watering options, and that each watering option was applied consistently across sections.
 
 As the example above shows, random assignment provides a way to estimate an average causal effect without observing both potential outcomes for each section. When A/B testing is infeasible, observational causal inference methods can help estimate effects, but their conclusions depend on assumptions about the historical data. For example, observational causal inference methods cannot rule out unmeasured confounding or supply comparisons absent from the records.
 
