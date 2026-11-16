@@ -67,7 +67,7 @@ The example below shows how documenting the reasoning behind a decision helps a 
 
 > **Worked example: Revisiting the report design**
 >
-> Continuing the rehearsal-tool example, assume that the technical team documents why it decided to show both normalized offsets and the largest absolute offset.
+> Continuing the rehearsal-tool example, assume that the technical team documents why they decided to show both normalized offsets and the largest absolute offset.
 >
 > | Part of the record | What the team writes |
 > | --- | --- |

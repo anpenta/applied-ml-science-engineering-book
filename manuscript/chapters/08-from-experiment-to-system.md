@@ -50,7 +50,7 @@ The example below shows how a pattern learned by a model from actual delays can 
 >
 > If we instead train the second model using the forecast delays along with the recorded connection outcomes, it could learn a threshold above 3 minutes that separates these four cases correctly. This would allow the second model to account for the first model's underestimation in this example.
 >
-> To construct the training forecasts described above, we should fit the first model on earlier journeys and use it to predict delays for later journeys that were excluded from its training. We should then repeat this process across successive time periods. The resulting forecasts would then become inputs for training the second model, paired with the recorded connection outcomes. Finally, we should evaluate both models together on a separate, later period.
+> Forecasts for journeys used to fit the first model may be more accurate than its forecasts for new journeys. Training the second model on those forecasts could therefore give it an unrealistic view of the errors it will receive in production. To construct the training forecasts described above, we should fit the first model on earlier journeys and use it to predict delays for later journeys that were excluded from its training. We should then repeat this process across successive time periods. The resulting forecasts would then become inputs for training the second model, paired with the recorded connection outcomes. Finally, we should evaluate both models together on a separate, later period.
 
 As the example above shows, training a model on inputs that reflect what it will receive in production helps it learn patterns that account for errors in those inputs.
 

@@ -59,7 +59,7 @@ The example below shows what can go wrong when we attempt to match temperature r
 >
 > The resulting table has the expected shape and every value is valid, yet both labels are attached to the wrong pumps.
 >
-> In this example, joining on the pump identifier instead would give the correct matches, as we only have one prediction time per pump. Alternatively, if the data had contained multiple prediction times per pump, we would have joined on both the pump identifier and the prediction time. Before joining, we would have verified that each combination appears at most once in each table.
+> In this example, joining on the pump identifier instead would give the correct matches, as we only have one prediction time per pump. Alternatively, if the data had contained multiple prediction times per pump, we would have joined on both the pump identifier and the prediction time. Before joining, we would have verified that each combination appears at most once in each table. Otherwise, multiple matching rows could repeat the same prediction in the joined dataset, giving it more weight during training.
 
 The example above shows why we need to verify that a join preserves the observations we intend to model.
 
@@ -111,7 +111,7 @@ The example below illustrates this distinction.
 >
 > Automatically rejecting every pump without a reading would treat these situations as equivalent. Instead, we need to identify the cause and evaluate its consequences for the prediction task before deciding what to do.
 >
-> Suppose the investigation finds that all affected pumps were switched off before 08:00 and that their sensors report only while running. The missing readings are expected under these conditions, so repairing the data pipeline would not address the cause. The technical team checks whether switched-off pumps were represented in training and whether predictions remain reliable for them. Until that is known, it flags the affected pumps for review rather than filling in a temperature and treating the result as an ordinary prediction.
+> Suppose the investigation finds that all affected pumps were switched off before 08:00 and that their sensors report only while running. The missing readings are expected under these conditions, so repairing the data pipeline would not address the cause. The technical team checks whether switched-off pumps were represented in training and whether predictions remain reliable for them. Until that is known, they flag the affected pumps for review rather than filling in a temperature and treating the result as an ordinary prediction.
 
 In the example above, the missing readings do not indicate a data pipeline failure but reflect how the pumps operate, requiring a different response. More generally, understanding the causes of validation warnings helps us determine whether the available data can still support reliable predictions and how to respond appropriately.
 

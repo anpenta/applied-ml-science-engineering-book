@@ -23,7 +23,7 @@ The example below shows how different monitoring measures can help identify prob
 >
 > One morning, the proportion of bottles recommended for diversion increases, while response times and service errors remain stable. The technical team knows that the model is recommending more diversions, but they cannot yet determine whether those recommendations are correct.
 >
-> To investigate, the team examines recent images and compares the model's predictions with staff assessments of a sample of bottles, including those not diverted. This helps determine whether more bottles genuinely require manual sorting or whether the model's predictive quality has declined.
+> To investigate, the team examines recent images and compares the model's predictions with staff assessments of a sample of bottles, including those not diverted. Checking only diverted bottles would reveal unnecessary diversions but miss bottles that should have been diverted and were left on the line. Therefore, sampling both groups helps determine whether more bottles genuinely require manual sorting or whether the model's predictive quality has declined.
 
 As the example above shows, different monitoring measures help us identify different kinds of problems. We should monitor both system behavior and predictive quality to determine whether the system continues to work as intended.
 
@@ -82,9 +82,9 @@ The example below shows how this comparison can help us decide whether a candida
 
 > **Worked example: Deciding whether to try a new model**
 >
-> Continuing the recycling example, the technical team trains a candidate model using newly collected data. It compares the candidate with the current model on a separate sample of 400 bottles that were not used during training or model selection. Half have the older packaging design, and half have the new design.
+> Continuing the recycling example, the technical team trains a candidate model using newly collected data. They compare the candidate with the current model on a separate sample of 400 bottles that were not used during training or model selection. Half have the older packaging design, and half have the new design.
 >
-> Before the comparison, the team agrees that the candidate must reduce the total number of missed bottles without substantially increasing unnecessary diversions or making predictions too slowly. They also agree to accept no more than two additional missed bottles with the older design.
+> Before the comparison, the team agrees that the candidate must reduce the total number of missed bottles without substantially increasing unnecessary diversions or making predictions too slowly. They also agree to accept no more than two additional missed bottles with the older design and two additional unnecessary diversions. At least 95% of predictions must arrive within 40 milliseconds.
 >
 > The following table shows the evaluation results.
 >

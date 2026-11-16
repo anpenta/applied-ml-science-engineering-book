@@ -106,7 +106,7 @@ The example below shows how we can use the available evidence and the expected b
 >
 > Assume that the retailer’s technical team has enough evaluation data to estimate uncertainty about the average improvement using **bootstrapping**. They repeatedly resample the observed data and recompute the average improvement, using a resampling scheme that accounts for dependence between stores and weeks.
 >
-> At each stage, the technical team considers repeating the comparison on eight more ordinary weeks. Before running the new test, they use **value-of-information analysis** to estimate how likely the new test is to lead to a switch and how much switching would be worth in those cases.
+> At each stage, the technical team considers repeating the comparison on eight more ordinary weeks. Before running the new test, they use **value-of-information analysis** to estimate how likely the new test is to lead to a switch and how much switching would be worth in those cases. Here, they would keep the current method without further testing. Therefore, the benefit of testing comes from the possibility of making a better decision than keeping that method. Estimating this benefit requires considering the financial consequences of switching, including its costs and the risk that the model performs worse than expected. The bootstrap results describe uncertainty about forecast improvement, but do not by themselves determine this monetary benefit.
 >
 > Note that the estimated average improvements, uncertainty ranges, expected benefits, and test costs in the table below are assumed for this example, and they are not related to the four-week illustration in the previous example.
 >

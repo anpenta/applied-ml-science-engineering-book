@@ -19,7 +19,7 @@ The bike-share example below shows how a simple change to an input can give the 
 > | A | 2 | 0 | 0 | 0 | 2 |
 > | B | 0 | 0 | 0 | 2 | 2 |
 >
-> If the four-day total is the only input to the model, both stations look identical to it. However, if the model also uses the previous day's count, it can distinguish between the two stations.
+> If the four-day total is the only input to the model, both stations look identical to it. However, if the model also uses the previous day's count, it can distinguish between the two stations. This could matter because a shortage yesterday may be a stronger warning about tomorrow than a shortage four days ago. Adding the feature allows the model to learn whether that distinction is useful.
 
 As the example above shows, adding a simple feature can help a model use information that would otherwise be lost through aggregation. We should test whether such changes improve the existing model before considering a more complex one. More generally, improving the model's inputs may be sufficient to achieve the desired performance for our task without increasing model complexity.
 
@@ -70,7 +70,7 @@ The example below shows how a small change to a model can deliver most of the be
 
 > **Worked example: Choosing how much flexibility to add**
 >
-> Continuing the bike-share example, the technical team wants to predict which stations will run out of bikes the next morning. The team trains three models on the same earlier records, using yesterday's failed-rental count and station type as inputs. They then compare them over the same four weeks of mornings excluded from training and model selection. Each model flags the same number of stations each morning. The team counts how often a station runs out of bikes without being flagged.
+> Continuing the bike-share example, the technical team wants to predict which stations will run out of bikes the next morning. The team trains three models on the same earlier records, using yesterday's failed-rental count and station type as inputs. They then compare them over the same four weeks of mornings excluded from training and model selection. Each model flags the same number of stations each morning, so a model cannot reduce missed shortages simply by flagging more stations. The team counts how often a station runs out of bikes without being flagged.
 >
 > | Model | How it uses yesterday's failed-rental count | Missed shortages |
 > | --- | --- | ---: |
