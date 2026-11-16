@@ -30,7 +30,7 @@ Once we have identified the causal effect we want to estimate, we might compare 
 
 Consider the continuation of the greenhouse example below for an illustration.
 
-> **Worked example: Comparing watered and unwatered sections**
+> **Worked example: Comparing extra watering with the usual routine**
 >
 > Continuing the greenhouse example, assume that the greenhouse staff gives extra water to two sunny sections and leaves two shaded sections on the usual routine. The staff chooses the sunny sections because they think that those sections need more water due to greater sunlight exposure. For illustration, assume that the yields under both options are as follows.
 >
