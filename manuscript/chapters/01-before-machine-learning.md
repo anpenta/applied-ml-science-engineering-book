@@ -35,7 +35,7 @@ The example below illustrates these four components and shows how understanding 
 >
 > From the classification results above, we can see that Model A predicts that 20 machines will fail, whereas Model B predicts that 110 will fail. We can use these counts to calculate accuracy and precision at the 0.5 threshold.
 >
-> The next table compares these metrics with precision among the 10 highest-ranked machines. Note that the failure counts among those 10 machines are additional hypothetical results from each model's ranking.
+> The next table compares these metrics with precision among the 10 highest-ranked machines. Note that the failure counts among the top 10 machines ranked by each model are additional hypothetical results introduced for this example.
 >
 > | Evaluation result | Model A | Model B |
 > | --- | ---: | ---: |
