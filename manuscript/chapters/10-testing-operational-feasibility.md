@@ -2,7 +2,7 @@
 
 A photo search model runs quickly on a laptop during an experiment. But will a service using that model respond just as quickly when breaking news brings a surge of searches from across the newsroom?
 
-To answer the question, we need to define the workload, measure the full path from request to usable result, and check capacity under load. We can then use this evidence to decide what to reuse and where the design needs to change.
+To answer the question above, we need to define the workload, measure the full path from request to usable result, and check capacity under load. We can then use this evidence to decide what to reuse and where the design needs to change.
 
 ## Define the workload
 
@@ -27,7 +27,7 @@ As the example above shows, different uses of the same system can require differ
 
 ## Measure the full path from request to result
 
-Asymptotic complexity tells us how computational work grows with input size under specified assumptions. Benchmarks tell us how long an implementation takes for particular inputs and hardware. However, neither necessarily tells us how long users wait for a result. To determine that, we should measure the total response time and examine how much each stage of processing a request contributes to it.
+We should measure response time from the moment a user submits a request until they receive a usable result. Timing each step in processing the request shows where that time is spent. To investigate a slow step, we can use **asymptotic time complexity** to understand how the number of operations grows with input size and **benchmarking** to measure how long the step takes for specific inputs on specific hardware.
 
 The example below shows why making the model faster may not be enough to meet the response-time target.
 
