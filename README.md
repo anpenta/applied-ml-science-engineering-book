@@ -6,7 +6,7 @@
 
 **Author:** Andreas Pentaliotis
 
-An opinionated book on the science and engineering of applied machine learning.
+An opinionated book about technical decisions in applied machine learning.
 
 ## Read the book
 
