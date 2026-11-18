@@ -330,7 +330,7 @@ def build_html() -> None:
         '<p class="book-cover-mark"><img src="assets/applied-ml-mark.svg" '
         'alt="" width="265"></p>\n'
         f"<h1>{html.escape(METADATA['title'])}</h1>\n"
-        f"<p>{html.escape(METADATA['author'])}</p>\n"
+        f"<p class=\"book-author\">{html.escape(METADATA['author'])}</p>\n"
         "</div>\n\n"
         "## Contents\n\n"
         + contents + "\n\n"
