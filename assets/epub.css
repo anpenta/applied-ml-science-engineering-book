@@ -10,4 +10,4 @@ nav#toc ol ol { padding-left: 1.5em; }
 section.titlepage { text-align: center !important; }
 section.titlepage h1.title { text-align: center !important; }
 section.titlepage h1.title img { display: block; width: 265px; max-width: 100%; height: auto; margin: 0 auto 1.5em; }
-section.titlepage p.author { display: block; text-align: center !important; margin: 1em auto; width: 100%; }
+section.titlepage p.author { display: block; text-align: center !important; margin: 1em auto; width: 100%; font-size: 1.25em; }
