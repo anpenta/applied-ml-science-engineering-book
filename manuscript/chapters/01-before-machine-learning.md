@@ -54,7 +54,7 @@ As the example above shows, the operational constraints determine which predicti
 
 Let's assume that we already understand the operational problem. That alone is not enough to proceed with building a model. We also need a preliminary way to judge whether building one would be worthwhile.
 
-The business objective describes what the company wants to improve. The **business metric** measures progress toward that business objective. The **success criterion** specifies what result on the business metric counts as success. A success criterion can be as simple as improving on the approach that is currently in use. We can always refine the business metric and success criterion as we learn more.
+The **business objective** describes what the company wants to improve. The **business metric** measures progress toward that business objective. The **success criterion** specifies what result on the business metric counts as success. A success criterion can be as simple as improving on the approach that is currently in use. We can always refine the business metric and success criterion as we learn more.
 
 The example below builds on the previous example to illustrate these three concepts and show the importance of having a success criterion.
 

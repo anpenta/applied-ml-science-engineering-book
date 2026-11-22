@@ -38,7 +38,7 @@ Building on the bike-share example, the example below shows how the same count c
 > | Commuter | 10% | 40% |
 > | Residential | 10% | 15% |
 >
-> With no failed rentals the day before, both station types ran out on 10 percent of mornings. With two failed rentals the day before, the rate was 40 percent for commuter stations and 15 percent for residential stations.
+> With no failed rentals the day before, both station types ran out on 10% of mornings. With two failed rentals the day before, the rate was 40% for commuter stations and 15% for residential stations.
 >
 > We can express this difference with two logistic regression models. Let $x$ be yesterday's failed-rental count, $g=1$ for a commuter station and $g=0$ for a residential station, and $p$ the predicted probability of running out the next morning. Logistic regression models the log odds, $\log(p/(1-p))$, as a linear function of the inputs and converts them into probabilities between zero and one using the sigmoid function.
 >
@@ -58,7 +58,7 @@ Building on the bike-share example, the example below shows how the same count c
 >
 > For residential stations, $g=0$, so the count has weight $b$. For commuter stations, $g=1$, so its weight is $b+d$. The extra coefficient $d$ lets the relationship differ by station type while keeping one model.
 >
-> In the table, both groups start at 10 percent when $x=0$. Matching those starting probabilities forces $c=0$. The simpler model would then predict the same probability for both groups at $x=2$, so it cannot reproduce both 40 percent and 15 percent. The interaction term in the more flexible model allows for that difference. Therefore, it is worth testing whether the more flexible model improves predictive performance.
+> In the table, both groups start at 10% when $x=0$. Matching those starting probabilities forces $c=0$. The simpler model would then predict the same probability for both groups at $x=2$, so it cannot reproduce both 40% and 15%. The interaction term in the more flexible model allows for that difference. Therefore, it is worth testing whether the more flexible model improves predictive performance.
 
 As the example above shows, adding complexity can be worth testing when it lets the model represent a specific pattern the simpler model misses.
 

@@ -46,7 +46,7 @@ The example below shows why making the model faster may not be enough to meet th
 >
 > The model takes only 20 milliseconds, but the complete search takes 150 milliseconds. Even if the technical team halves the model's runtime, the total would only decrease to 140 milliseconds. Retrieving candidates from the archive service takes considerably longer, making it a more promising stage to investigate.
 >
-> As a side note, this example is simplified for illustrative purposes. Measuring a single search is not enough to determine whether the system meets its performance target. The technical team must also measure response times across many searches, including periods of high demand. They can then determine whether at least 95 percent of searches return results within the target of 120 milliseconds.
+> As a side note, this example is simplified for illustrative purposes. Measuring a single search is not enough to determine whether the system meets its performance target. The technical team must also measure response times across many searches, including periods of high demand. They can then determine whether at least 95% of searches return results within the target of 120 milliseconds.
 
 As the example above shows, a fast stage can still be part of a slow search. We should measure end-to-end response time to determine whether the service meets its target and examine individual stages to identify where improvements are needed.
 

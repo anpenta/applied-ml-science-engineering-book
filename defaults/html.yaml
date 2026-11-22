@@ -7,8 +7,6 @@ highlight-style: tango
 toc: false
 html-math-method: mathml
 section-divs: true
-filters:
-  - tools/filters/html_examples.lua
 css:
   - assets/html.css
 include-in-header:

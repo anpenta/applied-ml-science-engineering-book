@@ -97,7 +97,7 @@ The example below illustrates this distinction.
 
 > **Worked example: Investigating missing sensor readings**
 >
-> Continuing the pump-failure example, suppose we predict pump failures at 08:00 each morning. Historically, the prediction system has a temperature reading for almost every pump by that time. One morning, data validation reports that no reading is available to the prediction system at 08:00 for 30 percent of the pumps.
+> Continuing the pump-failure example, suppose we predict pump failures at 08:00 each morning. Historically, the prediction system has a temperature reading for almost every pump by that time. One morning, data validation reports that no reading is available to the prediction system at 08:00 for 30% of the pumps.
 >
 > There are several possible explanations:
 >

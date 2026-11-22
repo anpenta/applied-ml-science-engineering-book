@@ -33,7 +33,7 @@ code {
   font-size: 0.9em;
 }
 
-.worked-example {
+blockquote {
   color: #263442;
   border-left: 0.2em solid #2878a8;
   padding: 1rem 1.25rem;
@@ -43,9 +43,9 @@ code {
   overflow-x: auto;
 }
 
-.worked-example > :first-child { margin-top: 0; }
-.worked-example > :last-child { margin-bottom: 0; }
-.worked-example table { width: 100%; }
+blockquote > :first-child { margin-top: 0; }
+blockquote > :last-child { margin-bottom: 0; }
+blockquote table { width: 100%; }
 
 table {
   border-collapse: collapse;
