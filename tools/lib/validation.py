@@ -43,7 +43,7 @@ def check_html_home(page: Page, filenames: list[str], headings: list[str]) -> No
     logo = landing.locator(".book-cover-mark img")
     require(logo.count() == 1 and logo.evaluate("(img) => img.naturalWidth > 0"),
             "Landing logo did not load")
-    require(page.get_by_role("heading", name="Contents", exact=True).count() == 1,
+    require(page.get_by_role("heading", name="Contents", level=2, exact=True).count() == 1,
             "Contents heading missing")
     links = page.locator(".book-contents a")
     require(links.all_inner_texts() == headings, "Incorrect contents labels or order")
@@ -65,7 +65,7 @@ def check_html_navigation(page: Page, filenames: list[str], headings: list[str],
     for filename, heading in zip(filenames, headings, strict=True):
         nav.get_by_role("link", name="Next", exact=True).click()
         page.wait_for_url((DIST_DIR / filename).as_uri())
-        require(page.get_by_role("heading", name=heading, level=2, exact=True).count() == 1,
+        require(page.get_by_role("heading", name=heading, level=1, exact=True).count() == 1,
                 f"Incorrect heading on {filename}")
     require(nav.get_by_role("link", name="Next", exact=True).count() == 0,
             "Final page has an active Next link")
