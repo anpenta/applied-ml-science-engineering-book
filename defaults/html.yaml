@@ -7,7 +7,6 @@ highlight-style: tango
 toc: false
 html-math-method: mathml
 section-divs: true
-shift-heading-level-by: 1
 css:
   - assets/html.css
 include-in-header:

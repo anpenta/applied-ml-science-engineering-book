@@ -17,7 +17,7 @@ The example below shows how different workloads lead to different performance re
 > | Workload | How it is used | Performance requirement |
 > | --- | --- | --- |
 > | Indexing photos | The system processes the photo archive overnight to prepare it for searching the next day. | The entire job must finish before the morning shift. |
-> | Searching photos | Editors search the archive throughout the day, sometimes simultaneously when breaking news occurs. | At least 95 percent of searches must return results within 120 milliseconds, even when 80 searches arrive per second. |
+> | Searching photos | Editors search the archive throughout the day, sometimes simultaneously when breaking news occurs. | At least 95% of searches must return results within 120 milliseconds, even when 80 searches arrive per second. |
 >
 > The technical team must therefore test the two workloads differently. For indexing, they need to measure whether the system can process the full archive before the deadline. For searching, they need to measure response times while many editors are using the system simultaneously.
 >
@@ -46,7 +46,7 @@ The example below shows why making the model faster may not be enough to meet th
 >
 > The model takes only 20 milliseconds, but the complete search takes 150 milliseconds. Even if the technical team halves the model's runtime, the total would only decrease to 140 milliseconds. Retrieving candidates from the archive service takes considerably longer, making it a more promising stage to investigate.
 >
-> As a side note, this example is simplified for illustrative purposes. Measuring a single search is not enough to determine whether the system meets its performance target. The technical team must also measure response times across many searches, including periods of high demand. They can then determine whether at least 95 percent of searches return results within the target of 120 milliseconds.
+> As a side note, this example is simplified for illustrative purposes. Measuring a single search is not enough to determine whether the system meets its performance target. The technical team must also measure response times across many searches, including periods of high demand. They can then determine whether at least 95% of searches return results within the target of 120 milliseconds.
 
 As the example above shows, a fast stage can still be part of a slow search. We should measure end-to-end response time to determine whether the service meets its target and examine individual stages to identify where improvements are needed.
 
@@ -82,7 +82,7 @@ The example below shows how evaluating an existing library against explicit requ
 >
 > | Requirement | Result |
 > | --- | --- |
-> | At least 95 percent of searches return results within 120 milliseconds | 95th-percentile response time of 110 milliseconds at 80 searches per second: passes |
+> | At least 95% of searches return results within 120 milliseconds | 95th-percentile response time of 110 milliseconds at 80 searches per second: passes |
 > | Total memory use stays within 2,000 megabytes | Peak use of 1,800 megabytes: passes |
 > | Index the full photo archive before the morning shift | Passes |
 > | Return only photos editors are allowed to access | Passes after integrating access checks |
