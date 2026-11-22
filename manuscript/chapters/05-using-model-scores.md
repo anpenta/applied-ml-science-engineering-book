@@ -18,8 +18,8 @@ The clinic example below shows how two different decision rules can lead to diff
 > | --- | ---: | ---: |
 > | Appointments scored | 30 | 30 |
 > | Appointments with scores of 0.30 or higher | 12 | 4 |
-> | Calls using the 10 highest scores | 10 | 10 |
-> | Calls using the cutoff, capped at 10 | 10 | 4 |
+> | Calls using the ten highest scores | 10 | 10 |
+> | Calls using the cutoff, capped at ten | 10 | 4 |
 >
 > On Monday, both rules select the same ten appointments. On Tuesday, only four scores meet the cutoff, so the second rule leaves six call slots unused.
 
@@ -37,9 +37,9 @@ The example below shows how to determine whether changing the decision rule or i
 >
 > | Where the four missed appointments fell | Model A | Model B |
 > | --- | ---: | ---: |
-> | In the top 10 and met the cutoff | 1 | 1 |
-> | In the top 10 but below the cutoff | 3 | 0 |
-> | Outside the top 10 | 0 | 3 |
+> | In the top ten and met the cutoff | 1 | 1 |
+> | In the top ten but below the cutoff | 3 | 0 |
+> | Outside the top ten | 0 | 3 |
 >
 > Under the cutoff rule, only one of the four missed appointments would be selected for a reminder call with either model. Removing the cutoff would increase that number to four for Model A, while leaving it at one for Model B. Therefore, for Model A, the technical team could test removing the cutoff without changing the model. However, for Model B, they would need to improve the model's ranking to reach the other three appointments within the limit of ten calls.
 
@@ -57,7 +57,7 @@ The example below continues the clinic example and illustrates how to compare tw
 >
 > For the pilot, the technical team randomly assigns comparable calling days to one of the two rules, keeping the same limit of ten calls per day. They track the appointment outcomes associated with each day's list, including appointments not selected for a call. Suppose the pilot covers 200 booked slots under each rule and produces the following results.
 >
-> | | Current rule: 10 highest scores | Proposed rule: cutoff, capped at 10 |
+> | | Current rule: ten highest scores | Proposed rule: cutoff, capped at ten |
 > | --- | ---: | ---: |
 > | Missed appointments | 12 | 10 |
 > | Cancellations that left a slot empty | 6 | 10 |
