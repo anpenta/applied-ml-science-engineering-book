@@ -38,7 +38,7 @@ Building on the bike-share example, the example below shows how the same count c
 > | Commuter | 10% | 40% |
 > | Residential | 10% | 15% |
 >
-> With no failed rentals the day before, both station types ran out on 10% of mornings. With two failed rentals the day before, the rate was 40% for commuter stations and 15% for residential stations.
+> With no failed rentals the day before, both station types ran out on 10 percent of mornings. With two failed rentals the day before, the rate was 40 percent for commuter stations and 15 percent for residential stations.
 >
 > We can express this difference with two logistic regression models. Let $x$ be yesterday's failed-rental count, $g=1$ for a commuter station and $g=0$ for a residential station, and $p$ the predicted probability of running out the next morning. Logistic regression models the log odds, $\log(p/(1-p))$, as a linear function of the inputs and converts them into probabilities between zero and one using the sigmoid function.
 >

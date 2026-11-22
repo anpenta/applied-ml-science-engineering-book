@@ -63,7 +63,7 @@ The example below continues the clinic example and illustrates how to compare tw
 > | Cancellations that left a slot empty | 6 | 10 |
 > | **Total unused slots** | **18** | **20** |
 >
-> If the technical team had judged the rules by missed appointments alone, the cutoff rule would appear better. However, the clinic wants to keep appointment slots in use, and under the cutoff rule, two more slots went unused. This corresponds to 10% of slots under the proposed rule, compared with 9% under the current rule.
+> If the technical team had judged the rules by missed appointments alone, the cutoff rule would appear better. However, the clinic wants to keep appointment slots in use, and under the cutoff rule, two more slots went unused. This corresponds to 10 percent of slots under the proposed rule, compared with 9 percent under the current rule.
 >
 > Based on these results, the clinic decides to keep the current rule, since the proposed rule did not demonstrate an improvement in the desired outcome.
 
