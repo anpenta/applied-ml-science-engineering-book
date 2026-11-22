@@ -35,6 +35,7 @@ def check_html_layout(page: Page, path: Path, width: int) -> None:
 
 
 def check_html_home(page: Page, filenames: list[str], headings: list[str]) -> None:
+    require(page.title() == METADATA["title"], "Incorrect homepage tab title")
     landing = page.locator(".book-landing-title")
     title = landing.get_by_role("heading", level=1)
     require(title.count() == 1 and title.inner_text() == METADATA["title"],
@@ -67,6 +68,8 @@ def check_html_navigation(page: Page, filenames: list[str], headings: list[str],
         page.wait_for_url((DIST_DIR / filename).as_uri())
         require(page.get_by_role("heading", name=heading, level=2, exact=True).count() == 1,
                 f"Incorrect heading on {filename}")
+        require(page.title() == f"{heading} – {METADATA['title']}",
+                f"Incorrect tab title on {filename}")
     require(nav.get_by_role("link", name="Next", exact=True).count() == 0,
             "Final page has an active Next link")
 
