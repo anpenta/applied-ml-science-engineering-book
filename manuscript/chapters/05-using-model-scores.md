@@ -1,6 +1,6 @@
 # Using Model Scores
 
-Suppose that a clinic's reception team can make up to ten reminder calls a day about patient appointments. A model scores each upcoming appointment by how likely the patient is to miss it. Should the reception team call the ten patients with the highest scores, or make fewer calls when the scores are low in general?
+Suppose that a clinic's reception team can make up to 10 reminder calls a day about patient appointments. A model scores each upcoming appointment by how likely the patient is to miss it. Should the reception team call the 10 patients with the highest scores, or make fewer calls when the scores are low in general?
 
 In this chapter, we consider how to turn scores into decisions, how to determine whether to change the model or the decision rule, and how to check whether the decisions actually improve the desired outcome.
 
@@ -12,16 +12,16 @@ The clinic example below shows how two different decision rules can lead to diff
 
 > **Worked example: Deciding how many patients to call**
 >
-> Each morning, a model scores clinic appointments scheduled for one week later based on the likelihood that patients will miss them. The clinic's reception team can make up to ten reminder calls per day. Under the first decision rule, they call the ten patients with the highest scores. Under the second decision rule, they call only patients with scores of 0.30 or higher, starting with the highest scores and making no more than ten calls. They consider this cutoff to avoid spending staff time on calls that may provide little benefit when patients are already likely to attend. The table below illustrates how the two rules differ.
+> Each morning, a model scores clinic appointments scheduled for one week later based on the likelihood that patients will miss them. The clinic's reception team can make up to 10 reminder calls per day. Under the first decision rule, they call the 10 patients with the highest scores. Under the second decision rule, they call only patients with scores of 0.30 or higher, starting with the highest scores and making no more than 10 calls. They consider this cutoff to avoid spending staff time on calls that may provide little benefit when patients are already likely to attend. The table below illustrates how the two rules differ.
 >
 > | | Monday | Tuesday |
 > | --- | ---: | ---: |
 > | Appointments scored | 30 | 30 |
 > | Appointments with scores of 0.30 or higher | 12 | 4 |
-> | Calls using the ten highest scores | 10 | 10 |
-> | Calls using the cutoff, capped at ten | 10 | 4 |
+> | Calls using the 10 highest scores | 10 | 10 |
+> | Calls using the cutoff, capped at 10 | 10 | 4 |
 >
-> On Monday, both rules select the same ten appointments. On Tuesday, only four scores meet the cutoff, so the second rule leaves six call slots unused.
+> On Monday, both rules select the same 10 appointments. On Tuesday, only four scores meet the cutoff, so the second rule leaves six call slots unused.
 
 As the example above shows, the first decision rule uses only the order of the model's scores, while the second decision rule also considers their values, resulting in different numbers of calls. More generally, applying different decision rules to the same model predictions can lead to different actions.
 
@@ -33,15 +33,15 @@ The example below shows how to determine whether changing the decision rule or i
 
 > **Worked example: Finding out why the calling list misses appointments**
 >
-> Continuing the clinic example, the technical team looks back at a day when no reminder calls were made and four appointments were missed. They use two different candidate models, both trained on earlier data, to score all appointments for that day using only information available when the calls would have been selected. For each model, they compare two decision rules: calling up to ten patients whose scores are at least 0.30, or calling the ten patients with the highest scores regardless of the cutoff. The table below illustrates the results.
+> Continuing the clinic example, the technical team looks back at a day when no reminder calls were made and four appointments were missed. They use two different candidate models, both trained on earlier data, to score all appointments for that day using only information available when the calls would have been selected. For each model, they compare two decision rules: calling up to 10 patients whose scores are at least 0.30, or calling the 10 patients with the highest scores regardless of the cutoff. The table below illustrates the results.
 >
 > | Where the four missed appointments fell | Model A | Model B |
 > | --- | ---: | ---: |
-> | In the top ten and met the cutoff | 1 | 1 |
-> | In the top ten but below the cutoff | 3 | 0 |
-> | Outside the top ten | 0 | 3 |
+> | In the top 10 and met the cutoff | 1 | 1 |
+> | In the top 10 but below the cutoff | 3 | 0 |
+> | Outside the top 10 | 0 | 3 |
 >
-> Under the cutoff rule, only one of the four missed appointments would be selected for a reminder call with either model. Removing the cutoff would increase that number to four for Model A, while leaving it at one for Model B. Therefore, for Model A, the technical team could test removing the cutoff without changing the model. However, for Model B, they would need to improve the model's ranking to reach the other three appointments within the limit of ten calls.
+> Under the cutoff rule, only one of the four missed appointments would be selected for a reminder call with either model. Removing the cutoff would increase that number to four for Model A, while leaving it at one for Model B. Therefore, for Model A, the technical team could test removing the cutoff without changing the model. However, for Model B, they would need to improve the model's ranking to reach the other three appointments within the limit of 10 calls.
 
 As the example above shows, the same result under the current decision rule can actually point to different changes. Before deciding what to change, we need to determine where the problem comes from: the scores the model produces or how the decision rule uses them.
 
@@ -53,11 +53,11 @@ The example below continues the clinic example and illustrates how to compare tw
 
 > **Worked example: Should the clinic change its calling rule?**
 >
-> Continuing the clinic example, assume that the reception team currently calls the ten patients with the highest scores. They are considering calling only patients who score at least 0.30, starting with the highest scores and keeping the daily limit of ten calls. The clinic wants to reduce the number of unused appointment slots. A slot goes unused when a patient misses an appointment or cancels and the clinic cannot fill the opening.
+> Continuing the clinic example, assume that the reception team currently calls the 10 patients with the highest scores. They are considering calling only patients who score at least 0.30, starting with the highest scores and keeping the daily limit of 10 calls. The clinic wants to reduce the number of unused appointment slots. A slot goes unused when a patient misses an appointment or cancels and the clinic cannot fill the opening.
 >
-> For the pilot, the technical team randomly assigns comparable calling days to one of the two rules, keeping the same limit of ten calls per day. They track the appointment outcomes associated with each day's list, including appointments not selected for a call. Suppose the pilot covers 200 booked slots under each rule and produces the following results.
+> For the pilot, the technical team randomly assigns comparable calling days to one of the two rules, keeping the same limit of 10 calls per day. They track the appointment outcomes associated with each day's list, including appointments not selected for a call. Suppose the pilot covers 200 booked slots under each rule and produces the following results.
 >
-> | | Current rule: ten highest scores | Proposed rule: cutoff, capped at ten |
+> | | Current rule: 10 highest scores | Proposed rule: cutoff, capped at 10 |
 > | --- | ---: | ---: |
 > | Missed appointments | 12 | 10 |
 > | Cancellations that left a slot empty | 6 | 10 |
