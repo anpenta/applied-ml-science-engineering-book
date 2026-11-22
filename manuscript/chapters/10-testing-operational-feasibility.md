@@ -17,7 +17,7 @@ The example below shows how different workloads lead to different performance re
 > | Workload | How it is used | Performance requirement |
 > | --- | --- | --- |
 > | Indexing photos | The system processes the photo archive overnight to prepare it for searching the next day. | The entire job must finish before the morning shift. |
-> | Searching photos | Editors search the archive throughout the day, sometimes simultaneously when breaking news occurs. | At least 95 percent of searches must return results within 120 milliseconds, even when 80 searches arrive per second. |
+> | Searching photos | Editors search the archive throughout the day, sometimes simultaneously when breaking news occurs. | At least 95% of searches must return results within 120 milliseconds, even when 80 searches arrive per second. |
 >
 > The technical team must therefore test the two workloads differently. For indexing, they need to measure whether the system can process the full archive before the deadline. For searching, they need to measure response times while many editors are using the system simultaneously.
 >
@@ -82,7 +82,7 @@ The example below shows how evaluating an existing library against explicit requ
 >
 > | Requirement | Result |
 > | --- | --- |
-> | At least 95 percent of searches return results within 120 milliseconds | 95th-percentile response time of 110 milliseconds at 80 searches per second: passes |
+> | At least 95% of searches return results within 120 milliseconds | 95th-percentile response time of 110 milliseconds at 80 searches per second: passes |
 > | Total memory use stays within 2,000 megabytes | Peak use of 1,800 megabytes: passes |
 > | Index the full photo archive before the morning shift | Passes |
 > | Return only photos editors are allowed to access | Passes after integrating access checks |

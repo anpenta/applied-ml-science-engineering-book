@@ -246,7 +246,10 @@ def build_homepage_metadata() -> str:
     tags.append(f'<link rel="canonical" href="{canonical}" />')
     return "\n".join(tags) + "\n"
 
-def run_pandoc(source: str, output: Path, *, edition: str, homepage: bool = False) -> None:
+def run_pandoc(
+    source: str, output: Path, *, edition: str, homepage: bool = False,
+    page_title: str | None = None,
+) -> None:
     pandoc = shutil.which("pandoc")
     if pandoc is None:
         raise RuntimeError("Pandoc is required. Install Pandoc before building.")
@@ -266,7 +269,7 @@ def run_pandoc(source: str, output: Path, *, edition: str, homepage: bool = Fals
                 f"--defaults={ROOT / 'defaults' / f'{edition}.yaml'}",
                 f"--metadata-file={ROOT / 'metadata.json'}",
                 *(
-                    ["--metadata=title:", f"--metadata=pagetitle:{METADATA['title']}"]
+                    ["--metadata=title:", f"--metadata=pagetitle:{page_title or METADATA['title']}"]
                     if edition == "html" else []
                 ),
                 *([f"--include-in-header={homepage_header}"] if homepage else []),
@@ -347,7 +350,10 @@ def build_html() -> None:
         following = pages[index + 1][0] if index + 1 < len(pages) else None
         navigation = build_html_navigation(previous, following)
         source = f"# {title}\n\n{section.body}\n\n{navigation}\n"
-        run_pandoc(source=source, output=DIST_DIR / filename, edition="html")
+        run_pandoc(
+            source=source, output=DIST_DIR / filename, edition="html",
+            page_title=f"{title} – {METADATA['title']}",
+        )
 
     print(f"HTML edition written to {DIST_DIR} ({len(pages) + 1} pages)")
 

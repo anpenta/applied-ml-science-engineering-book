@@ -73,8 +73,8 @@ The example below illustrates how examining a model's use of a feature can revea
 >
 > | Projects handled entirely by one team | Projects checked | Finished late | Proportion that finished late | Tree's score |
 > | --- | ---: | ---: | ---: | --- |
-> | Fewer than three overdue tasks | 20 | 2 | 10 percent | Low |
-> | Three or more overdue tasks | 20 | 10 | 50 percent | Low |
+> | Fewer than three overdue tasks | 20 | 2 | 10% | Low |
+> | Three or more overdue tasks | 20 | 10 | 50% | Low |
 >
 > In these records, half the projects with at least three overdue tasks finished late, yet the tree assigned all of them a low score. This gives the technical team a reason to investigate whether the model is missing a useful pattern for this group.
 >

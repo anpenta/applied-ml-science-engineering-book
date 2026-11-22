@@ -11,9 +11,9 @@ BOOK = "science-and-engineering-of-applied-machine-learning"
 METADATA = json.loads((ROOT / "metadata.json").read_text(encoding="utf-8"))
 
 FRONT_MATTER = [
-    ("copyright-and-licence.md", "Copyright and license"),
+    ("copyright-and-license.md", "Copyright and license"),
     ("dedication.md", "Dedication"),
-    ("acknowledgements.md", "Acknowledgments"),
+    ("acknowledgments.md", "Acknowledgments"),
     ("use-of-ai-tools.md", "Use of AI tools"),
 ]
 
