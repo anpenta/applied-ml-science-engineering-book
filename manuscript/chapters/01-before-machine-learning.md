@@ -19,11 +19,11 @@ The example below illustrates these four components and shows how understanding 
 > | **Business objective** | Reduce unexpected equipment failures. |
 > | **Decision** | Which machines should be inspected first? |
 > | **Action** | Inspect the selected machines for signs of deterioration. |
-> | **Constraints** | Staff and time permit only 10 inspections per week. |
+> | **Constraints** | Staff and time permit only ten inspections per week. |
 >
-> Assume that the technical team builds two different models. At the start of the week, each model scores the same 1,000 machines on their risk of failure over the next 30 days. Without preventive action, 50 of those machines would fail within that period. Also, the company's staff has 10 available inspection slots that week.
+> Assume that the technical team builds two different models. At the start of the week, each model scores the same 1,000 machines on their risk of failure over the next 30 days. Without preventive action, 50 of those machines would fail within that period. Also, the company's staff has ten available inspection slots that week.
 >
-> To calculate classification accuracy and precision, the technical team uses a threshold of 0.5 to turn each score into a binary yes/no prediction. To help the company's staff schedule inspections, the technical team ranks the machines by score for each model and selects the 10 highest-scoring machines on each list for the staff to prioritize.
+> To calculate classification accuracy and precision, the technical team uses a threshold of 0.5 to turn each score into a binary yes/no prediction. To help the company's staff schedule inspections, the technical team ranks the machines by score for each model and selects the ten highest-scoring machines on each list for the staff to prioritize.
 >
 > The table below shows the classification results for both models at the 0.5 threshold.
 >
@@ -35,20 +35,20 @@ The example below illustrates these four components and shows how understanding 
 >
 > From the classification results above, we can see that Model A predicts that 20 machines will fail, whereas Model B predicts that 110 will fail. We can use these counts to calculate accuracy and precision at the 0.5 threshold.
 >
-> The next table compares these metrics with precision among the 10 highest-ranked machines. Note that the failure counts among the 10 highest-ranked machines for each model are additional hypothetical results introduced for this example.
+> The next table compares these metrics with precision among the ten highest-ranked machines. Note that the failure counts among the ten highest-ranked machines for each model are additional hypothetical results introduced for this example.
 >
 > | Evaluation result | Model A | Model B |
 > | --- | ---: | ---: |
 > | **Accuracy at the 0.5 threshold** | **950/1,000 = 95%** | **900/1,000 = 90%** |
 > | **Precision at the 0.5 threshold** | **10/20 = 50%** | **30/110 ≈ 27.3%** |
-> | Actual failures among the 10 highest-ranked machines | 2 | 8 |
+> | Actual failures among the ten highest-ranked machines | 2 | 8 |
 > | **Precision at top 10** | **2/10 = 20%** | **8/10 = 80%** |
 >
-> **Accuracy at the 0.5 threshold** measures the proportion of correct yes/no classifications. **Precision at the 0.5 threshold** measures the proportion of flagged machines that would fail without preventive action. **Precision at top 10** measures the proportion of the 10 highest-ranked machines that would fail without preventive action.
+> **Accuracy at the 0.5 threshold** measures the proportion of correct yes/no classifications. **Precision at the 0.5 threshold** measures the proportion of flagged machines that would fail without preventive action. **Precision at top 10** measures the proportion of the ten highest-ranked machines that would fail without preventive action.
 >
-> At the 0.5 threshold, Model A has higher classification accuracy and higher precision, so it may seem better initially. However, the inspection team has only 10 inspection slots, so each model will be actually used to select its 10 highest-scoring machines for inspection. As the table above shows, Model B puts eight machines that would fail without preventive action on the list, whereas Model A puts only two. Precision at top 10 captures this difference because it evaluates the list the team would actually use, and it is therefore a better way to evaluate and choose a model for this operational problem.
+> At the 0.5 threshold, Model A has higher classification accuracy and higher precision, so it may seem better initially. However, the inspection team has only ten inspection slots, so each model will be actually used to select its ten highest-scoring machines for inspection. As the table above shows, Model B puts eight machines that would fail without preventive action on the list, whereas Model A puts only two. Precision at top 10 captures this difference because it evaluates the list the team would actually use, and it is therefore a better way to evaluate and choose a model for this operational problem.
 
-As the example above shows, the operational constraints determine which predictions matter for the decision. With only 10 inspection slots, we should evaluate the machines at the top of the ranking, rather than all classifications at an arbitrary threshold.
+As the example above shows, the operational constraints determine which predictions matter for the decision. With only ten inspection slots, we should evaluate the machines at the top of the ranking, rather than all classifications at an arbitrary threshold.
 
 ## Define success
 
@@ -68,7 +68,7 @@ The example below builds on the previous example to illustrate these three conce
 > | **Business metric** | Number of unexpected equipment failures over 30 days. |
 > | **Success criterion** | Fewer unexpected equipment failures over 30 days than under the current inspection policy, with the same inspection capacity. |
 >
-> Assume again that 50 machines would fail over the next 30 days without preventive action. Additionally, assume that inspecting any of those machines always prevents its failure. With 10 available inspection slots, the current inspection policy selects 5 of those machines, Model A selects 2, and Model B selects 8.
+> Assume again that 50 machines would fail over the next 30 days without preventive action. Additionally, assume that inspecting any of those machines always prevents its failure. With ten available inspection slots, the current inspection policy selects 5 of those machines, Model A selects 2, and Model B selects 8.
 >
 > Under the assumptions above, we can actually calculate the business metric directly from the evaluation metric mentioned in the previous example. Let $N$ be the number of machines that would fail without preventive action, $K$ the number of available inspection slots, $P@K$ precision at top $K$, and $U$ the number of unexpected failures. We multiply precision at top $K$ by $K$ to get the number of failures prevented, then subtract that number from $N$ to get the number of unexpected failures:
 >
@@ -99,7 +99,7 @@ The example below continues the equipment-inspection scenario to illustrate this
 
 > **Worked example: Considering alternatives**
 >
-> Continuing the equipment-inspection example, assume that the company could prioritize machines using a simple rule: inspect the 10 machines with the most operating hours since their last inspection.
+> Continuing the equipment-inspection example, assume that the company could prioritize machines using a simple rule: inspect the ten machines with the most operating hours since their last inspection.
 >
 > The technical team compares the simple rule with Model B to see whether preventing more failures justifies the model’s higher cost. As in the previous example, assume that inspecting a machine that would otherwise fail always prevents its failure. For the comparison, the technical team uses company-provided estimates of $10,000 per unexpected failure and $200 per inspection. They also assign a share of each approach’s development and maintenance costs to that week.
 >
