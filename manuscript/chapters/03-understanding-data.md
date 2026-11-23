@@ -43,7 +43,7 @@ The example below shows what can go wrong when we match temperature values with 
 > | A | Monday, 08:00 | 60 |
 > | A | Tuesday, 08:00 | 80 |
 >
-> The second table shows whether the pump failed within 24 hours of each prediction event.
+> The second table shows whether the pump failed in the 24 hours after each prediction event.
 >
 > | Pump | Prediction time | Failed within 24 hours? |
 > | --- | --- | --- |
