@@ -56,9 +56,9 @@ The example below shows what can go wrong when we match temperature values with 
 
 The example above shows why we need to be careful about what we match on. When joining features to outcomes, we should choose keys that reflect what each row is meant to represent.
 
-Beyond matching records correctly, we also need to understand what their values represent. For example, assume that a sensor upgrade changes temperature reporting from Celsius to Fahrenheit. A reading of 176 degrees Fahrenheit represents the same temperature as 80 degrees Celsius, but the values would appear different without knowledge of their measurement units. If the schema only checks that temperatures are numeric, both values will pass validation. We could then mistake a change in recording conventions for a change in operating conditions if we fail to check those units.
+Beyond matching records correctly, we also need to understand what their values represent. For example, assume that a sensor upgrade changes temperature reporting from Celsius to Fahrenheit. A reading of 176 degrees Fahrenheit represents the same temperature as 80 degrees Celsius, but the values would appear different without knowledge of their measurement units. If the schema only checks that temperatures are numeric, both values will pass validation, and we may mistake the switch from Celsius to Fahrenheit for an increase in the pump’s temperature.
 
-The point here is that data can pass schema validation even when we misunderstand what the rows or their values represent. We should always check that our interpretation of the data is correct.
+The point here is that data can pass schema validation even when we misunderstand what they represent. We should therefore verify our understanding of the data before using them.
 
 ## Check how labels were made
 
