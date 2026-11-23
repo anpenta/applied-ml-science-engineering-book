@@ -28,9 +28,9 @@ As the example above shows, we must exclude the late reading both as a direct in
 
 ## Check what the data represent
 
-Before preparing data for modeling, we need to determine what each row represents. A row can represent an entity, such as a pump, or an event, such as a prediction made for that pump at a particular point in time. If we make predictions for each pump on several days, we need one training row per prediction event. Confusing these can produce incorrect training examples even when every column passes schema validation.
+Before preparing data for modeling, we need to determine what each row represents. A row can describe an entity or record an event. Confusing the two can produce incorrect training examples even when every column passes schema validation.
 
-The example below shows what can go wrong when we attempt to match temperature values with failure outcomes without ensuring that they correspond to the same prediction event.
+The example below shows what can go wrong when we match temperature values with failure outcomes by pump alone, even though each pump can have several prediction events.
 
 > **Worked example: Matching temperatures to pump failures**
 >
