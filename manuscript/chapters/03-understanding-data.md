@@ -50,7 +50,7 @@ The example below shows what can go wrong when we match temperature values with 
 > | A | Monday, 08:00 | No |
 > | A | Tuesday, 08:00 | Yes |
 >
-> If we join on the pump identifier alone, each temperature value will match both outcomes. For example, Monday’s temperature will be paired with both Monday’s outcome and Tuesday’s outcome. The second pairing gives Monday’s temperature the wrong label and produces an incorrect training example for the model.
+> If we join on the pump identifier alone, each temperature value will match both outcomes. For example, Monday’s temperature will be paired with both Monday’s outcome and Tuesday’s outcome. The second pairing gives Monday’s temperature the wrong label and produces an incorrect training example for the model. Note that the mismatched row could still pass schema validation if the schema checks only for a numeric temperature and a label of “Yes” or “No”.
 >
 > In this example, each row represents a prediction event for a particular pump at a particular point in time. Therefore, to get the correct matches, we need to join on both the pump identifier and the prediction time. Before joining, we should also verify that each combination appears at most once in each table.
 
