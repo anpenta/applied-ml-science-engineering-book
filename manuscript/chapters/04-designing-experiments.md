@@ -66,7 +66,7 @@ The example below shows why testing on new weeks at a familiar store answers a d
 >
 > Note that in the second setup, we evaluate the forecasts using sales from Store B, an established store, in place of sales from an actual opening. Since demand during a store’s opening weeks may follow a different pattern, the forecast errors we observe in the experiment may differ from those we would see at an actual opening. Nevertheless, we accept this limitation because the setup gives us a practical way to test forecasting without local sales history when we have no data from actual store openings.
 >
-> To summarize, the two experimental setups answer different questions. The first setup tells us how well the model forecasts demand for an existing store, whereas the second setup tells us how well the model forecasts demand without local sales history. Even though both setups evaluate predictions for the same store and weeks, their results reflect different kinds of generalization.
+> To summarize, the two experimental setups answer different questions. The first setup tells us how well the model forecasts demand for an existing store. The second setup approximates forecasting for a new store by withholding Store B’s sales history from the model. Even though both setups evaluate predictions for the same store and weeks, their results reflect different kinds of generalization.
 
 As the example above shows, we need to choose a split that reflects how we plan to use the model. When reporting the experimental result, we should explicitly state which future observations the test set is meant to represent.
 
