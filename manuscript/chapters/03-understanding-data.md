@@ -56,7 +56,7 @@ The example below shows what can go wrong when we match temperature values with 
 
 The example above shows why we need to be careful about what we match on when joining data. A join can pair the wrong records even when the resulting dataset passes schema validation.
 
-Beyond matching records correctly, we also need to understand what their values represent. For example, assume that a sensor upgrade changes temperature reporting from Celsius to Fahrenheit. Although a reading of 176 degrees Fahrenheit represents the same temperature as 80 degrees Celsius, the two values would appear different without knowledge of their measurement units. If the schema only checks that temperatures are numeric, both values will pass validation, and we may mistake the switch from Celsius to Fahrenheit for an increase in the pump’s temperature.
+Beyond knowing what each row represents, we also need to understand what its individual values mean. For example, assume that a sensor upgrade changes temperature reporting from Celsius to Fahrenheit. Although a reading of 176 degrees Fahrenheit represents the same temperature as 80 degrees Celsius, the two values would appear different without knowledge of their measurement units. If the schema only checks that temperatures are numeric, both values will pass validation, and we may mistake the switch from Celsius to Fahrenheit for an increase in the pump’s temperature.
 
 The point here is that data can pass schema validation even when we misunderstand what they represent. We should therefore verify our understanding of the data before using them and, where possible, turn what we learn into additional schema checks.
 
