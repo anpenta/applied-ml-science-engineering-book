@@ -30,7 +30,7 @@ As the example above shows, we must exclude the late reading both as a direct in
 
 Before preparing data for modeling, we need to determine what each row represents. For instance, a row can summarize a period in an entity’s lifetime or record a single event involving that entity. If we misunderstand what a row represents, we can draw incorrect conclusions from the data or match records incorrectly, even when every column passes schema validation.
 
-The example below shows what can go wrong when we match temperature values with failure outcomes by pump alone, even though each pump can have several prediction events recorded in the data.
+The example below shows what can go wrong when we match temperature values with failure outcomes without checking that they correspond to the same prediction event.
 
 > **Worked example: Matching temperatures to pump failures**
 >
