@@ -82,7 +82,7 @@ The example below shows how different records can produce labels with different 
 
 As the example above shows, if our only record is a temperature alarm, the labels tell us whether the alarm went off. Consequently, we can only evaluate predictions of alarms with those labels. Evaluating predictions of pump failures instead requires records that tell us when the pumps actually failed.
 
-## Diagnose the data problem
+## Investigate unusual patterns
 
 Data validation can identify unexpected patterns, but it cannot always determine whether they make the data unsuitable for the prediction task. A validation warning is therefore a reason to investigate, as the same warning may have different causes that require different responses.
 
@@ -113,4 +113,4 @@ In the example above, the missing readings do not indicate a data pipeline failu
 - **Check when features become available.** The guide shows how to reconstruct historical feature values and explains why event timestamps alone can admit values that were backfilled or corrected later. [Feast, *Point-in-time joins*](https://docs.feast.dev/getting-started/concepts/point-in-time-joins)
 - **Check what the data represent.** The proposed questions cover what observations represent, how they were collected, and how they were processed. [Timnit Gebru and colleagues, *Datasheets for Datasets*](https://www.microsoft.com/en-us/research/publication/datasheets-for-datasets/)
 - **Check how labels were made.** Section 4.1 describes how models trained with heuristic labels were evaluated on a separate, hand-labeled test set. [Alexander Ratner and colleagues, *Snorkel: Rapid Training Data Creation with Weak Supervision*](https://link.springer.com/article/10.1007/s00778-019-00552-1)
-- **Diagnose the data problem.** The paper shows how a production validation system flags missing features and explains why alerts need enough context for engineers to investigate the cause. [Eric Breck and colleagues, *Data Validation for Machine Learning*](https://research.google/pubs/data-validation-for-machine-learning/)
+- **Investigate unusual patterns.** The paper shows how a production validation system flags missing features and explains why alerts need enough context for engineers to investigate the cause. [Eric Breck and colleagues, *Data Validation for Machine Learning*](https://research.google/pubs/data-validation-for-machine-learning/)
