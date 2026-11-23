@@ -28,9 +28,9 @@ As the example above shows, we must exclude the late reading both as a direct in
 
 ## Check what the data represent
 
-Before preparing data for modeling, we need to determine what each row represents and how its values were measured. For instance, if we make a single prediction for each pump, the table has one row per pump. If we make predictions for each pump on several days, the table has one row per prediction. Confusing these can produce incorrect training examples even when every column passes schema validation.
+Before preparing data for modeling, we need to determine what each row represents. For instance, if we would like to make a single prediction for each pump, the table should have one row per pump (the table? which table? the training data? but we will form it into that right?). If we would like to make predictions for each pump on several days, the table has  (smae as above) one row per prediction. Confusing these can produce incorrect training examples even when every column passes schema validation.
 
-The example below shows what can go wrong when we attempt to match temperature values with failure outcomes.
+The example below shows what can go wrong when we attempt to match temperature values with failure outcomes without ensuring that .....
 
 > **Worked example: Matching temperatures to pump failures**
 >
@@ -56,9 +56,9 @@ The example below shows what can go wrong when we attempt to match temperature v
 
 The example above shows why we need to verify that a join preserves the observations we intend to model.
 
-Beyond matching records correctly, we also need to understand what their values represent. Assume that a sensor upgrade changes temperature reporting from Celsius to Fahrenheit. A reading of 176 degrees Fahrenheit represents the same temperature as 80 degrees Celsius, but the values appear different without knowledge of their measurement units. Since both values satisfy a numeric schema, we could mistake a change in recording conventions for a change in operating conditions if we fail to check those units.
+Beyond matching records correctly, we also need to understand what their values themselves represent. For example, assume that a sensor upgrade changes temperature reporting from Celsius to Fahrenheit. A reading of 176 degrees Fahrenheit represents the same temperature as 80 degrees Celsius, but the values would appear different without knowledge of their measurement units. Since both values satisfy a numeric schema, and they would pass validation checks, we could mistake a change in recording conventions for a change in operating conditions if we fail to check those units.
 
-The point here is that data can pass schema validation even when we misunderstand what the rows or their values represent.
+The point here is that data can pass schema validation even when we misunderstand what the rows or their values represent. And this can affect our data modeling pipeline model ml whatever.
 
 ## Check how labels were made
 
