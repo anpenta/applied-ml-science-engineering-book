@@ -30,6 +30,8 @@ As the example above shows, we must exclude the late reading both as a direct in
 
 Before preparing data for modeling, we need to know what each row represents and how its values were measured. A pump can produce several sensor readings before a prediction, and we can make predictions for that same pump on several days. To build one training example per prediction, we need to know which measurements and outcomes belong to each prediction.
 
+The example below shows why we need to know what each row represents before joining two tables.
+
 > **Worked example: Matching temperatures to failure outcomes**
 >
 > Suppose we are preparing training data for the 08:00 predictions for pump A on Monday and Tuesday. The first table has one temperature value for each prediction, computed from readings available to the prediction system by that time.
@@ -50,7 +52,7 @@ Before preparing data for modeling, we need to know what each row represents and
 >
 > Each row represents a prediction for a particular pump at a particular time. Joining on both pump ID and prediction time gives us one training example for Monday with 60°C and a label of No, and one for Tuesday with 80°C and a label of Yes. Before joining, we should verify that each combination appears at most once in each table.
 
-We also need to know how to interpret the values in each row. Assume that a sensor upgrade changes temperature reporting from Celsius to Fahrenheit. A reading of 176 degrees Fahrenheit represents the same temperature as 80 degrees Celsius. Both values can pass a schema check that only verifies they are numeric, so we could mistake a change in measurement units for a change in operating conditions.
+The example above shows how identifying each prediction lets us match rows across tables. We also need to know how to interpret the values in those rows. Assume that a sensor upgrade changes temperature reporting from Celsius to Fahrenheit. A reading of 176 degrees Fahrenheit represents the same temperature as 80 degrees Celsius. Both values can pass a schema check that only verifies they are numeric, so we could mistake a change in measurement units for a change in operating conditions.
 
 ## Check how labels were made
 
