@@ -54,6 +54,8 @@ The example below shows why we need to know what each row represents before join
 
 The example above shows how identifying each prediction lets us match rows across tables. We also need to know how to interpret the values in those rows. Assume that a sensor upgrade changes temperature reporting from Celsius to Fahrenheit. A reading of 176 degrees Fahrenheit represents the same temperature as 80 degrees Celsius. Both values can pass a schema check that only verifies they are numeric, so we could mistake a change in measurement units for a change in operating conditions.
 
+The point here is that data can pass schema validation even when we misunderstand what the rows or their values represent.
+
 ## Check how labels were made
 
 A label should always represent the outcome we want to predict. However, the meaning of a label depends on how it was produced, not simply on its name or data type. Before using labels for training or evaluation, we need to understand what was actually recorded in the data.
