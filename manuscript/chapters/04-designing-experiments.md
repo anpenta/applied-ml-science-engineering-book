@@ -64,7 +64,7 @@ The example below shows why testing on new weeks at a familiar store answers a d
 >
 > In the first setup, the model can learn from Store B’s first four weeks of sales and use that history when making forecasts. In the second setup, we treat Store B as if it has yet to open, so we exclude its sales history from both training and forecast inputs. In both setups, we use Store B’s actual sales from weeks 5–8 only to calculate forecast errors for evaluation purposes.
 >
-> Note that the second setup gives us a practical way to test forecasting without local sales history if we have no historical data from actual store openings. Since Store B is an established store, its demand may follow a different pattern from demand during a store’s opening weeks, which could affect the forecast errors we observe.
+> Note that in the second setup, we evaluate the forecasts using sales from Store B, an established store, in place of sales from an actual opening. Since demand during a store’s opening weeks may follow a different pattern, the forecast errors we observe in the experiment may differ from those we would see at an actual opening. Nevertheless, we accept this limitation because the setup gives us a practical way to test forecasting without local sales history when we have no data from actual store openings.
 >
 > To summarize, the two experimental setups answer different questions. The first setup tells us how well the model forecasts demand for an existing store, whereas the second setup tells us how well the model forecasts demand without local sales history. Even though both setups evaluate predictions for the same store and weeks, their results reflect different kinds of generalization.
 
