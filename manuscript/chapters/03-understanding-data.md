@@ -28,9 +28,9 @@ As the example above shows, we must exclude the late reading both as a direct in
 
 ## Check what the data represent
 
-Before preparing data for modeling, we need to determine what each row represents. For instance, if we want to make a single prediction for each pump, we should prepare training data with one row per pump. If we want to make predictions for each pump on several days, we should prepare one row per prediction. Confusing these can produce incorrect training examples even when every column passes schema validation.
+Before preparing data for modeling, we need to determine what each row represents. A row can represent an entity, such as a pump, or an event, such as a prediction made for that pump at a particular time. If we make predictions for each pump on several days, we need one training row per prediction event. Confusing these can produce incorrect training examples even when every column passes schema validation.
 
-The example below shows what can go wrong when we attempt to match temperature values with failure outcomes without ensuring that they correspond to the same prediction.
+The example below shows what can go wrong when we attempt to match temperature values with failure outcomes without ensuring that they correspond to the same prediction event.
 
 > **Worked example: Matching temperatures to pump failures**
 >
@@ -52,7 +52,7 @@ The example below shows what can go wrong when we attempt to match temperature v
 >
 > If we join on the pump identifier alone, each temperature value will match both outcomes. For example, Monday’s temperature will be paired with both Monday’s outcome and Tuesday’s outcome.
 >
-> Each row represents a prediction for a particular pump at a particular time. In this example, joining on both the pump identifier and the prediction time gives the correct matches. Before joining, we should verify that each combination appears at most once in each table.
+> Each row represents a prediction event for a particular pump at a particular time. In this example, joining on both the pump identifier and the prediction time gives the correct matches. Before joining, we should verify that each combination appears at most once in each table.
 
 The example above shows why we need to verify that a join preserves the observations we intend to model.
 
