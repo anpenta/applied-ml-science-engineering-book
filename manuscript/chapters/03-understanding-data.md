@@ -34,9 +34,9 @@ The example below shows what can go wrong when we match temperature values with 
 
 > **Worked example: Matching temperatures to pump failures**
 >
-> Continuing the pump-failure example, suppose we are preparing training data for a model that will predict pump failures at 08:00 each day. For pump A, we consider two prediction events, one on Monday and one on Tuesday. Each corresponds to a time when the model would make a prediction.
+> Continuing the pump-failure example, suppose we are preparing training data for a model that will predict pump failures at 08:00 each day. For pump A, we consider two prediction events, one on Monday and one on Tuesday. Each prediction event corresponds to a time when the model would have made a prediction.
 >
-> The first table shows one temperature value per prediction event, computed from temperature readings available to the prediction system by 08:00 on that day.
+> The first table shows one temperature value per prediction event, computed from temperature readings that would have been available to the prediction system by 08:00 on that day.
 >
 > | Pump | Prediction time | Temperature (°C) |
 > | --- | --- | ---: |
@@ -50,8 +50,8 @@ The example below shows what can go wrong when we match temperature values with 
 > | A | Monday, 08:00 | No |
 > | A | Tuesday, 08:00 | Yes |
 >
-> If we join on the pump identifier alone, each temperature value will match both outcomes. For example, Monday’s temperature will be paired with both Monday’s outcome and Tuesday’s outcome.
->
+> If we join on the pump identifier alone, each temperature value will match both outcomes. For example, Monday’s temperature will be paired with both Monday’s outcome and Tuesday’s outcome. The second pairing gives Monday’s temperature the wrong label and produces an incorrect training example for the model.
+
 > In this example, each row represents a prediction event for a particular pump at a particular point in time. Therefore, to get the correct matches in this case, we need to join on both the pump identifier and the prediction time. Before joining, we should also verify that each combination appears at most once in each table.
 
 The example above shows why we need to be careful about what we match on. When joining features to outcomes, we should choose keys that reflect what each row is meant to represent.
