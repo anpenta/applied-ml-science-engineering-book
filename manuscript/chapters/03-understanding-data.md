@@ -82,11 +82,11 @@ The example below shows how different records can produce labels with different 
 
 As the example above shows, if our only record is a temperature alarm, the labels tell us whether the alarm went off. Consequently, we can only evaluate predictions of alarms with those labels. Evaluating predictions of pump failures instead requires records that tell us when the pumps actually failed.
 
-## Diagnose the data problem
+## Investigate unusual patterns
 
-Data validation can identify unexpected patterns, but it cannot always determine whether they make the data unsuitable for the prediction task. A validation warning is therefore a reason to investigate, as the same warning may have different causes that require different responses.
+Data validation can flag unusual patterns. The same pattern can have several causes, and how we respond depends on what caused it and how it affects the prediction task.
 
-The example below illustrates this distinction.
+The example below shows how this applies to a warning about missing sensor readings.
 
 > **Worked example: Investigating missing sensor readings**
 >
@@ -106,11 +106,11 @@ The example below illustrates this distinction.
 >
 > Suppose the investigation finds that all affected pumps were switched off before 08:00 and that their sensors report only while running. The missing readings are expected under these conditions, so repairing the data pipeline would not address the cause. The technical team checks whether switched-off pumps were represented in training and whether predictions remain reliable for them. Until that is known, they flag the affected pumps for review rather than filling in a temperature and treating the result as an ordinary prediction.
 
-In the example above, the missing readings do not indicate a data pipeline failure but reflect how the pumps operate, requiring a different response. More generally, understanding the causes of validation warnings helps us determine whether the available data can still support reliable predictions and how to respond appropriately.
+In the example above, the missing readings were expected once the team found that the pumps had been switched off. The team still needed to check whether the model could make reliable predictions for those pumps. More generally, understanding what caused an unusual pattern helps us decide whether the available data can support reliable predictions and how to respond.
 
 ## Further reading
 
 - **Check when features become available.** The guide shows how to reconstruct historical feature values and explains why event timestamps alone can admit values that were backfilled or corrected later. [Feast, *Point-in-time joins*](https://docs.feast.dev/getting-started/concepts/point-in-time-joins)
 - **Check what the data represent.** The proposed questions cover what observations represent, how they were collected, and how they were processed. [Timnit Gebru and colleagues, *Datasheets for Datasets*](https://www.microsoft.com/en-us/research/publication/datasheets-for-datasets/)
 - **Check how labels were made.** Section 4.1 describes how models trained with heuristic labels were evaluated on a separate, hand-labeled test set. [Alexander Ratner and colleagues, *Snorkel: Rapid Training Data Creation with Weak Supervision*](https://link.springer.com/article/10.1007/s00778-019-00552-1)
-- **Diagnose the data problem.** The paper shows how a production validation system flags missing features and explains why alerts need enough context for engineers to investigate the cause. [Eric Breck and colleagues, *Data Validation for Machine Learning*](https://research.google/pubs/data-validation-for-machine-learning/)
+- **Investigate unusual patterns.** The paper shows how a production validation system flags missing features and explains why alerts need enough context for engineers to investigate the cause. [Eric Breck and colleagues, *Data Validation for Machine Learning*](https://research.google/pubs/data-validation-for-machine-learning/)
