@@ -53,7 +53,7 @@ The example below shows why testing on new weeks at a familiar store answers a d
 
 > **Worked example: Forecasting for existing and new stores**
 >
-> Continuing the retail demand forecast example, assume that we have eight weeks of sales data from two stores, A and B. For simplicity, assume also that both stores had enough stock to meet all demand during these weeks, so sales are equivalent to demand in this example.
+> Continuing the retail demand forecast example, assume that we have eight weeks of sales data from two established stores, A and B. For simplicity, assume also that both stores had enough stock to meet all demand during these weeks, so sales are equivalent to demand in this example.
 >
 > We use two experimental setups to test how well a model forecasts demand at an existing store and at a new store. In both setups, we train on data from weeks 1–4 and forecast demand at Store B for weeks 5–8. The test data is the same in both setups. The training data differs in whether it includes Store B or not. We demonstrate this in the table below.
 >
@@ -64,9 +64,9 @@ The example below shows why testing on new weeks at a familiar store answers a d
 >
 > In the first setup, the model can learn from Store B’s first four weeks of sales and use that history when making forecasts. In the second setup, we treat Store B as if it has yet to open, so we exclude its sales history from both training and forecast inputs. In both setups, we use Store B’s actual sales from weeks 5–8 only to calculate forecast errors for evaluation purposes.
 >
-> To summarize, the two experimental setups answer different questions. The first setup tells us how well the model forecasts demand for an existing store, whereas the second setup tells us how well the model forecasts demand without local sales history. Even though both setups evaluate predictions for the same store and weeks, their results reflect different kinds of generalization.
+> Note that the second setup gives us a practical way to test forecasting without local sales history if we have no historical data from actual store openings. Since Store B is an established store, its demand may follow a different pattern from demand during a store’s opening weeks, which could affect the forecast errors we observe.
 >
-> Demand during a store’s opening weeks may differ from demand at an established store. However, if we have no historical data from actual store openings, holding out Store B in the second setup gives us a practical way to test forecasting without local sales history. The limitation is that the resulting forecast errors may differ from those we would see at an actual opening.
+> To summarize, the two experimental setups answer different questions. The first setup tells us how well the model forecasts demand for an existing store, whereas the second setup tells us how well the model forecasts demand without local sales history. Even though both setups evaluate predictions for the same store and weeks, their results reflect different kinds of generalization.
 
 As the example above shows, we need to choose a split that reflects how we plan to use the model. When reporting the experimental result, we should explicitly state which future observations the test set is meant to represent.
 
