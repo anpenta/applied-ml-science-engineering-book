@@ -54,7 +54,7 @@ The example below shows what can go wrong when we match temperature values with 
 >
 > In this example, each row represents a prediction event for a particular pump at a particular point in time. Therefore, to get the correct matches, we need to join on both the pump identifier and the prediction time. Before joining, we also need to verify that each combination appears at most once in each table.
 
-The example above shows why we need to be careful about what we match on when joining data. A join can pair the wrong records even when the resulting dataset passes schema validation.
+The example above shows why we need to consider what each row represents when deciding what to match on in a join.
 
 Beyond knowing what each row represents, we also need to understand what its individual values mean. For example, assume that a sensor upgrade changes temperature reporting from Celsius to Fahrenheit. Although 176 degrees Fahrenheit and 80 degrees Celsius represent the same temperature, we may mistake the higher number for an increase in the pump’s temperature if we overlook the change in units. Notice that both values would still pass validation if the schema only checks that temperatures are numeric.
 
