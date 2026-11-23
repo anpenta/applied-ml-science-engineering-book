@@ -1,6 +1,6 @@
 # Understanding Data
 
-Let's assume that a dataset passes every check in our schema. Is that enough to trust it when training a model to predict pump failures?
+Let's assume that a dataset passes every schema check. Is that enough to trust it when training a model to predict pump failures?
 
 To trust the dataset, we need to know when the features become available, what the data records represent, and how the labels were made. We also need to understand what unusual patterns in the data mean before deciding how to handle them.
 
@@ -20,7 +20,7 @@ The example below illustrates why recording a reading before prediction time doe
 > | Second temperature reading | 07:50 | 07:51 | 08:10 | No |
 > | Inspection result | 17:00 | 17:05 | 17:10 | No |
 >
-> We can see above that the second temperature reading was taken before the prediction time but arrived too late to have been used for prediction. Additionally, the inspection took place after the prediction time, so its result was also unavailable, even if it is a good predictor of failure in historical data. Both records can pass dataset schema checks despite being unavailable when the prediction would have been made.
+> We can see above that the second temperature reading was taken before the prediction time but arrived too late to have been used for prediction. Additionally, the inspection took place after the prediction time, so its result was also unavailable, even if it is a good predictor of failure in historical data. Both records can pass schema checks despite being unavailable when the prediction would have been made.
 >
 > To reconstruct what the model would have seen at 08:00, we should use only the first reading. The same cutoff applies to derived features. For example, we might compute the morning’s maximum temperature using only readings that had already reached the prediction system by 08:00.
 
@@ -28,7 +28,7 @@ As the example above shows, we must exclude the late reading both as a direct in
 
 ## Check what the data represent
 
-Before preparing data for modeling, we need to determine what each row represents. For instance, a row can summarize a period in an entity’s lifetime or record a single event involving that entity at a particular point in time. If we misunderstand what a row represents, we can draw incorrect conclusions from the data or match records incorrectly, even when every column passes schema validation.
+Before preparing data for modeling, we need to determine what each row represents. For instance, a row can summarize a period in an entity’s lifetime or record a single event involving that entity at a particular point in time. If we misunderstand what a row represents, we can draw incorrect conclusions from the data or match records incorrectly, even when the dataset passes schema validation.
 
 The example below shows what can go wrong when we match temperature values with failure outcomes without checking that they correspond to the same prediction event.
 
