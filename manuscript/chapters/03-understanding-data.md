@@ -84,9 +84,9 @@ As the example above shows, if our only record is a temperature alarm, the label
 
 ## Investigate unusual patterns
 
-Data validation can flag unusual patterns. The same pattern can have several causes, and how we respond depends on what caused it and how it affects the prediction task.
+Data validation can identify unexpected patterns, but it cannot always determine whether they make the data unsuitable for the prediction task. A validation warning is therefore a reason to investigate, as the same warning may have different causes that require different responses.
 
-The example below shows how this applies to a warning about missing sensor readings.
+The example below illustrates this distinction.
 
 > **Worked example: Investigating missing sensor readings**
 >
@@ -106,7 +106,7 @@ The example below shows how this applies to a warning about missing sensor readi
 >
 > Suppose the investigation finds that all affected pumps were switched off before 08:00 and that their sensors report only while running. The missing readings are expected under these conditions, so repairing the data pipeline would not address the cause. The technical team checks whether switched-off pumps were represented in training and whether predictions remain reliable for them. Until that is known, they flag the affected pumps for review rather than filling in a temperature and treating the result as an ordinary prediction.
 
-In the example above, the missing readings were expected once the team found that the pumps had been switched off. The team still needed to check whether the model could make reliable predictions for those pumps. More generally, understanding what caused an unusual pattern helps us decide whether the available data can support reliable predictions and how to respond.
+In the example above, the missing readings reflect how the pumps operate. More generally, understanding the causes of unusual patterns helps us determine whether the available data can still support reliable predictions and how to respond appropriately.
 
 ## Further reading
 
