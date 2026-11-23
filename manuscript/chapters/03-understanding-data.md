@@ -28,31 +28,35 @@ As the example above shows, we must exclude the late reading both as a direct in
 
 ## Check what the data represent
 
-Before preparing data for modeling, we need to know what each row represents and how its values were measured. A pump can produce several sensor readings before a prediction, and we can make predictions for that same pump on several days. To build one training example per prediction, we need to know which measurements and outcomes belong to each prediction.
+Before preparing data for modeling, we need to determine what each row represents and how its fields were measured. A row per pump prediction, a row per inspection, and a row per sensor reading describe different observations. Confusing these can produce incorrect training examples even when every column passes schema validation.
 
-The example below shows why we need to know what each row represents before joining two tables.
+The example below shows what can go wrong when we attempt to match temperature values with failure outcomes.
 
-> **Worked example: Matching temperatures to failure outcomes**
+> **Worked example: Matching temperatures to pump failures**
 >
-> Suppose we are preparing training data for the 08:00 predictions for pump A on Monday and Tuesday. The first table has one temperature value for each prediction, computed from readings available to the prediction system by that time.
+> Continuing the pump-failure example, suppose we are preparing training data for a model that predicts pump failures at 08:00 each day. Our data cover two predictions for pump A, one on Monday and one on Tuesday.
+>
+> The first table shows one temperature value per prediction, computed from readings available to the prediction system by 08:00 on that day.
 >
 > | Pump | Prediction time | Temperature (°C) |
 > | --- | --- | ---: |
 > | A | Monday, 08:00 | 60 |
 > | A | Tuesday, 08:00 | 80 |
 >
-> The second table shows whether pump A failed in the 24 hours after each prediction.
+> The second table shows whether the pump failed within 24 hours of each prediction.
 >
 > | Pump | Prediction time | Failed within 24 hours? |
 > | --- | --- | --- |
 > | A | Monday, 08:00 | No |
 > | A | Tuesday, 08:00 | Yes |
 >
-> If we join on pump ID alone, each temperature matches both outcomes because all four rows refer to pump A. For example, Monday’s temperature would be paired with both Monday’s outcome and Tuesday’s outcome.
+> If we join on the pump identifier alone, each temperature value will match both outcomes. For example, Monday’s temperature will be paired with both Monday’s outcome and Tuesday’s outcome.
 >
-> Each row represents a prediction for a particular pump at a particular time. Joining on both pump ID and prediction time gives us one training example for Monday with 60°C and a label of No, and one for Tuesday with 80°C and a label of Yes. Before joining, we should verify that each combination appears at most once in each table.
+> Each row represents a prediction for a particular pump at a particular time. In this example, joining on both the pump identifier and the prediction time gives the correct matches. Before joining, we should verify that each combination appears at most once in each table.
 
-The example above shows how identifying each prediction lets us match rows across tables. We also need to know how to interpret the values in those rows. Assume that a sensor upgrade changes temperature reporting from Celsius to Fahrenheit. A reading of 176 degrees Fahrenheit represents the same temperature as 80 degrees Celsius. Both values can pass a schema check that only verifies they are numeric, so we could mistake a change in measurement units for a change in operating conditions.
+The example above shows why we need to verify that a join preserves the observations we intend to model.
+
+Beyond matching records correctly, we also need to understand what their values represent. Assume that a sensor upgrade changes temperature reporting from Celsius to Fahrenheit. A reading of 176 degrees Fahrenheit represents the same temperature as 80 degrees Celsius, but the values appear different without knowledge of their measurement units. Since both values satisfy a numeric schema, we could mistake a change in recording conventions for a change in operating conditions if we fail to check those units.
 
 The point here is that data can pass schema validation even when we misunderstand what the rows or their values represent.
 
