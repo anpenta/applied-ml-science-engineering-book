@@ -28,44 +28,29 @@ As the example above shows, we must exclude the late reading both as a direct in
 
 ## Check what the data represent
 
-Before preparing data for modeling, we need to determine what each row represents and how its fields were measured. A row per pump prediction, a row per inspection, and a row per sensor reading describe different observations. Confusing these can produce incorrect training examples even when every column passes schema validation.
+Before preparing data for modeling, we need to know what each row represents and how its values were measured. A pump can produce several sensor readings before a prediction, and we can make predictions for that same pump on several days. To build one training example per prediction, we need to know which measurements and outcomes belong to each prediction.
 
-The example below shows what can go wrong when we attempt to match temperature readings with failure outcomes.
+> **Worked example: Matching temperatures to failure outcomes**
+>
+> Suppose we are preparing training data for the 08:00 predictions for pump A on Monday and Tuesday. The first table has one temperature value for each prediction, computed from readings available to the prediction system by that time.
+>
+> | Pump | Prediction time | Temperature (°C) |
+> | --- | --- | ---: |
+> | A | Monday, 08:00 | 60 |
+> | A | Tuesday, 08:00 | 80 |
+>
+> The second table shows whether pump A failed in the 24 hours after each prediction.
+>
+> | Pump | Prediction time | Failed within 24 hours? |
+> | --- | --- | --- |
+> | A | Monday, 08:00 | No |
+> | A | Tuesday, 08:00 | Yes |
+>
+> If we join on pump ID alone, each temperature matches both outcomes because all four rows refer to pump A. For example, Monday’s temperature would be paired with both Monday’s outcome and Tuesday’s outcome.
+>
+> Each row represents a prediction for a particular pump at a particular time. Joining on both pump ID and prediction time gives us one training example for Monday with 60°C and a label of No, and one for Tuesday with 80°C and a label of Yes. Before joining, we should verify that each combination appears at most once in each table.
 
-> **Worked example: Matching readings to pump failures**
->
-> Continuing the pump-failure example, suppose we are preparing training data for a model that predicts pump failures at 08:00.
->
-> The first table shows one temperature value per pump, computed from readings available to the prediction system by 08:00.
->
-> | Pump | Temperature (°C) |
-> | --- | ---: |
-> | B | 60 |
-> | A | 80 |
->
-> The second table shows whether each pump failed within the following 24 hours.
->
-> | Pump | Failed within 24 hours? |
-> | --- | --- |
-> | A | Yes |
-> | B | No |
->
-> The two tables above list the same pumps in different orders. If we combine the rows by position, each pump will receive the other pump’s failure label. We demonstrate this in the table below. Note that the last column shows the actual recorded outcome for comparison.
->
-> | Pump | Temperature (°C) | Failure label assigned by row position | Recorded outcome |
-> | --- | ---: | --- | --- |
-> | B | 60 | Yes | No |
-> | A | 80 | No | Yes |
->
-> The resulting table has the expected shape and every value is valid, yet both labels are attached to the wrong pumps.
->
-> In this example, joining on the pump identifier instead would give the correct matches, as we only have one prediction time per pump. Alternatively, if the data had contained multiple prediction times per pump, we would have joined on both the pump identifier and the prediction time. Before joining, we would have verified that each combination appears at most once in each table.
-
-The example above shows why we need to verify that a join preserves the observations we intend to model.
-
-Beyond matching records correctly, we also need to understand what their values represent. Assume that a sensor upgrade changes temperature reporting from Celsius to Fahrenheit. A reading of 176 degrees Fahrenheit represents the same temperature as 80 degrees Celsius, but the values appear different without knowledge of their measurement units. Since both values satisfy a numeric schema, we could mistake a change in recording conventions for a change in operating conditions if we fail to check those units.
-
-The point here is that schema validation alone cannot tell us whether records have been matched correctly or measurements have been interpreted consistently. To verify both, we need to know what each row represents and how to interpret the measurements it contains.
+We also need to know how to interpret the values in each row. Assume that a sensor upgrade changes temperature reporting from Celsius to Fahrenheit. A reading of 176 degrees Fahrenheit represents the same temperature as 80 degrees Celsius. Both values can pass a schema check that only verifies they are numeric, so we could mistake a change in measurement units for a change in operating conditions.
 
 ## Check how labels were made
 
