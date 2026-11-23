@@ -64,9 +64,9 @@ The example below shows why testing on new weeks at a familiar store answers a d
 >
 > In the first setup, the model can learn from Store B’s first four weeks of sales and use that history when making forecasts. In the second setup, we treat Store B as if it has yet to open, so we exclude its sales history from both training and forecast inputs. In both setups, we use Store B’s actual sales from weeks 5–8 only to calculate forecast errors for evaluation purposes.
 >
-> As a side note, demand during a store’s opening weeks may differ from demand at an established store. However, if we have no historical data from actual store openings, holding out Store B in the second setup gives us a practical way to test forecasting without local sales history. The limitation is that the resulting forecast errors may differ from those we would see at an actual opening. Let us assume that in this case they wouldn't differ.
+> To summarize, the two experimental setups answer different questions. The first setup tells us how well the model forecasts demand for an existing store, whereas the second setup tells us how well the model forecasts demand without local sales history. Even though both setups evaluate predictions for the same store and weeks, their results reflect different kinds of generalization.
 >
-> To summarize, the two experimental setups answer different questions. The first setup tells us how well the model forecasts demand for an existing store, whereas the second setup tells us how well the model forecasts demand for a new store. Even though both setups evaluate predictions for the same store and weeks, their results reflect different kinds of generalization.
+> Demand during a store’s opening weeks may differ from demand at an established store. However, if we have no historical data from actual store openings, holding out Store B in the second setup gives us a practical way to test forecasting without local sales history. The limitation is that the resulting forecast errors may differ from those we would see at an actual opening.
 
 As the example above shows, we need to choose a split that reflects how we plan to use the model. When reporting the experimental result, we should explicitly state which future observations the test set is meant to represent.
 
