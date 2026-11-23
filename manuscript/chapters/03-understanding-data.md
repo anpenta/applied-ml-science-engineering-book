@@ -51,12 +51,12 @@ The example below shows what can go wrong when we match temperature values with 
 > | A | Tuesday, 08:00 | Yes |
 >
 > If we join on the pump identifier alone, each temperature value will match both outcomes. For example, Monday’s temperature will be paired with both Monday’s outcome and Tuesday’s outcome. The second pairing gives Monday’s temperature the wrong label and produces an incorrect training example for the model.
-
-> In this example, each row represents a prediction event for a particular pump at a particular point in time. Therefore, to get the correct matches in this case, we need to join on both the pump identifier and the prediction time. Before joining, we should also verify that each combination appears at most once in each table.
+>
+> In this example, each row represents a prediction event for a particular pump at a particular point in time. Therefore, to get the correct matches, we need to join on both the pump identifier and the prediction time. Before joining, we should also verify that each combination appears at most once in each table.
 
 The example above shows why we need to be careful about what we match on. When joining features to outcomes, we should choose keys that reflect what each row is meant to represent.
 
-Beyond matching records correctly, we also need to understand what their values represent. For example, assume that a sensor upgrade changes temperature reporting from Celsius to Fahrenheit. A reading of 176 degrees Fahrenheit represents the same temperature as 80 degrees Celsius, but the values would appear different without knowledge of their measurement units. If the schema only checks that temperatures are numeric, both values will pass validation, and we may mistake the switch from Celsius to Fahrenheit for an increase in the pump’s temperature.
+Beyond matching records correctly, we also need to understand what their values represent. For example, assume that a sensor upgrade changes temperature reporting from Celsius to Fahrenheit. Although a reading of 176 degrees Fahrenheit represents the same temperature as 80 degrees Celsius, the two values would appear different without knowledge of their measurement units. If the schema only checks that temperatures are numeric, both values will pass validation, and we may mistake the switch from Celsius to Fahrenheit for an increase in the pump’s temperature.
 
 The point here is that data can pass schema validation even when we misunderstand what they represent. We should therefore verify our understanding of the data before using them.
 
