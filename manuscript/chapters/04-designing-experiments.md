@@ -117,7 +117,7 @@ The example below shows how we can use the available evidence and the expected b
 >
 > As we can see above, the first test leaves uncertainty about whether the improvement reaches 5 units. Since the expected benefit exceeds the cost of the follow-up, the technical team evaluates both forecasting methods on eight more ordinary weeks. The new model shows smaller gains in those weeks than in the first test, so combining the results from both tests lowers the estimated average improvement from 5 to 2.5 units. With the combined data, the plausible range also narrows from 2–8 to 1–4 units.
 >
-> Using the updated evidence, the technical team repeats the value-of-information analysis for another eight ordinary weeks. Although another test could lead the retailer to switch, the team now estimates that a switch is less likely. The updated analysis puts the expected benefit at $200, which is below the $1,000 cost. Therefore, the team stops testing, and the retailer keeps the current forecast method.
+> Using the updated evidence, the technical team repeats the value-of-information analysis for another eight ordinary weeks. The plausible range of 1–4 units is now entirely below the 5-unit threshold, so the team estimates that another test is less likely to lead the retailer to switch. The updated analysis puts the expected benefit at $200, which is below the $1,000 cost. Therefore, the team stops testing, and the retailer keeps the current forecast method.
 
 As the example above shows, we should only run another experiment if the expected benefit of making a better-informed decision outweighs the cost of gathering more evidence.
 
