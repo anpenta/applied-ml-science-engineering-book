@@ -34,7 +34,7 @@ The example below shows what can go wrong when we match temperature values with 
 
 > **Worked example: Matching temperatures to pump failures**
 >
-> Continuing the pump-failure example, suppose we are preparing training data for a model that will predict pump failures at 08:00 each day. Our data cover two prediction events for pump A, one on Monday and one on Tuesday.
+> Continuing the pump-failure example, suppose we are preparing training data for a model that will predict pump failures at 08:00 each day. For pump A, we consider two prediction events, one on Monday and one on Tuesday. Each corresponds to a time when the model would make a prediction.
 >
 > The first table shows one temperature value per prediction event, computed from temperature readings available to the prediction system by 08:00 on that day.
 >
