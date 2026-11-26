@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/applied-ml-mark.svg" alt="The Science and Engineering of Applied Machine Learning" width="220" />
+  <img src="https://raw.githubusercontent.com/anpenta/applied-ml-science-engineering-book/main/assets/applied-ml-mark.svg" alt="The Science and Engineering of Applied Machine Learning" width="220" />
 </p>
 
 # The Science and Engineering of Applied Machine Learning
@@ -10,7 +10,7 @@ An opinionated book about technical decisions in applied machine learning.
 
 ## Read the book
 
-Read the book [online in HTML](https://anpenta.github.io/applied-ml-science-engineering-book/), download the [PDF, EPUB, or HTML editions](https://github.com/anpenta/applied-ml-science-engineering-book/releases) from GitHub Releases, or browse the complete manuscript in [Markdown](manuscript/).
+Read the book [online in HTML](https://anpenta.github.io/applied-ml-science-engineering-book/), download the [PDF, EPUB, or HTML editions](https://github.com/anpenta/applied-ml-science-engineering-book/releases) from GitHub Releases, or browse the complete manuscript in [Markdown](https://github.com/anpenta/applied-ml-science-engineering-book/tree/main/manuscript).
 
 ## Feedback
 
@@ -18,11 +18,13 @@ If you find an error or have a suggestion for improving the book, please [open a
 
 ## License
 
-The book is licensed under [CC BY-NC-ND 4.0](LICENSE-CC-BY-NC-ND). The software used to build and maintain the book is licensed under the [MIT License](LICENSE-MIT).
+The book is licensed under [CC BY-NC-ND 4.0](https://github.com/anpenta/applied-ml-science-engineering-book/blob/main/LICENSE-CC-BY-NC-ND). The software used to build and maintain the book is licensed under the [MIT License](https://github.com/anpenta/applied-ml-science-engineering-book/blob/main/LICENSE-MIT).
+
+The standalone logo files ([SVG](https://github.com/anpenta/applied-ml-science-engineering-book/blob/main/assets/applied-ml-mark.svg) and [PNG](https://github.com/anpenta/applied-ml-science-engineering-book/blob/main/assets/applied-ml-mark.png)) are excluded from the licensing above. You may show the unmodified logo when referring to this project, as long as you don’t imply endorsement or affiliation. Ask for permission before modifying the logo or using it as branding for another project.
 
 ## Citation
 
-Citation metadata is available in [CITATION.cff](CITATION.cff). You can also use GitHub's **Cite this repository** feature.
+Citation metadata is available in [CITATION.cff](https://github.com/anpenta/applied-ml-science-engineering-book/blob/main/CITATION.cff). You can also use GitHub's **Cite this repository** feature.
 
 ## Support
 
