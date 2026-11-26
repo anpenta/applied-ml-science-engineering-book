@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/applied-ml-mark.svg" alt="The Science and Engineering of Applied Machine Learning" width="220" />
+  <img src="https://raw.githubusercontent.com/anpenta/applied-ml-science-engineering-book/main/assets/applied-ml-mark.svg" alt="The Science and Engineering of Applied Machine Learning" width="220" />
 </p>
 
 # The Science and Engineering of Applied Machine Learning
@@ -20,7 +20,7 @@ If you find an error or have a suggestion for improving the book, please [open a
 
 The book is licensed under [CC BY-NC-ND 4.0](LICENSE-CC-BY-NC-ND). The software used to build and maintain the book is licensed under the [MIT License](LICENSE-MIT).
 
-The standalone logo files ([SVG](assets/applied-ml-mark.svg) and [PNG](assets/applied-ml-mark.png)) are excluded from the licensing above. You may show the unmodified logo when referring to this project, as long as you don’t imply endorsement or affiliation. Ask for permission before modifying the logo or using it as branding for another project.
+The standalone logo files ([SVG](https://github.com/anpenta/applied-ml-science-engineering-book/blob/main/assets/applied-ml-mark.svg) and [PNG](https://github.com/anpenta/applied-ml-science-engineering-book/blob/main/assets/applied-ml-mark.png)) are excluded from the licensing above. You may show the unmodified logo when referring to this project, as long as you don’t imply endorsement or affiliation. Ask for permission before modifying the logo or using it as branding for another project.
 
 ## Citation
 
