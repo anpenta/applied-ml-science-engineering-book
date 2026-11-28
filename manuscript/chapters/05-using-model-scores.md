@@ -53,17 +53,17 @@ The example below continues the clinic example and illustrates how to compare tw
 
 > **Worked example: Should the clinic change its calling rule?**
 >
-> Continuing the clinic example, assume that the reception team currently calls the ten patients with the highest scores. They are considering calling only patients who score at least 0.30, starting with the highest scores and keeping the daily limit of ten calls. The clinic wants to reduce the number of unused appointment slots. A slot goes unused when a patient misses an appointment or cancels and the clinic cannot fill the opening.
+> Continuing the clinic example, assume that the reception team currently calls only patients who score at least 0.30, starting with the highest scores and making up to ten calls per day. They are considering removing the cutoff and calling the ten patients with the highest scores, even if some of those scores are below 0.30. The clinic wants to reduce the number of unused appointment slots. A slot goes unused when a patient misses an appointment or cancels and the clinic cannot fill the opening.
 >
 > For the pilot, the technical team randomly assigns comparable calling days to one of the two rules, keeping the same limit of ten calls per day. They track the appointment outcomes associated with each day's list, including appointments not selected for a call. Suppose the pilot covers 200 booked slots under each rule and produces the following results.
 >
-> | | Current rule: ten highest scores | Proposed rule: cutoff, capped at ten |
+> | | Current rule: cutoff, capped at ten | Proposed rule: ten highest scores |
 > | --- | ---: | ---: |
 > | Missed appointments | 12 | 10 |
 > | Cancellations that left a slot empty | 6 | 10 |
 > | **Total unused slots** | **18** | **20** |
 >
-> If the technical team had judged the rules by missed appointments alone, the cutoff rule would appear better. However, the clinic wants to keep appointment slots in use, and under the cutoff rule, two more slots went unused. This corresponds to 10% of slots under the proposed rule, compared with 9% under the current rule.
+> If the technical team had judged the rules by missed appointments alone, the proposed rule would appear better. However, the clinic wants to keep appointment slots in use, and under the proposed rule, two more slots went unused. This corresponds to 10% of slots under the proposed rule, compared with 9% under the current rule.
 >
 > Based on these results, the clinic decides to keep the current rule, since the proposed rule did not demonstrate an improvement in the desired outcome.
 
