@@ -12,16 +12,16 @@ The clinic example below shows how two different decision rules can lead to diff
 
 > **Worked example: Deciding how many patients to call**
 >
-> Each morning, a model scores clinic appointments scheduled for one week later based on the likelihood that patients will miss them. The clinic's reception team can make up to ten reminder calls per day. Under the first decision rule, they call the ten patients with the highest scores. Under the second decision rule, they call only patients with scores of 0.30 or higher, starting with the highest scores and making no more than ten calls. They consider this cutoff to avoid spending staff time on calls that may provide little benefit when patients are already likely to attend. The table below illustrates how the two rules differ.
+> Each morning, a model scores clinic appointments scheduled for one week later based on the likelihood that patients will miss them. The clinic's reception team can make up to ten reminder calls per day. Under the first decision rule, they call the ten patients with the highest scores. Under the second decision rule, they call only patients with scores of 0.30 or higher, starting with the highest scores and making no more than ten calls. They consider this cutoff to avoid spending staff time on calls that may provide little benefit when patients are already likely to attend. The table below shows how many calls each rule leads to on Monday and Tuesday.
 >
 > | | Monday | Tuesday |
 > | --- | ---: | ---: |
 > | Appointments scored | 30 | 30 |
 > | Appointments with scores of 0.30 or higher | 12 | 4 |
-> | Calls with no minimum score (up to ten) | 10 | 10 |
-> | Calls with a minimum score of 0.30 (up to ten) | 10 | 4 |
+> | Calls under the first rule (no minimum score) | 10 | 10 |
+> | Calls under the second rule (minimum score of 0.30) | 10 | 4 |
 >
-> On Monday, both rules select the same ten appointments. On Tuesday, the rule with no minimum score also selects six appointments with scores below 0.30.
+> On Monday, both rules select the same ten appointments. On Tuesday, the first rule selects ten appointments, including six with scores below 0.30. The second rule selects only the four appointments that meet the cutoff, leaving six call slots unused.
 
 As the example above shows, the first decision rule uses only the order of the model's scores, while the second decision rule also considers their values, resulting in different numbers of calls. More generally, applying different decision rules to the same model predictions can lead to different actions.
 
