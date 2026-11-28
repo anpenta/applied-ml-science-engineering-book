@@ -53,7 +53,7 @@ The example below continues the clinic example and illustrates how to compare tw
 
 > **Worked example: Should the clinic change its calling rule?**
 >
-> Continuing the clinic example, assume that the reception team currently calls only patients who score at least 0.30, starting with the highest scores and making up to ten calls per day. They are considering removing the cutoff and calling the ten patients with the highest scores. The clinic wants to reduce the number of unused appointment slots. A slot goes unused when a patient misses an appointment or cancels and the clinic cannot fill the opening.
+> Continuing the clinic example, assume that the reception team currently calls only patients who score at least 0.30, starting with the highest scores and making up to ten calls per day. They are considering removing the cutoff and calling the ten patients with the highest scores, even if some of those scores are below 0.30. The clinic wants to reduce the number of unused appointment slots. A slot goes unused when a patient misses an appointment or cancels and the clinic cannot fill the opening.
 >
 > For the pilot, the technical team randomly assigns comparable calling days to one of the two rules, keeping the same limit of ten calls per day. They track the appointment outcomes associated with each day's list, including appointments not selected for a call. Suppose the pilot covers 200 booked slots under each rule and produces the following results.
 >
