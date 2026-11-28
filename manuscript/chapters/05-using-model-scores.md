@@ -16,12 +16,12 @@ The clinic example below shows how two different decision rules can lead to diff
 >
 > | | Monday | Tuesday |
 > | --- | ---: | ---: |
-> | Appointments scored | 30 | 30 |
+> | Total appointments scored | 30 | 30 |
 > | Appointments with scores of 0.30 or higher | 12 | 4 |
-> | Calls under the first rule (no minimum score) | 10 | 10 |
-> | Calls under the second rule (minimum score of 0.30) | 10 | 4 |
+> | Calls under the first rule (ten highest scores) | 10 | 10 |
+> | Calls under the second rule (scores of 0.30 or higher, up to ten calls) | 10 | 4 |
 >
-> On Monday, both rules select the same ten appointments. On Tuesday, the first rule selects ten appointments, including six with scores below 0.30. The second rule selects only the four appointments that meet the cutoff, leaving six call slots unused.
+> On Monday, both rules select the same ten appointments. On Tuesday, the first rule selects ten appointments, including six with scores below 0.30, whereas the second rule selects only the four appointments that meet the cutoff, leaving six call slots unused.
 
 As the example above shows, the first decision rule uses only the order of the model's scores, while the second decision rule also considers their values, resulting in different numbers of calls. More generally, applying different decision rules to the same model predictions can lead to different actions.
 
