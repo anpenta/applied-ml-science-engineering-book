@@ -18,10 +18,10 @@ The clinic example below shows how two different decision rules can lead to diff
 > | --- | ---: | ---: |
 > | Appointments scored | 30 | 30 |
 > | Appointments with scores of 0.30 or higher | 12 | 4 |
-> | Calls using the ten highest scores | 10 | 10 |
-> | Calls using the cutoff, capped at ten | 10 | 4 |
+> | Calls with no minimum score (up to ten) | 10 | 10 |
+> | Calls with a minimum score of 0.30 (up to ten) | 10 | 4 |
 >
-> On Monday, both rules select the same ten appointments. On Tuesday, only four scores meet the cutoff, so the second rule leaves six call slots unused.
+> On Monday, both rules select the same ten appointments. On Tuesday, the rule with no minimum score also selects six appointments with scores below 0.30.
 
 As the example above shows, the first decision rule uses only the order of the model's scores, while the second decision rule also considers their values, resulting in different numbers of calls. More generally, applying different decision rules to the same model predictions can lead to different actions.
 
